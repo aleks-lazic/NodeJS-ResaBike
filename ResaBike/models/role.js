@@ -4,5 +4,10 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   });
 
+  Role.associate = (models) =>{
+    Role.hasMany(models.User) ;
+  }
+
   return Role;
+
 };

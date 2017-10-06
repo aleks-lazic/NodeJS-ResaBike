@@ -4,7 +4,6 @@ var request = require('request');
 var models = require('../models');
 
 var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal";
-
 resetDatabase(false);
 
 function resetDatabase(flag){

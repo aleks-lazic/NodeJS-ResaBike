@@ -4,12 +4,9 @@ var request = require('request');
 var models = require('../models');
 
 var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal";
-<<<<<<< HEAD
 var stationDeparture;
 var stationTerminal;
 
-=======
->>>>>>> 7cee1049b6a3192067802b6af8673bc79a881704
 resetDatabase(false);
 
 function resetDatabase(flag){
@@ -105,26 +102,32 @@ function insertLine(lineNumber, zoneName, stationDeparture, stationTerminal){
     })
 }
 
+function getDataFromAPI(url){
 
-request({
-    url: url,
-    json: true
-}, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-        var obj = JSON.stringify(body);
-        obj = JSON.parse(obj);
-        var legs = obj.connections[2].legs;
-        legs.forEach((l) =>{
-            stationDeparture = l.name;
-            stationTerminal = l.terminal;
-            console.log("Nouvelle Ligne : " + l.line);
-            if(l.stops != undefined){
-                l.stops.forEach((s) =>{
-                    
-                })
-            }
-        }, this);
-    }
-})
+}
+
+function getAllStationsFromAPI(obj){
+    request({
+        url: url,
+        json: true
+    }, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+            var obj = JSON.stringify(body);
+            obj = JSON.parse(obj);
+            var legs = obj.connections[2].legs;
+            legs.forEach((l) =>{
+                stationDeparture = l.name;
+                stationTerminal = l.terminal;
+                console.log("Nouvelle Ligne : " + l.line);
+                if(l.stops != undefined){
+                    l.stops.forEach((s) =>{
+                        
+                    })
+                }
+            }, this);
+        }
+    })
+}
+
 
 module.exports = router;

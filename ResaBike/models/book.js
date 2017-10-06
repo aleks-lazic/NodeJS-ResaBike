@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Book.associate = (models)=>{
-    Book.belongsTo(models.Station);
+
   }
 
   return Book;

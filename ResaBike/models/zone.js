@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   
   Zone.associate = (models)=>{
     Zone.hasOne(models.User);
-    Zone.belongsTo(models.Line);
+    Zone.hasOne(models.Line);
   }
   
   return Zone;

@@ -5,9 +5,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Line.associate = (models)=>{
-    Line.belongsTo(models.Station);
-    Line.hasOne(models.Zone);
-    Line.belongsToMany(models.Station,{through: 'line_stations', foreignKey:'LineId'});
+    Line.belongsTo(models.Zone);
+    Line.hasOne(models.LineStation);    
   }
 
   return Line;

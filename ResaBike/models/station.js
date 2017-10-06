@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     Station.hasOne(models.Book,{as:'ArrivalStation', foreignKey:'ArrivalId'});
     Station.hasOne(models.Line,{as:'LineDepartureStation', foreignKey:'DepartureId'});
     Station.hasOne(models.Line,{as:'LineArrivalStation', foreignKey:'ArrivalId'});
-    Station.belongsToMany(models.Line,{through: 'line_stations', foreignKey:'StationId'});
+    Station.hasOne(models.LineStation);
   }
 
   return Station;

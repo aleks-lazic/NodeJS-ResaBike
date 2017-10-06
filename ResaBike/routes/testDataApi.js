@@ -26,8 +26,30 @@ function createZone(){
 }
 
 function insertStationsWithLine(stationName, lineNumber){
-
+    insertStation(stationName);
 }
+
+function insertStation(stationName){
+    models.Station.create({
+        name: stationName,
+    }).then(() =>{
+        console.log('Station added : ' + stationName);
+    }).catch((err) =>{
+        console.log(err.message);
+    });
+}
+
+// function insertLine(lineNumber, zoneId, ){
+//     models.Station.create({
+//         name: stationName,
+//     }).then(() =>{
+//         console.log('Station added : ' + stationName);
+//     }).catch((err) =>{
+//         console.log(err.message);
+//     });
+// }
+
+
 function createLinesByZone(name){
     models.Line.create({
 
@@ -49,9 +71,11 @@ request({
         legs.forEach((l) =>{
             console.log("Nouvelle Ligne : " + l.line);            
             console.log(l.name);
+            insertStation(l.name);
             if(l.stops != undefined){
                 l.stops.forEach((s) =>{
                     console.log(s.name);
+                    insertStation(s.name);                    
                 })
             }
 

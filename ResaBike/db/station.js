@@ -4,9 +4,10 @@ var getAllStations = function(){
     return new Promise((resolve, reject)=>{
         models.Station.findAll({
         }).then(stations =>{
-           console.log(JSON.stringify(stations));
+            resolve(stations);
+            console.log(stations);
         }).catch((err)=>{
-          console.log('Error : ' + err.message);
+            reject(err.message);
         })
     })
 }
@@ -18,26 +19,22 @@ var getStationIdByName = function(name){
                 name: name
             }
         }).then((res)=>{
-            console.log("Id : " + res.id);
             resolve(res.id);
         }).catch((err)=>{
-            console.log("Error : " + err.message);
+            reject(err.message);
         });
     })
 }
 
 var insertStation = function(stationName){
-    return new Promise((resolve, reject) =>{
-        models.Station.create({
-            name: stationName,
-        }).then(() =>{
-            console.log('Station added : ' + stationName);
-        }).catch((err) =>{
-            console.log(err.message);
-        });
-    })
+    models.Station.create({
+        name: stationName,
+    }).then(() =>{
+        console.log('Station added : ' + stationName);
+    }).catch((err) =>{
+        reject(err.message);
+    });
 }
-
 
 exports.getAllStations = getAllStations;
 exports.getStationIdByName = getStationIdByName;

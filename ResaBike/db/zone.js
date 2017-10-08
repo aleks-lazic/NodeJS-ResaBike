@@ -1,15 +1,13 @@
 var models = require('../models');
 
 var createZone = function(zoneName){
-    return new Promise((resolve, reject)=>{
-        models.Zone.create({
-            name: zoneName
-        }).then(() =>{
-            console.log('Zone correctly created !');
-        }).catch((err) =>{
-            res.send(err.message);
-        });
-    })
+    models.Zone.create({
+        name: zoneName
+    }).then(() =>{
+        console.log('Zone correctly created !');
+    }).catch((err) =>{
+        reject(err.message);
+    });
 }
 
 var getZoneIdByName = function(name){
@@ -20,6 +18,8 @@ var getZoneIdByName = function(name){
             }
         }).then((res)=> {
             resolve(res.id);
+        }).catch((err) =>{
+            reject(err.message);
         });
     })
 }

@@ -1,15 +1,22 @@
-extends layout
+extends layoutBook
 
 block content
-    table
-        tr
-            th Departure From
-            th Arrival To
-            th Time Departure
-            th Time Arrival
-        each x, index in arrayTimeDeparture
-            tr
-                td #{departureFrom}
-                td #{arrivalTo}
-                td #{arrayTimeDeparture[index]}
-                td #{arrayTimeArrival[index]}
+    div.table-container
+        p Date = #{arrayTimeDeparture[0].split(" ")[0]}
+            table.table-booking
+                tr
+                    th Departure From
+                    th Arrival To
+                    th Time Departure
+                    th Time Arrival
+                    th Place(s) available
+                    th
+                each x, index in arrayTimeDeparture
+                    tr
+                        td #{departureFrom}
+                        td #{arrivalTo}
+                        td #{arrayTimeDeparture[index].split(" ")[1]}
+                        td #{arrayTimeArrival[index].split(" ")[1]}
+                        td 0 //TEST
+                        td 
+                            img(src="../public/icons/details.png", alt="details" height=30 width=30)

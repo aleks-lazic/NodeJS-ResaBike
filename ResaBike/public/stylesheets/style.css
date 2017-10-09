@@ -7,11 +7,13 @@ a {
   color: #00B7FF;
 }
 
+/* Auto-completation div */
 #results{
   display: none;
   background-color: #FFFFFF ;
 }
 
+/* Background of index.pug */
 .background-index{
   background-image: url(../images/wallpaper-hipster.jpg);
   background-repeat:no-repeat;
@@ -20,12 +22,14 @@ a {
   background-size: cover ;
 }
 
+/* Title of index.pug */
 .big-title{
   font-size: 100px ;
   font-style: bold;
   color: #FFFFFF;
 }
 
+/* Main Form in index.pug */
 .search-form{
   padding-top:100px ;
   padding-bottom:100px;
@@ -37,3 +41,21 @@ a {
   border: 2px solid #FFFFFF;
 }
 
+/* Tables CSS for the book.pug */
+.table-container{
+  
+}
+
+.table-booking{
+  margin-left:auto ;
+  margin-right:auto ;
+  width:80% ;
+}
+
+th{
+  height: 50px ;
+}
+
+th, td{
+  border-bottom: 1px solid #ddd;
+}

@@ -1,4 +1,15 @@
 extends layout
 
 block content
-  p est un test
+    table
+        tr
+            th Departure From
+            th Arrival To
+            th Time Departure
+            th Time Arrival
+        each x, index in arrayTimeDeparture
+            tr
+                td #{departureFrom}
+                td #{arrivalTo}
+                td #{arrayTimeDeparture[index]}
+                td #{arrayTimeArrival[index]}

@@ -1,5 +1,5 @@
 var request = require('request');
- var dbStation = require('../db/station');
+var dbStation = require('../db/station');
 var dbLine = require('../db/line');
 var dbZone = require('../db/zone');
 var dbLineStation = require('../db/linestation');
@@ -8,7 +8,7 @@ var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal,%2
 
 // addStationsFromAPI();
 // dbZone.createZone("Anniviers");
-//addLinesFromAPI();
+// addLinesFromAPI();
 // addRelationsBetweenStationsAndLines();
 
 function getDataFromAPI(url){

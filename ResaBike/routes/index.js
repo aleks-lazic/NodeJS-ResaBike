@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var dbStation = require('../db/station');
+var requestData = require('./testDataApi');
 
 
 /* GET home page. */
@@ -17,10 +18,31 @@ router.get('/getAllStations', function(req, res) {
 });
 
 router.post('/book', function(req, res, next){
-    var departureFrom = req.body.departureFrom ;
-    var arrivalTo = req.body.arrivalTo ;
-    console.log('From : ' + departureFrom + ', To : ' + arrivalTo);
-    res.render('book');
+    
+    let departureFrom = req.body.departureFrom ;
+    let arrivalTo = req.body.arrivalTo ;
+    let url = "https://timetable.search.ch/api/route.en.json?from=" + departureFrom + "&to=" + arrivalTo ;
+    let arrayTimeDeparture = [] ;
+    let arrayTimeArrival = [] ;
+
+    //console.log('From : ' + departureFrom + ', To : ' + arrivalTo);
+    requestData.getDataFromAPI(url)
+    .then((obj) => {
+        //console.log(obj);
+        var objct = obj.connections ;
+
+        console.log(objct);
+
+        for (let i = 0; i < objct.length ; i++) { 
+            arrayTimeDeparture.push(objct[i].departure);
+            arrayTimeArrival.push(objct[i].arrival);
+        }
+
+        res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo});
+    }).catch((err)=>{
+        res.send('Error : ' + err.message);
+    })
+
 });
 
 

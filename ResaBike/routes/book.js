@@ -3,9 +3,9 @@ var router = express.Router();
 var dbStation = require('../db/station');
 
 
-/* GET home page. */
+/* GET book Page */
 router.get('/book', function(req, res, next) { 
-    res.render('book', { title: 'ResaBike'});
+    res.render('book');
 });
 
 module.exports = router;

@@ -19,9 +19,23 @@ router.post('/', (req, res, next) => {
     //request the api
     requestData.getDataFromAPI(url)
     .then((obj) => {
-        console.log(obj);
+        console.log("ALEKS " + obj);
+        var legs = obj.connections[0].legs;
+        var object = {
+            lines: [],
+            arrivals: [],
+            terminals: []
+        };
+        for(let i = 0 ; i<legs.length ; i++){
+            if(legs[i].stops === null){
+                continue;
+            }
+            object.lines.push(legs[i].line);
+            object.arrivals.push(legs[i].name);
+            object.terminals.push(legs[i].terminal);
+        }
     })
-    res.redirect('/');
+    res.redirect('/zone');
 })
 
 module.exports = router;

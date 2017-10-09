@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 
 //all the routes
 var index = require('./routes/index');
-var zone = require('./routes/createZone');
+var zone = require('./routes/zone');
+var book = require('./routes/book');
 
 //express app
 var app = express();
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/zone', zone);
+app.use('/book', book);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

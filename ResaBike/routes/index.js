@@ -9,11 +9,18 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET all stations for autocompletion. */
-router.get('/getAllStations', function(req, res, next) {
-    console.log('suis la'); 
+router.get('/getAllStations', function(req, res) {
+    //console.log('suis la'); 
     dbStation.getAllStations().then((result)=> {
         res.send(result);
     })
+});
+
+router.post('/book', function(req, res, next){
+    var departureFrom = req.body.departureFrom ;
+    var arrivalTo = req.body.arrivalTo ;
+    console.log('From : ' + departureFrom + ', To : ' + arrivalTo);
+    res.render('book');
 });
 
 

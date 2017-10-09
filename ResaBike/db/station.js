@@ -5,7 +5,7 @@ var getAllStations = function(){
         models.Station.findAll({
         }).then(stations =>{
             resolve(stations);
-            console.log(stations);
+            //console.log(stations);
         }).catch((err)=>{
             reject(err.message);
         })

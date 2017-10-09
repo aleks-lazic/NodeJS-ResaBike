@@ -9,6 +9,7 @@ a {
 
 #results{
   display: none;
+  background-color: #FFFFFF ;
 }
 
 .background-index{
@@ -35,3 +36,4 @@ a {
   border-radius: 25px;
   border: 2px solid #FFFFFF;
 }
+

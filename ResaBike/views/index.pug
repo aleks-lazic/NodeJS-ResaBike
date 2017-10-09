@@ -6,10 +6,10 @@ block content
   div(class="text-center search-form")
     h1(class="big-title")= title
     div
-      form(action="", method="post")
+      form(action="/book", method="post")
         input(id="departureFrom" type="text", placeholder="Departure From", autofocus, name="departureFrom", autocomplete="off")
         div(id="results")
         br
-        input(type="arrivalTo", placeholder="Arrival To", name="arrivalTo", autocomplete="off")
+        input(id ="arrivalTo" type="text", placeholder="Arrival To", name="arrivalTo", autocomplete="off")
         br
         input(type="submit", value="Submit")

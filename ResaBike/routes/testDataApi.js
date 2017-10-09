@@ -77,4 +77,4 @@ function addRelationsBetweenStationsAndLines(){
     })
 }
 
-module.exports = router;
+exports.getDataFromAPI = getDataFromAPI;

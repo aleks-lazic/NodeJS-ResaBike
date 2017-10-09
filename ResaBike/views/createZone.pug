@@ -2,14 +2,14 @@ extends layout
 
 block content
 
-    form(action="/")
+    form(action="/zone", method="post")
         div(class="form-group")
             label(for="zoneName") Zone name : 
-            input(type="text", name="zoneName",  class="form-control", id="zoneName")
+            input(type="text", name="zoneName",  class="form-control", id="zoneName" required)
         div(class="form-group")
             label(for="departure") Departure station : 
-            input(type="text", name="departure",  class="form-control", id="departure")
+            input(type="text", name="departure",  class="form-control", id="departure", placeholder="Station departure" required)
         div(class="form-group")
             label(for="arrival") Arrival station : 
-            input(type="text", name="arrival",  class="form-control", id="arrival")
-        button(type="submit" class="btn btn-default")
+            input(type="text", name="arrival",  class="form-control", id="arrival", placeholder="Station arrival" required)
+        button(type="submit" class="btn btn-default") Submit

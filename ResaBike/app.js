@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 //all the routes
 var index = require('./routes/index');
-var zone = require('./routes/zone');
+var zone = require('./routes/createZone');
 
 //express app
 var app = express();

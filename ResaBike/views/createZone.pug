@@ -1,0 +1,15 @@
+extends layout
+
+block content
+
+    form(action="/")
+        div(class="form-group")
+            label(for="zoneName") Zone name : 
+            input(type="text", name="zoneName",  class="form-control", id="zoneName")
+        div(class="form-group")
+            label(for="departure") Departure station : 
+            input(type="text", name="departure",  class="form-control", id="departure")
+        div(class="form-group")
+            label(for="arrival") Arrival station : 
+            input(type="text", name="arrival",  class="form-control", id="arrival")
+        button(type="submit" class="btn btn-default")

@@ -13,6 +13,7 @@
     "morgan": "~1.8.1",
     "mysql2": "^1.4.2",
     "pug": "~2.0.0-beta11",
+    "pug-bootstrap": "0.0.15",
     "request": "^2.83.0",
     "sequelize": "^4.13.5",
     "sequelize-cli": "^3.0.0",

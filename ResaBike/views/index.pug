@@ -3,15 +3,19 @@ extends layoutIndex
 block content
   body.background-index
 
-  div(class="search-form")
-    h1(class="big-title")= title
-    div
-      form(action="/book", method="post")
-        input(id="departureFrom" type="text", placeholder="Departure From", autofocus, name="departureFrom", autocomplete="off")
-        div(id="results")
-        br
-        input(id ="arrivalTo" type="text", placeholder="Arrival To", name="arrivalTo", autocomplete="off")
-        br
-        input(type="date" id="datepick" placeholder="Date" name="dateTravel")
-        br
-        input(type="submit", value="Submit")
+  div.container.search-form
+    p.big-title.center-align= title
+      div.row
+        form(class="col s12" action="/book" method="post")
+          div.row
+            div.input-field.col.s6
+              input(type="text", placeholder="From", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete white-text")
+            div.input-field.col.s6
+              //i.material-icons.prefix phone
+              input(type="text", placeholder="To", name="arrivalTo" id="autocomplete-input" class="autocomplete white-text")
+              //label(for="icon_telephone") Telephone
+            div.input-field.col.s6
+              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker white-text")
+            div.input-field.col.s6
+              button(class="btn waves-effect waves-light" type="submit" name="action") Submit
+                i(class="material-icons right") send

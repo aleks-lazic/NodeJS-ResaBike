@@ -1,10 +1,4 @@
-body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
+/* #ffff00 yellow accent-2 - Using this color for the entire application */
 
 #inputInvisible{
   display: none;
@@ -18,30 +12,26 @@ a {
 
 /* Background of index.pug */
 .background-index{
-  background-image: url(../images/wallpaper-hipster.jpg);
+  background-image: url(../images/wallpaper-bike1.jpg);
   background-repeat:no-repeat;
   background-position:center center;
   background-attachment: fixed;
   background-size: cover ;
+  width: 100%;
+  height: auto;
 }
 
 /* Title of index.pug */
 .big-title{
-  font-size: 100px ;
+  font-size: 70px ;
   font-style: bold;
-  color: #FFFFFF;
+  color: #FFFF00 ;
 }
 
 /* Main Form in index.pug */
 .search-form{
-  padding-top:100px ;
-  padding-bottom:100px;
   background-color: #000000 ;
-  background: rgba(0,0,0,.7);
-  margin-left:600px ;
-  margin-right:600px;
-  border-radius: 25px;
-  border: 2px solid #FFFFFF;
+  background: rgb(0, 0, 0, .7);
 }
 
 /* Tables CSS for the book.pug */
@@ -63,3 +53,32 @@ th, td{
   border-bottom: 1px solid #ddd;
 }
 
+
+  /* label color */
+  .input-field label {
+    color: #000;
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: #000;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* valid color */
+  .input-field input[type=text].valid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* invalid color */
+  .input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: #000;
+  }
+       

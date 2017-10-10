@@ -26,13 +26,13 @@ router.post('/book', function(req, res, next){
     let arrayTimeDeparture = [] ;
     let arrayTimeArrival = [] ;
 
-    //console.log('From : ' + departureFrom + ', To : ' + arrivalTo, " at Date : " + dateTravel);
+    console.log('From : ' + departureFrom + ', To : ' + arrivalTo, " at Date : " + dateTravel);
     requestData.getDataFromAPI(url)
     .then((obj) => {
         //console.log(obj);
         var objct = obj.connections ;
 
-        //console.log(objct);
+         console.log(objct);
 
         for (let i = 0; i < objct.length ; i++) { 
             arrayTimeDeparture.push(objct[i].departure);

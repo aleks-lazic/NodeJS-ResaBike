@@ -1,13 +1,17 @@
 var models = require('../models');
 
 var createZone = function(zoneName){
-    models.Zone.create({
-        name: zoneName
-    }).then(() =>{
-        console.log('Zone correctly created !');
-    }).catch((err) =>{
-        reject(err.message);
-    });
+    return new Promise((resolve, reject) => {
+        models.Zone.create({
+            name: zoneName
+        }).then(() =>{
+            console.log('Zone correctly created !');
+            resolve();
+        }).catch((err) =>{
+            reject(err.message);
+        });
+    })
+
 }
 
 var getZoneIdByName = function(name){

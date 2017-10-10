@@ -13,3 +13,13 @@ block content
             label(for="arrival") Arrival station : 
             input(type="text", name="arrival",  class="form-control", id="arrival", placeholder="Station arrival" required)
         button(type="submit" class="btn btn-default") Submit
+    
+    if object !== undefined
+            ul  
+                each x, index in object.arrivals
+                    form(action="/zone/createZone", method="post")
+                        li= object.arrivals.length + "The line should be : " + object.arrivals[index] + " ---> " + object.terminals[index]
+                            input(type="text" name="index" value=index id="inputInvisible")
+                            input(type="submit", value="Create this line")
+    else
+        p= "object is undefined"

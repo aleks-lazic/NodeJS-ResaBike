@@ -3,7 +3,7 @@ extends layout
 block content
   body.background-index
 
-  div(class="text-center search-form")
+  div(class="search-form")
     h1(class="big-title")= title
     div
       form(action="/book", method="post")
@@ -12,6 +12,6 @@ block content
         br
         input(id ="arrivalTo" type="text", placeholder="Arrival To", name="arrivalTo", autocomplete="off")
         br
-        input(type="date" id="datepick" placeholder="Date")
+        input(type="date" id="datepick" placeholder="Date" name="dateTravel")
         br
         input(type="submit", value="Submit")

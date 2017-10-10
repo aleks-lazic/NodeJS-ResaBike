@@ -21,17 +21,18 @@ router.post('/book', function(req, res, next){
     
     let departureFrom = req.body.departureFrom ;
     let arrivalTo = req.body.arrivalTo ;
-    let url = "https://timetable.search.ch/api/route.en.json?from=" + departureFrom + "&to=" + arrivalTo ;
+    let dateTravel = req.body.dateTravel ;
+    let url = "https://timetable.search.ch/api/route.en.json?from=" + departureFrom + "&to=" + arrivalTo + "&date=" + dateTravel;
     let arrayTimeDeparture = [] ;
     let arrayTimeArrival = [] ;
 
-    //console.log('From : ' + departureFrom + ', To : ' + arrivalTo);
+    //console.log('From : ' + departureFrom + ', To : ' + arrivalTo, " at Date : " + dateTravel);
     requestData.getDataFromAPI(url)
     .then((obj) => {
         //console.log(obj);
         var objct = obj.connections ;
 
-        console.log(objct);
+        //console.log(objct);
 
         for (let i = 0; i < objct.length ; i++) { 
             arrayTimeDeparture.push(objct[i].departure);

@@ -1,21 +1,52 @@
 extends layoutIndex
 
 block content
-  body.background-index
+  body
 
-  div.container.search-form
-    p.big-title.center-align= title
+  div(id="index-banner" class="parallax-container")
+    div(class="section no-pad-bot")
+      div(class="container")
+        br
+        h1(class="header center teal-text text-yellow accent-2") ResaBike
+        div(class="row center")
+          h5(class="header col s12 light") A new way to travel with your bike
+        div(class="row center")
+          a(href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
+        br
+    div(class="parallax")
+      img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
+
+
+  div(class="container" style="padding-top:80px; padding-bottom:80px;")
+    h3.center-align= "Check your fucking time ?"
       div.row
         form(class="col s12" action="/book" method="post")
           div.row
             div.input-field.col.s6
-              input(type="text", placeholder="From", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete white-text")
+              input(type="text", placeholder="From Station", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete")
             div.input-field.col.s6
               //i.material-icons.prefix phone
-              input(type="text", placeholder="To", name="arrivalTo" id="autocomplete-input" class="autocomplete white-text")
+              input(type="text", placeholder="To Destination", name="arrivalTo" id="autocomplete-input" class="autocomplete")
               //label(for="icon_telephone") Telephone
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker white-text")
+              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker")
             div.input-field.col.s6
               button(class="btn waves-effect waves-light" type="submit" name="action") Submit
                 i(class="material-icons right") send
+  
+  div(id="map" class="parallax-container valign-wrapper")
+    div.section.no-pad-bot
+      div.container
+        div.row.center
+          h5(class="header col s12 light") WHERE IS THIS FUCKING MAP
+    div.parallax
+      img(src='../images/wallpaper-hipster.jpg', alt='Unsplashed background img 2')
+  div(id="contact" class="container")
+    div.section
+      div.row
+        div.col.s12.center
+          h3
+            i.mdi-content-send.brown-text
+          h4 Contact Us
+          p.left-align.light
+            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;

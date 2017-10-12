@@ -53,32 +53,50 @@ th, td{
   border-bottom: 1px solid #ddd;
 }
 
+/* Materialize Template */
+nav ul a,
+nav .brand-logo {
+  color: #444;
+}
 
-  /* label color */
-  .input-field label {
-    color: #000;
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  max-height: 380px ;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
   }
-  /* label focus color */
-  .input-field input[type=text]:focus + label {
-    color: #000;
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
   }
-  /* label underline focus color */
-  .input-field input[type=text]:focus {
-    border-bottom: 1px solid #000;
-    box-shadow: 0 1px 0 0 #000;
+  #index-banner .section {
+    top: 10%;
   }
-  /* valid color */
-  .input-field input[type=text].valid {
-    border-bottom: 1px solid #000;
-    box-shadow: 0 1px 0 0 #000;
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
   }
-  /* invalid color */
-  .input-field input[type=text].invalid {
-    border-bottom: 1px solid #000;
-    box-shadow: 0 1px 0 0 #000;
-  }
-  /* icon prefix focus color */
-  .input-field .prefix.active {
-    color: #000;
-  }
-       
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}

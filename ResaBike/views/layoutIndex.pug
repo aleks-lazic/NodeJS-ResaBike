@@ -2,44 +2,41 @@ doctype html
 html(lang=fr)
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+    meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel='stylesheet', href='/stylesheets/style.css' media="screen,projection")
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
     block scripts
       script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
   body
 
-    nav.yellow.accent-2
-      div(class="nav-wrapper")
-        a(href="#" class="brand-logo black-text") Logo
-        a(href="#" data-activates="mobile-demo" class="button-collapse")
-          i(class="material-icons") menu
+    nav(class="white" role="navigation")
+      div(class="nav-wrapper container")
+        a(id="logo-container" href="#" class="brand-logo" style="color:black") Logo
         ul(class="right hide-on-med-and-down")
           li
-            a(href="#" class="black-text") Contact
+            a(href="#contact" style="color:black") Contact
           li
-            a(href="#" class="black-text") Map
+            a(href="#map" style="color:black") Map
           li
-            a(href="#" class="black-text") Login
-        ul(class="side-nav" id="mobile-demo")
-        li
-          a(href="#" class="black-text") Contact
-        li
-          a(href="#" class="black-text") Map
-        li
-          a(href="#" class="black-text") Login
+            a(href="#" style="color:black") Login
+        ul(id="nav-mobile" class="side-nav")
+          li
+            a(href="#contact" style="color:black") Contact
+          li
+            a(href="#map" style="color:black") Map
+          li
+            a(href="#" style="color:black") Login
+        a(href="#" data-activates="nav-mobile" class="button-collapse")
+          i(class="material-icons") menu
+
 
     block content
-
-    //Not Working ? TEST
-    script.
-        $( document ).ready( function() {
-            $("button-collapse").sideNav();
-        });
         
     script(src="https://code.jquery.com/jquery-1.12.4.js")
     script(src="https://code.jquery.com/ui/1.12.1/jquery-ui.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
     script(src="javascripts/autoComplete.js", type="text/javascript")
     script(src="javascripts/datePicker.js" type="text/javascript")
-    
+    script(src="javascripts/init.js" type="text/javascript")

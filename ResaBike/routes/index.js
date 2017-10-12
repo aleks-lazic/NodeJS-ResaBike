@@ -34,7 +34,7 @@ router.post('/book', function(req, res, next){
 
          console.log(objct);
 
-        for (let i = 0; i < objct.length ; i++) { 
+        for (let i = 0; i < objct.length ; i++) {
             arrayTimeDeparture.push(objct[i].departure);
             arrayTimeArrival.push(objct[i].arrival);
         }

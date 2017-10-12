@@ -16,7 +16,6 @@ block content
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
-
   div(class="container" style="padding-top:80px; padding-bottom:80px;")
     h3.center-align= "Check your fucking time ?"
       div.row
@@ -30,6 +29,8 @@ block content
               //label(for="icon_telephone") Telephone
             div.input-field.col.s6
               input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker")
+              br
+              input(type="number" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
             div.input-field.col.s6
               button(class="btn waves-effect waves-light" type="submit" name="action") Submit
                 i(class="material-icons right") send
@@ -41,12 +42,28 @@ block content
           h5(class="header col s12 light") WHERE IS THIS FUCKING MAP
     div.parallax
       img(src='../images/wallpaper-hipster.jpg', alt='Unsplashed background img 2')
-  div(id="contact" class="container")
+
+  div(id="contact" class="container" style="padding-top:80px; padding-bottom:80px;")
     div.section
       div.row
         div.col.s12.center
-          h3
-            i.mdi-content-send.brown-text
-          h4 Contact Us
-          p.left-align.light
-            | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+          h3.center-align= "Contact Us"
+          div(class="row")
+            div(class="input-field col s6")
+              input(id="name_mail" name="name_mail" type="text" class="validate" placeholder="Name")
+              br
+              input(id="name_email" name="email_mail" type="text" class="validate" placeholder="Email")
+              br
+              input(id="subject_mail" name="subject_mail" type="text" class="validate" placeholder="Subject")
+              br
+              textarea(id="message_mail" name="subject_mail" type="text" class="validate" placeholder="Message" style="resize:vertical")
+              br
+              button(class="btn waves-effect waves-light" type="submit" name="action" style="margin-top:50px") Send Message
+                i(class="material-icons right") send
+
+            div(class="input-field col s6")
+              i(class="material-icons prefix") phone
+              input(id="phone_number" value="+27 481 00 00" class="validate" disabled)
+              br
+              i(class="material-icons prefix") map
+              input(id="" value="We are here ! So fck u" class="validate" disabled)

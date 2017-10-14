@@ -8,4 +8,10 @@ router.get('/book', function(req, res, next) {
     res.render('book');
 });
 
+router.use(function(req, res){
+    if(req.statusCode == 404){
+        res.redirect('/');
+    }
+});
+
 module.exports = router;

@@ -2,23 +2,31 @@ extends layoutMain
 
 block content
     div
-        p Date = #{arrayTimeDeparture[0].split(" ")[0]}
-            table.striped.responsive-table
+    h3(class="header center teal-text") #{departureFrom}
+    div.center-align
+        i(class="material-icons") arrow_forward 
+    h3(class="header center teal-text") #{arrivalTo}
+    h5(class="header center teal-text") #{arrayTimeDeparture[0].split(" ")[0]}
+    br
+    div.container
+        table.highlight.responsive-table
+            tr
+                thead
+                    th Departure From
+                    th Arrival To
+                    th Time Departure
+                    th Time Arrival
+                    th Place(s) available
+            tbody
+            each x, index in arrayTimeDeparture
                 tr
-                    thead
-                        th Departure From
-                        th Arrival To
-                        th Time Departure
-                        th Time Arrival
-                        th Place(s) available
-                        th
-                tbody
-                each x, index in arrayTimeDeparture
-                    tr
-                        td #{departureFrom}
-                        td #{arrivalTo}
-                        td #{arrayTimeDeparture[index].split(" ")[1]}
-                        td #{arrayTimeArrival[index].split(" ")[1]}
-                        td 0 //TEST
-                        td 
-                            img(src="../public/icons/details.png", alt="details" height=30 width=30)
+                    td #{departureFrom}
+                    td #{arrivalTo}
+                    td #{arrayTimeDeparture[index].split(" ")[1]}
+                    td #{arrayTimeArrival[index].split(" ")[1]}
+                    td PLACES
+                    td
+                        p Book a fcking place
+                            i(class="material-icons") book
+                    td
+                        i(class="material-icons") arrow_drop_down_circle

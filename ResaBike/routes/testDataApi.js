@@ -10,6 +10,10 @@ var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal,%2
 // dbZone.createZone("Anniviers");
 // addLinesFromAPI();
 // addRelationsBetweenStationsAndLines();
+// getStopIDFromAPI("https://timetable.search.ch/api/stationboard.en.json?stop=Zinal,%20village%20de%20vacances").then((id) => {
+//     console.log("stopid : " + id);
+// })
+// dbZone.upsertZone("Annivierss");
 
 function getDataFromAPI(url){
     return new Promise((resolve, reject)=>{
@@ -17,6 +21,19 @@ function getDataFromAPI(url){
             if (!error && response.statusCode === 200) {
                 var obj = JSON.parse(body);
                 resolve(obj);
+            }
+        })  
+    })
+}
+
+function getStopIDFromAPI(url){
+    return new Promise((resolve, reject)=>{
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var obj = JSON.parse(body);
+                var stop = obj.stop;
+                let putindefdp = stop.id;
+                resolve(putindefdp);   
             }
         })  
     })
@@ -78,3 +95,4 @@ function addRelationsBetweenStationsAndLines(){
 }
 
 exports.getDataFromAPI = getDataFromAPI;
+exports.getStopIDFromAPI = getStopIDFromAPI;

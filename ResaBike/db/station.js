@@ -36,6 +36,20 @@ var insertStation = function(stationName){
     });
 }
 
+var upsertStation = function(idStation, stationName){
+    return new Promise((resolve, reject) => {
+        models.Station.upsert({
+           id: idStation,
+           name: stationName 
+        }).then(()=> {
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
 exports.getAllStations = getAllStations;
 exports.getStationIdByName = getStationIdByName;
 exports.insertStation = insertStation;
+exports.upsertStation = upsertStation;

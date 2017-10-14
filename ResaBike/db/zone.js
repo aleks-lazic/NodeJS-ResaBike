@@ -11,7 +11,17 @@ var createZone = function(zoneName){
             reject(err.message);
         });
     })
+}
 
+var upsertZone = function(name){
+    return new Promise((resolve, reject) => {
+        getZoneIdByName(name).then((id)=> {
+            console.log(name + " already exists !");
+            resolve();          
+        }).catch(()=> {
+            return createZone(name).then(() => {resolve();});                   
+        })
+    })
 }
 
 var getZoneIdByName = function(name){
@@ -23,10 +33,11 @@ var getZoneIdByName = function(name){
         }).then((res)=> {
             resolve(res.id);
         }).catch((err) =>{
-            reject(err.message);
+            reject("null");
         });
     })
 }
 
 exports.createZone = createZone;
 exports.getZoneIdByName = getZoneIdByName;
+exports.upsertZone = upsertZone;

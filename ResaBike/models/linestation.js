@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var LineStation = sequelize.define('LineStation', {
-    postion: DataTypes.INTEGER
+    position: DataTypes.INTEGER
   });
 
   LineStation.associate = (models) =>{

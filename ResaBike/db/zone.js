@@ -1,11 +1,12 @@
 var models = require('../models');
 
-var createZone = function(zoneName){
-    return new Promise((resolve, reject) => {
-        models.Zone.create({
+var createZone = function(id, zoneName){
+    return new Promise((resolve, reject) => {  
+        resolve();
+        models.Zone.upsert({
+            id: id,
             name: zoneName
         }).then(() =>{
-            console.log('Zone correctly created !');
             resolve();
         }).catch((err) =>{
             reject(err.message);

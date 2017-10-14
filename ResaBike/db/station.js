@@ -42,7 +42,7 @@ var upsertStation = function(idStation, stationName){
            id: idStation,
            name: stationName 
         }).then(()=> {
-            resolve();
+            resolve(idStation);
         }).catch((err)=> {
             reject(err.message);
         });

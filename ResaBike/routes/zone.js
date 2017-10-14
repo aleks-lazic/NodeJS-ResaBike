@@ -51,6 +51,7 @@ router.post('/create', (req, res, next) => {
             for(let i = 0 ; i<legs.length ; i++){
                 //check if the legs type is post or bus
                 if(legs[i].type == 'post' || legs[i].type == 'bus'){
+
                     //add the lines to the array
                     lines.push(legs[i].line);
                     //add departure station of line

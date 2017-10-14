@@ -2,6 +2,7 @@ extends layoutMain
 
 block content
 
+
     div(class="container")
         div(class="center")
             form(action="/zone/createZone", method="post")
@@ -25,3 +26,6 @@ block content
                             input(type="submit", value="Create this line")
     else
         p= "object is undefined"
+
+        
+

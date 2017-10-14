@@ -20,7 +20,15 @@ function getDataFromAPI(url){
         request(url, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var obj = JSON.parse(body);
-                resolve(obj);
+                console.log(url);
+                console.log("COUNT : " + (obj.count > '0'));
+                if((obj.count > '0')){
+                    console.log("je vais dans le true");
+                    resolve(obj);                    
+                } else {
+                    console.log("je vais dans le false");          
+                    reject("Error !");                           
+                }
             }
         })  
     })
@@ -29,6 +37,7 @@ function getDataFromAPI(url){
 function getStopIDFromAPI(url){
     return new Promise((resolve, reject)=>{
         request(url, function (error, response, body) {
+            console.log(url);
             if (!error && response.statusCode === 200) {
                 var obj = JSON.parse(body);
                 var stop = obj.stop;

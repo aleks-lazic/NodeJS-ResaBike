@@ -103,5 +103,11 @@ function addLinesFromAPI(){
 //     })
 // }
 
+dbStation.getAllStationsWithLineId(453).then((res) =>{
+    res.forEach((s) => {
+        console.log(s.name);
+    })
+});
+
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

@@ -7,11 +7,50 @@ var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
 
-/* GET zone home page. */
+var zones;
+/* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
-    res.render('createZone', {object: session.object});
+    //get all zones
+    dbZone.getAllZones().then((zones) => {
+        zones = zones;
+        res.render('zoneAllIndex', {zones: zones});        
+    })
 });
 
+//get one zone home page
+router.get('/:id', (req, res, next) => {
+    let lines;
+    var stations;
+    //get the zone by id
+    dbZone.getZoneById(req.params.id).then((zone) => {
+        //get the lines depending on the zone
+        var lines = [];
+        var departures = [];
+        var terminals = [];
+        var promises = [];
+        
+        dbLine.getLinesByIdZone(zone.id).then((resu) => {
+            lines = resu;
+            lines.forEach(function(l){
+                console.log(l.DepartureId + " " + l.ArrivalId)
+                promises.push(dbStation.getDepartureAndTerminalStationWithIdLine(l.DepartureId, l.ArrivalId));
+            })            
+
+            Promise.all(promises).then((result) => {
+                for(let k = 0 ; k<promises.length; k++){
+                    departures.push(result[k].dep);
+                    terminals.push(result[k].ter);
+                }
+                res.render('zoneOneIndex', {zone: zone, lines: lines , dep: departures, ter: terminals});            
+            })
+        })
+    })    
+});
+
+//get the create zone page
+router.get('/create', (req, res, next) => {
+    res.render('createZone');
+});
 //POST when you receive the name and the stations for zone creation
 router.post('/create', (req, res, next) => {
         //get values from form

@@ -1,11 +1,11 @@
 var models = require('../models');
+var dbLineStation = require('./linestation');
 
 var getAllStations = function(){
     return new Promise((resolve, reject)=>{
         models.Station.findAll({
         }).then(stations =>{
             resolve(stations);
-            //console.log(stations);
         }).catch((err)=>{
             reject(err.message);
         })
@@ -20,6 +20,20 @@ var getStationIdByName = function(name){
             }
         }).then((res)=>{
             resolve(res.id);
+        }).catch((err)=>{
+            reject(err.message);
+        });
+    })
+}
+
+var getStationById = function(id){
+    return new Promise((resolve, reject) =>{
+        models.Station.findOne({
+            where: {
+                id: id
+            }
+        }).then((res)=>{
+            resolve(res);
         }).catch((err)=>{
             reject(err.message);
         });
@@ -49,7 +63,57 @@ var upsertStation = function(idStation, stationName){
     })
 }
 
+//GET ALL STATIONS WITH WITH LIST OF IDSTATIONS (NOT USED NOW)
+var getAllStationsById = function(idStationsList){
+    return new Promise((resolve, reject) => {
+        var stations = [];
+        var promises = [];
+        for(let i = 0 ; i<idStationsList.length ; i++){
+            promises.push(getStationById(idStationsList[i].StationId));
+        }
+    
+        Promise.all(promises).then((res) => {
+            for(let k = 0 ; k<idStationsList.length ; k++){
+                stations.push(res[k]);
+            }
+            resolve(stations);
+        })
+    })
+}
+
+//GET ALL STATIONS WITH LINE ID (NOT USED NOW)
+var getAllStationsWithLineId = function(idLine){
+    return new Promise((resolve, reject) => {
+        dbLineStation.getAllStationsWithIdLine(idLine).then((idStationsList) => {
+            resolve(getAllStationsById(idStationsList));
+        })
+    })
+}
+
+var getDepartureAndTerminalStationWithIdLine = function(idDep, idTer) {
+    return new Promise((resolve, reject) => {
+        var station = {
+            dep: "",
+            ter: ""
+        };
+        var promises = [];
+
+        promises.push(getStationById(idDep));
+        promises.push(getStationById(idTer));
+
+        Promise.all(promises).then((res) => {
+            station.dep = res[0].name;
+            station.ter = res[1].name;
+
+            resolve(station);
+        })
+    })
+}
+
 exports.getAllStations = getAllStations;
 exports.getStationIdByName = getStationIdByName;
 exports.insertStation = insertStation;
 exports.upsertStation = upsertStation;
+exports.getAllStationsWithLineId = getAllStationsWithLineId;
+exports.getStationById = getStationById;
+exports.getDepartureAndTerminalStationWithIdLine = getDepartureAndTerminalStationWithIdLine;

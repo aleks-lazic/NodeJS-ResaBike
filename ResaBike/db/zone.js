@@ -2,7 +2,6 @@ var models = require('../models');
 
 var createZone = function(id, zoneName){
     return new Promise((resolve, reject) => {  
-        resolve();
         models.Zone.upsert({
             id: id,
             name: zoneName
@@ -11,17 +10,6 @@ var createZone = function(id, zoneName){
         }).catch((err) =>{
             reject(err.message);
         });
-    })
-}
-
-var upsertZone = function(name){
-    return new Promise((resolve, reject) => {
-        getZoneIdByName(name).then((id)=> {
-            console.log(name + " already exists !");
-            resolve();          
-        }).catch(()=> {
-            return createZone(name).then(() => {resolve();});                   
-        })
     })
 }
 
@@ -39,6 +27,35 @@ var getZoneIdByName = function(name){
     })
 }
 
+var getAllZones = function(){
+    return new Promise((resolve, reject) => {
+        models.Zone.findAll({
+        }).then(zones =>{
+            console.log(zones);
+            resolve(zones);
+        }).catch((err)=>{
+            reject(err.message);
+
+        })    
+    })
+}
+
+var getZoneById = function(id) {
+    return new Promise((resolve, reject) => {
+        models.Zone.findOne({
+            where: {
+                id: id
+            }
+        }).then(zone =>{
+            resolve(zone);
+        }).catch((err)=>{
+            reject(err.message);
+
+        })    
+    })
+}
+
 exports.createZone = createZone;
 exports.getZoneIdByName = getZoneIdByName;
-exports.upsertZone = upsertZone;
+exports.getAllZones = getAllZones;
+exports.getZoneById = getZoneById;

@@ -1,0 +1,11 @@
+extends layoutMain
+
+block content
+    h1= zone.name
+
+    ul
+    each x, index in lines
+        li= "Line : " + x.id + " from " + dep[index] + " to " + ter[index]
+
+
+

@@ -12,6 +12,22 @@ var insertStationIdAndLineId = function(stationId, lineId, position){
     });
 }
 
+var getAllStationsWithIdLine = function(idLine){
+    return new Promise((resolve, reject) => {
+        models.LineStation.findAll({
+            where: {
+                LineId: idLine
+            },
+            attributes: ['position', 'StationId']
+        }).then((res)=> {
+            resolve(res);
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
 
 
 exports.insertStationIdAndLineId = insertStationIdAndLineId;
+exports.getAllStationsWithIdLine = getAllStationsWithIdLine;

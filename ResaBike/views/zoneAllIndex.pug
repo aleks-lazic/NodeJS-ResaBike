@@ -1,0 +1,12 @@
+extends layoutMain
+
+block content
+    h1= "User xxxxxx's zones"
+    ul
+    each x in zones
+        a(href="/zone/"+x.id)
+            div
+                li= x.name
+
+
+

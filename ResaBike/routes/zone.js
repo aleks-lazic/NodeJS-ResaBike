@@ -6,7 +6,7 @@ var dbLine = require('../db/line');
 var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
-
+var zoneSelected;
 var zones;
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
@@ -17,12 +17,29 @@ router.get('/', (req, res, next) => {
     })
 });
 
+//delete one zone's line
+router.delete('/delete/line/:id', (req, res, next) => {
+    var promises = [];
+    //get all stations with idLine (to delete them)
+    dbLineStation.getAllStationsWithIdLine(req.params.id).then((stations) => {
+        dbLineStation.deleteLineIdFromLineStation(req.params.id).then(() => {
+            stations.forEach((s) => {
+                dbStation.deleteStation(s.StationId);
+            })
+            dbLine.deleteLineById(req.params.id);
+            res.send(JSON.stringify("ok"));            
+        });  
+    });
+})
+
 //get one zone home page
-router.get('/:id', (req, res, next) => {
+router.get('/get/:id', (req, res, next) => {
     let lines;
     var stations;
     //get the zone by id
     dbZone.getZoneById(req.params.id).then((zone) => {
+        //save the selected zone
+        zoneSelected = zone;
         //get the lines depending on the zone
         var lines = [];
         var departures = [];
@@ -51,6 +68,7 @@ router.get('/:id', (req, res, next) => {
 router.get('/create', (req, res, next) => {
     res.render('createZone');
 });
+
 //POST when you receive the name and the stations for zone creation
 router.post('/create', (req, res, next) => {
         //get values from form
@@ -118,15 +136,15 @@ router.post('/create', (req, res, next) => {
                             dbLine.insertLine(legs[i].line, legs[i].name, legs[i].terminal, zoneName)
                             .then((idLine) => {
                                 //add relations between departure and line
-                                dbLineStation.insertStationIdAndLineId(res[0], idLine, 1);
+                                dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
                                 //add relations between terminal and line 
                                 console.log("RES1 : " +res[1]);       
-                                dbLineStation.insertStationIdAndLineId(res[1], idLine, (stops.length + 2));                                
+                                dbLineStation.insertStationIdAndLineId(res[1], idLine, (stops.length + 2), true);                                
                                 //add the stops and the relations with the line
                                 for(let k = 0 ; k<stops.length ; k++){
                                     dbStation.upsertStation(stopsID[k], stops[k])
                                     .then((idStop) => {
-                                        dbLineStation.insertStationIdAndLineId(idStop, idLine, (k+2));
+                                        dbLineStation.insertStationIdAndLineId(idStop, idLine, (k+2), false);
                                     });
                                 }
                                 console.log("STOPS LENGTH" + stops.length);

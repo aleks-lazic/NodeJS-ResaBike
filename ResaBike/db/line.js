@@ -43,6 +43,21 @@ var getLineIdByLineNumber = function(lineNumber){
     })
 }
 
+var deleteLineById = function(idLine){
+    return new Promise((resolve, reject) => {
+        models.Line.destroy({
+            where:{
+                id: idLine
+            }
+        }).then(() => {
+            console.log("JE SUPPRIME LA LINE");                        
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
 
 var getLinesByIdZone = function(zoneId){
     return new Promise((resolve, reject) =>{
@@ -60,3 +75,4 @@ var getLinesByIdZone = function(zoneId){
 exports.getLinesByIdZone = getLinesByIdZone;
 exports.insertLine = insertLine;
 exports.getLineIdByLineNumber = getLineIdByLineNumber;
+exports.deleteLineById = deleteLineById;

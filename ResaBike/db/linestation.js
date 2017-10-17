@@ -1,15 +1,31 @@
 var models = require('../models');
 
-var insertStationIdAndLineId = function(stationId, lineId, position){
+var insertStationIdAndLineId = function(stationId, lineId, position, isDepOrTer){
     models.LineStation.create({
         LineId: lineId,
         StationId: stationId,
-        position: position
+        position: position, 
+        isDepOrTer: isDepOrTer
     }).then(() =>{
         console.log('Relation between station and line added');
     }).catch((err) =>{
         console.log(err.message);
     });
+}
+
+var deleteLineIdFromLineStation = function(idLine){
+    return new Promise((resolve, reject) => {
+        models.LineStation.destroy({
+            where:{
+                LineId: idLine
+            }
+        }).then(() => {
+            console.log("JE SUPPRIME LA LINESTATION");       
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
 }
 
 var getAllStationsWithIdLine = function(idLine){
@@ -27,7 +43,21 @@ var getAllStationsWithIdLine = function(idLine){
     })
 }
 
+var getStationWithIdStation = function(idStation){
+    return new Promise((resolve, reject) => {
+        models.LineStation.findAll({
+           where:{
+               StationId: idStation
+           } 
+        }).then((lineStation) => {
+            resolve(lineStation);
+        }).catch(() => {
+            reject(false);
+        })
+    })
+}
 
-
+exports.getStationWithIdStation = getStationWithIdStation;
+exports.deleteLineIdFromLineStation = deleteLineIdFromLineStation;
 exports.insertStationIdAndLineId = insertStationIdAndLineId;
 exports.getAllStationsWithIdLine = getAllStationsWithIdLine;

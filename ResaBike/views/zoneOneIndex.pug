@@ -6,6 +6,10 @@ block content
     ul
     each x, index in lines
         li= "Line : " + x.id + " from " + dep[index] + " to " + ter[index]
+        input(type="button", value="Supprimer", onclick=`deleteLineOfZone(${x.id}, ${zone.id})`)
+
+    script(src="../../javascripts/zone/zoneOneIndex.js", type="text/javascript")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.6.0/superagent.min.js", type="text/javascript")
 
 
 

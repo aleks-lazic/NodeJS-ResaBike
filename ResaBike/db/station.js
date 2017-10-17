@@ -110,6 +110,33 @@ var getDepartureAndTerminalStationWithIdLine = function(idDep, idTer) {
     })
 }
 
+var deleteStation = function(idStation) {
+    return new Promise((resolve, reject) => {
+        //first check if the station still exists in the linestation
+        dbLineStation.getStationWithIdStation(idStation).then((success) => {
+            //if length > 0 we dont need to delete the station
+            // else we dont need the station anymore
+            if(success.length > 0) {
+                console.log("JE SUPPRIME PAS");
+                resolve();
+            } else {
+                models.Station.destroy({
+                    where:{
+                        id: idStation
+                    }
+                }).then(() => {
+                    console.log("JE SUPPRIME");                    
+                    resolve();
+                }).catch((err)=> {
+                    console.log("ERREUUR");                    
+                    reject(err.message);
+                });            
+            }
+        })
+    })
+}
+
+exports.deleteStation = deleteStation;
 exports.getAllStations = getAllStations;
 exports.getStationIdByName = getStationIdByName;
 exports.insertStation = insertStation;

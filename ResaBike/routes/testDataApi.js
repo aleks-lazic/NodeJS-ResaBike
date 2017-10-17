@@ -103,11 +103,13 @@ function addLinesFromAPI(){
 //     })
 // }
 
-dbStation.getAllStationsWithLineId(453).then((res) =>{
-    res.forEach((s) => {
-        console.log(s.name);
-    })
-});
+// dbStation.getAllStationsWithLineId(453).then((res) =>{
+//     res.forEach((s) => {
+//         console.log(s.name);
+//     })
+// });
+
+// dbStation.deleteStation(8501996);
 
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

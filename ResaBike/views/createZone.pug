@@ -1,8 +1,6 @@
 extends layoutMain
 
 block content
-
-
     div(class="container")
         div(class="center")
             form(action="/zone/create", method="post")
@@ -24,6 +22,10 @@ block content
                             li= object.arrivals[index] + " ---> " + object.terminals[index]
                             input(type="text" name="index" value=index id="inputInvisible")
                             input(type="submit", value="Create this line")
+
+
+    script(src="javascripts/zone/createZone.js", type="text/javascript")
+
 
 
 

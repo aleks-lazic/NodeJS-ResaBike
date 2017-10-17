@@ -80,28 +80,28 @@ function addLinesFromAPI(){
     
 }
 
-function addRelationsBetweenStationsAndLines(){
-    getDataFromAPI(url)
-    .then((obj) =>{
-        var legs = obj.connections[0].legs;
-        console.log("hello");
-        for(let i = 1 ; i<legs.length ; i++){
-            //get lineId by lineNumber
-            let idLine = dbLine.getLineIdByLineNumber(legs[i].line);
-            //get station id by name
-            let idStation = dbStation.getStationIdByName(legs[i].name);
-            Promise.all([idStation, idLine]).then((res) =>{
-                dbLineStation.insertStationIdAndLineId(res[0], res[1], 1);
-            })
-            for(let j = 0 ; j < legs[i].stops.length ; j++){
-                idStation = dbStation.getStationIdByName(legs[i].stops[j].name);
-                Promise.all([idStation, idLine]).then((res) =>{
-                    dbLineStation.insertStationIdAndLineId(res[0], res[1], (j+2));
-                })  
-            }           
-        }
-    })
-}
+// function addRelationsBetweenStationsAndLines(){
+//     getDataFromAPI(url)
+//     .then((obj) =>{
+//         var legs = obj.connections[0].legs;
+//         console.log("hello");
+//         for(let i = 1 ; i<legs.length ; i++){
+//             //get lineId by lineNumber
+//             let idLine = dbLine.getLineIdByLineNumber(legs[i].line);
+//             //get station id by name
+//             let idStation = dbStation.getStationIdByName(legs[i].name);
+//             Promise.all([idStation, idLine]).then((res) =>{
+//                 dbLineStation.insertStationIdAndLineId(res[0], res[1], 1);
+//             })
+//             for(let j = 0 ; j < legs[i].stops.length ; j++){
+//                 idStation = dbStation.getStationIdByName(legs[i].stops[j].name);
+//                 Promise.all([idStation, idLine]).then((res) =>{
+//                     dbLineStation.insertStationIdAndLineId(res[0], res[1], (j+2));
+//                 })  
+//             }           
+//         }
+//     })
+// }
 
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

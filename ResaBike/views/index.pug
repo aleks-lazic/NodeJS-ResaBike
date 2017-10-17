@@ -1,8 +1,7 @@
 extends layoutIndex
 
 block content
-  body
-
+  
   div(id="index-banner" class="parallax-container")
     div(class="section no-pad-bot")
       div(class="container")
@@ -22,15 +21,15 @@ block content
         form(class="col s12" action="/book" method="post")
           div.row
             div.input-field.col.s6
-              input(type="text", placeholder="From Station", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete")
+              input(type="text" value="Sierre, poste/gare" placeholder="From Station", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
               //i.material-icons.prefix phone
-              input(type="text", placeholder="To Destination", name="arrivalTo" id="autocomplete-input" class="autocomplete")
+              input(type="text" value="Les Pontis" placeholder="To Destination", name="arrivalTo" id="autocomplete-input" class="autocomplete" autocomplete="off" required)
               //label(for="icon_telephone") Telephone
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker")
+              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker" required)
               br
-              input(type="number" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
+              input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
             div.input-field.col.s6
               button(class="btn waves-effect waves-light" type="submit" name="action") Submit
                 i(class="material-icons right") send

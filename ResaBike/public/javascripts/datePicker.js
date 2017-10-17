@@ -6,6 +6,6 @@ $(document).ready(function() {
         clear: 'Clear',
         close: 'Ok',
         closeOnSelect: false, // Close upon selecting a date,
-        format: 'mm/dd/yyyy'
+        format: 'yyyy-mm-dd'
       });
 });

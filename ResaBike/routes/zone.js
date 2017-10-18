@@ -92,8 +92,6 @@ router.post('/create', (req, res, next) => {
             var departuresID = [];
             var terminals = [];
             var terminalsID = [];
-            var stops = [];
-            var stopsID = [];
 
             //stocker les promises
             var promDep;
@@ -117,12 +115,6 @@ router.post('/create', (req, res, next) => {
                     terminals.push(legs[i].terminal);
                     //add departure station id
                     departuresID.push(legs[i].stopid);
-                    
-                    //get all stops in line
-                    legs[i].stops.forEach(function(s) {
-                        stops.push(s.name);
-                        stopsID.push(s.stopid);
-                    }, this);
 
                     //get stopid terminal station
                     var stopidUrl = "https://timetable.search.ch/api/stationboard.en.json?stop=";                    
@@ -139,15 +131,14 @@ router.post('/create', (req, res, next) => {
                                 dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
                                 //add relations between terminal and line 
                                 console.log("RES1 : " +res[1]);       
-                                dbLineStation.insertStationIdAndLineId(res[1], idLine, (stops.length + 2), true);                                
+                                dbLineStation.insertStationIdAndLineId(res[1], idLine, (legs[i].stops.length +2), true);                                
                                 //add the stops and the relations with the line
-                                for(let k = 0 ; k<stops.length ; k++){
-                                    dbStation.upsertStation(stopsID[k], stops[k])
+                                for(let k = 0 ; k<legs[i].stops.length ; k++){
+                                    dbStation.upsertStation(legs[i].stops[k].stopid, legs[i].stops[k].name)
                                     .then((idStop) => {
                                         dbLineStation.insertStationIdAndLineId(idStop, idLine, (k+2), false);
                                     });
                                 }
-                                console.log("STOPS LENGTH" + stops.length);
                             });
                         })
                     })

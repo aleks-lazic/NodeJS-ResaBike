@@ -1,0 +1,40 @@
+extends layoutUser
+
+block content
+    h1= "All users"
+    
+    table
+        tr
+            th Username
+            th Email
+            th Role
+            th Edit
+            th Delete
+        each x, index in users
+            tr
+                td= x.username
+                td= x.mail
+                td= roles[index]
+                td
+                    a(type="button", class="waves-effect waves-light btn", onclick=`openModal(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${index})`) Edit
+                td
+                    a(class="waves-effect waves-light btn") Delete
+    
+    div(id="modal1" class="modal")
+        div(class="modal-content")
+            h4= "Modify the user"
+            p
+                input(id="username", type="text")
+            p
+                input(id="email", type="email")
+
+        div(class="modal-footer")
+            a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick=`modifyUser()`) Agree
+
+
+    a(href="/user/create")
+        p= "Create new user"
+
+    script(src="/javascripts/user/getAllUsers.js", type="text/javascript")
+
+        

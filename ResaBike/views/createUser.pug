@@ -1,13 +1,21 @@
-extends layoutMain
+extends layoutUser
 
 block content
-
-    select
-        option(value="1") Utilisateur 1
-        option(value="2") Utilisateur 2
-        option(value="3") Utilisateur 3
-    label Responsable de zone
-
-
-
-
+    div.container.center
+        div(class="row")
+            div(class="input-field")
+                input(type="text", placeholder="Username", name="username",  class="validate", id="username" required autocomplete="off")
+        div(class="row")
+            div(class="input-field")
+                input(type="password",placeholder="Enter your password", name="password",  class="validate", id="password" required, autocomplete="off")
+        div(class="row")
+            div(class="input-field")
+                input(type="password",placeholder="Repeat your password", name="password2",  class="validate", id="password2" required, autocomplete="off")
+        div(class="row")
+            div(class="input-field")
+                input(type="email", placeholder="Enter your email",name="email",  class="validate", id="email", required autocomplete="off")
+        div.row
+            div.input-field-col-s12
+                select(id="selectRole", name="selectRole")
+                    option(value="", disabled selected) Select a role
+            button(class="btn waves-effect waves-light", type="button", onclick=`createUser()`) Submit

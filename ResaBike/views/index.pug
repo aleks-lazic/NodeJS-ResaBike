@@ -2,6 +2,7 @@ extends layoutIndex
 
 block content
   
+  //- First Section - Just display logo, etc.
   div(id="index-banner" class="parallax-container")
     div(class="section no-pad-bot")
       div(class="container")
@@ -15,6 +16,7 @@ block content
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
+  //- Second Section - SEARCH WITH API !
   div(class="container" style="padding-top:80px; padding-bottom:80px;")
     h3.center-align= "Check your fucking time ?"
       div.row
@@ -27,13 +29,14 @@ block content
               input(type="text" value="Les Pontis" placeholder="To Destination", name="arrivalTo" id="autocomplete-input" class="autocomplete" autocomplete="off" required)
               //label(for="icon_telephone") Telephone
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker" required)
+              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker" value="2017-11-01" required)
               br
               input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
             div.input-field.col.s6
               button(class="btn waves-effect waves-light" type="submit" name="action") Submit
                 i(class="material-icons right") send
   
+  //- Third Section - A MAP of Valais would be nice no ?
   div(id="map" class="parallax-container valign-wrapper")
     div.section.no-pad-bot
       div.container
@@ -42,6 +45,7 @@ block content
     div.parallax
       img(src='../images/wallpaper-hipster.jpg', alt='Unsplashed background img 2')
 
+  //- Fourth Section - Contact Form
   div(id="contact" class="container" style="padding-top:80px; padding-bottom:80px;")
     div.section
       div.row

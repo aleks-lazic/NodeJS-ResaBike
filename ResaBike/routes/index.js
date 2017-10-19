@@ -19,10 +19,12 @@ router.get('/getAllStations', function(req, res) {
 
 router.post('/book', function(req, res, next){
     
+    //Retrieve the data from the user
     let departureFrom = req.body.departureFrom ;
     let arrivalTo = req.body.arrivalTo ;
     let dateTravelUser = req.body.dateTravel ;
     let nbBike = req.body.nbBike ;
+
 
     //Comparing the date, time with the one selected from the user
     let currentTime = new Date();
@@ -47,14 +49,23 @@ router.post('/book', function(req, res, next){
     .then((obj) => {
 
         //console.log(obj);
-        var objct = obj.connections ;
+        let objct = obj.connections ;
         //console.log(objct);
+        let lines = [] ;
+        let linesWithoutDuplicates = [] ;
 
         for (let i = 0; i < objct.length ; i++) {
             var legs = objct[i].legs ;
             for (let j = 0 ; j < legs.length ; j++){
                 if(legs[j].type == "post" || legs[j].type == "bus" ){
                     //console.log(legs[j].departure);
+                    lines.push(legs[j].line);
+                    
+                    //Delete the duplicated lines
+                    linesWithoutDuplicates = lines.filter(function(line, j, self){
+                        return j == self.indexOf(line);
+                    })
+
                     let dateSplit = legs[j].departure.split(" ");
                     //console.log(dateSplit[0].split("-")[2]);
                     //console.log(dateTravelUser.split("-")[2]);
@@ -72,7 +83,9 @@ router.post('/book', function(req, res, next){
             }
         }
 
-        res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser});
+        console.log(arrayTimeDeparture + "," + arrayTimeArrival +","+departureFrom + ","+ arrivalTo + "," + nbBike + "," + linesWithoutDuplicates);
+
+        res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates});
     }).catch((err)=>{
         res.send('Error : ' + err.message);
     })

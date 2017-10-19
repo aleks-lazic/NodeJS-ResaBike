@@ -26,8 +26,20 @@ block content
                     td #{arrayTimeArrival[index].split(" ")[1]}
                     td PLACES
                     td
-                        button(class="btn waves-effect waves-light" type="button", onclick="reservation(1,1,1,1,1)") Submit
+                        button(class="btn waves-effect waves-light" type="button", onclick=`reservation(${departureFrom},${arrivalTo},${arrayTimeDeparture[index]},${lines},${nbBike})`) Reservation
                             i(class="material-icons right") book
+
+        p #{departureFrom}
+        br
+        p #{arrivalTo}
+        br
+        p #{arrayTimeDeparture}
+        br
+        p #{lines}
+        br
+        p #{nbBike}
+        br
+
 
     script(src="javascripts/book/reservation.js", type="text/javascript")
 

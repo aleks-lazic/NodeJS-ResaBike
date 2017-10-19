@@ -26,10 +26,12 @@ block content
                     td #{arrayTimeArrival[index].split(" ")[1]}
                     td PLACES
                     td
-                        form(action="/reservation" method="post")
-                            button(class="btn waves-effect waves-light" type="submit" name="action") Submit
-                                i(class="material-icons right") book
-                            
+                        button(class="btn waves-effect waves-light" type="button", onclick="reservation(1,1,1,1,1)") Submit
+                            i(class="material-icons right") book
+
+    script(src="javascripts/book/reservation.js", type="text/javascript")
+
+                                    
 
         //-                 a(id="LogicLink" onclick="showTable();")
         //-                     i(class="material-icons") arrow_drop_down_circle

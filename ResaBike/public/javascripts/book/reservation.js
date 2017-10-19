@@ -8,12 +8,14 @@ function reservation(stationFrom, stationArrival, timeDep, idLine, nbBike){
         nbBike: nbBike
     }
 
+    window.alert("TEST");
+
     $.ajax({
         type: 'POST',
         url: '/book/reservation',
         data: book,
         success: function(data){
-
+            
         }
     });
 }

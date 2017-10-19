@@ -1,102 +1,102 @@
 /* #ffff00 yellow accent-2 - Using this color for the entire application */
 
 #inputInvisible{
-  display: none;
-}
-
-/* Auto-completation div */
-#results{
-  display: none;
-  background-color: #FFFFFF ;
-}
-
-/* Background of index.pug */
-.background-index{
-  background-image: url(../images/wallpaper-bike1.jpg);
-  background-repeat:no-repeat;
-  background-position:center center;
-  background-attachment: fixed;
-  background-size: cover ;
-  width: 100%;
-  height: auto;
-}
-
-/* Title of index.pug */
-.big-title{
-  font-size: 70px ;
-  font-style: bold;
-  color: #FFFF00 ;
-}
-
-/* Main Form in index.pug */
-.search-form{
-  background-color: #000000 ;
-  background: rgb(0, 0, 0, .7);
-}
-
-/* Tables CSS for the book.pug */
-.table-container{
+    display: none;
+  }
   
-}
-
-.table-booking{
-  margin-left:auto ;
-  margin-right:auto ;
-  width:80% ;
-}
-
-th{
-  height: 50px ;
-}
-
-th, td{
-  border-bottom: 1px solid #ddd;
-}
-
-/* Materialize Template */
-nav ul a,
-nav .brand-logo {
-  color: #444;
-}
-
-p {
-  line-height: 2rem;
-}
-
-.button-collapse {
-  color: #26a69a;
-}
-
-.parallax-container {
-  min-height: 380px;
-  max-height: 380px ;
-  line-height: 0;
-  height: auto;
-  color: rgba(255,255,255,.9);
-}
-  .parallax-container .section {
+  /* Auto-completation div */
+  #results{
+    display: none;
+    background-color: #FFFFFF ;
+  }
+  
+  /* Background of index.pug */
+  .background-index{
+    background-image: url(../images/wallpaper-bike1.jpg);
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment: fixed;
+    background-size: cover ;
     width: 100%;
+    height: auto;
   }
-
-@media only screen and (max-width : 992px) {
-  .parallax-container .section {
-    position: absolute;
-    top: 40%;
+  
+  /* Title of index.pug */
+  .big-title{
+    font-size: 70px ;
+    font-style: bold;
+    color: #FFFF00 ;
   }
-  #index-banner .section {
-    top: 10%;
+  
+  /* Main Form in index.pug */
+  .search-form{
+    background-color: #000000 ;
+    background: rgb(0, 0, 0, .7);
   }
-}
-
-@media only screen and (max-width : 600px) {
-  #index-banner .section {
-    top: 0;
+  
+  /* Tables CSS for the book.pug */
+  .table-container{
+    
   }
-}
-
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-  font-size: inherit;
-}
+  
+  .table-booking{
+    margin-left:auto ;
+    margin-right:auto ;
+    width:80% ;
+  }
+  
+  th{
+    height: 50px ;
+  }
+  
+  th, td{
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Materialize Template */
+  nav ul a,
+  nav .brand-logo {
+    color: #444;
+  }
+  
+  p {
+    line-height: 2rem;
+  }
+  
+  .button-collapse {
+    color: #26a69a;
+  }
+  
+  .parallax-container {
+    min-height: 380px;
+    max-height: 380px ;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+  }
+    .parallax-container .section {
+      width: 100%;
+    }
+  
+  @media only screen and (max-width : 992px) {
+    .parallax-container .section {
+      position: absolute;
+      top: 40%;
+    }
+    #index-banner .section {
+      top: 10%;
+    }
+  }
+  
+  @media only screen and (max-width : 600px) {
+    #index-banner .section {
+      top: 0;
+    }
+  }
+  
+  .icon-block {
+    padding: 0 15px;
+  }
+  .icon-block .material-icons {
+    font-size: inherit;
+  }

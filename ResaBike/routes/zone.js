@@ -8,6 +8,7 @@ var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
 var zoneSelected;
 var zones;
+
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
     //get all zones

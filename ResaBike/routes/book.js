@@ -8,10 +8,9 @@ router.get('/book', function(req, res, next) {
     res.render('book');
 });
 
-router.use(function(req, res){
-    if(req.statusCode == 404){
-        res.redirect('/');
-    }
+router.post('/reservation', function(req, res, next){
+    
 });
+
 
 module.exports = router;

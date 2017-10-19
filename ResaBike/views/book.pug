@@ -6,10 +6,10 @@ block content
     div.center-align
         i(class="material-icons") arrow_forward 
     h3(class="header center teal-text") #{arrivalTo}
-    h5(class="header center teal-text") #{arrayTimeDeparture[0].split(" ")[0]}
+    h5(class="header center teal-text") #{dateTravelUser}
     br
     div.container
-        table.highlight.responsive-table
+        table(class="highlight.responsive-table")
             tr
                 thead
                     th Departure From
@@ -26,7 +26,26 @@ block content
                     td #{arrayTimeArrival[index].split(" ")[1]}
                     td PLACES
                     td
-                        p Book a fcking place
-                            i(class="material-icons") book
-                    td
-                        i(class="material-icons") arrow_drop_down_circle
+                        form(action="/reservation" method="post")
+                            button(class="btn waves-effect waves-light" type="submit" name="action") Submit
+                                i(class="material-icons right") book
+                            
+
+        //-                 a(id="LogicLink" onclick="showTable();")
+        //-                     i(class="material-icons") arrow_drop_down_circle
+        //- table(id="tableTime" style="display:none")
+        //-                     tr
+        //-                         td Address
+
+    //- script.
+    //-     function showTable()
+    //-     {
+    //-         var elem=document.getElementById("tableTime");
+    //-         var hide = elem.style.display =="none";
+    //-         if (hide) {
+    //-             elem.style.display="table";
+    //-         } 
+    //-         else {
+    //-         elem.style.display="none";
+    //-         }
+    //-     }

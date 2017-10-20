@@ -13,6 +13,7 @@
     "express-session": "^1.15.6",
     "morgan": "~1.8.1",
     "mysql2": "^1.4.2",
+    "nodemailer": "^4.2.0",
     "pug": "~2.0.0-beta11",
     "request": "^2.83.0",
     "sequelize": "^4.13.5",

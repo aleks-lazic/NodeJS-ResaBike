@@ -1,21 +1,27 @@
-function reservation(stationFrom, stationArrival, timeDep, idLine, nbBike){
-    // alert(stationFrom);
-    // return;
+$(document).ready(function() {
+    $('#submitt_confirm').click(function() {
+      reservation($('#departureFrom').val(),$('#arrivalTo').val(),$('#dateDep').val(),$('#nbBike').val(),$('#email').val());
+    });
+});
 
+
+function reservation(stationFrom, stationArrival, timeDep, nbBike, email){
+
+    
     //create the book object that will be used in the post
     var book = {
         from: stationFrom,
         arrival: stationArrival,
         timeDep: timeDep,
-        idLine: idLine,
-        nbBike: nbBike
+        nbBike: nbBike,
+        email: email
     }
 
     //alert(idLine + " , " + timeDep + " , " + nbBike);
 
     $.ajax({
         type: 'POST',
-        url: '/book/reservation',
+        url: '/book/confirm',
         data: book,
         success: function(data){
             

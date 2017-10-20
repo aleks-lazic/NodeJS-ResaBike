@@ -2,7 +2,7 @@ var dbStation = require('./station');
 var dbLine = require('./line');
 var models = require('../models');
 
-var insertReservation = function(time, token, nbBike, stationDeparture, stationTerminal){
+var insertReservation = function(time, token, nbBike, stationDeparture, stationTerminal, email){
     return new Promise((resolve, reject)=>{
 
         models.Book.create({
@@ -10,7 +10,8 @@ var insertReservation = function(time, token, nbBike, stationDeparture, stationT
             token: token,
             nbBike: nbBike,
             DepartureId: stationDeparture,
-            ArrivalId: stationTerminal
+            ArrivalId: stationTerminal,
+            mail: email
         }).then(() =>{
             resolve();
         }).catch((err) =>{

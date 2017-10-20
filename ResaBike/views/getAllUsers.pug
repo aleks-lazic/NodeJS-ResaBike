@@ -16,7 +16,7 @@ block content
                 td= x.mail
                 td= roles[index]
                 td
-                    a(type="button", class="waves-effect waves-light btn", onclick=`openModal(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${index})`) Edit
+                    a(type="button", class="waves-effect waves-light btn", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) Edit
                 td
                     a(class="waves-effect waves-light btn") Delete
     
@@ -25,11 +25,12 @@ block content
             h4= "Modify the user"
             p
                 input(id="username", type="text")
+                input(id="id" type="hidden")
             p
                 input(id="email", type="email")
 
         div(class="modal-footer")
-            a(href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" onclick=`modifyUser()`) Agree
+            a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) Agree
 
 
     a(href="/user/create")

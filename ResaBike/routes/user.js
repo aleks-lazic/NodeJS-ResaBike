@@ -9,7 +9,7 @@ router.get('/create', function(req, res, next) {
     res.render('createUser');
 });
 
-//get all users
+//GET all users
 router.get('/', function(req, res, next) {
     var promises = [];
     var roles = [];
@@ -28,6 +28,7 @@ router.get('/', function(req, res, next) {
     }) 
 });
 
+//POST create new user
 router.post('/create', (req, res, next) => {
     //check if the username already exists
     dbUser.checkUsernameExists(req.body.username).then((user) => {
@@ -52,10 +53,40 @@ router.post('/create', (req, res, next) => {
     });    
 })
 
+//GET all roles
 router.get('/getAllRoles', (req, res, next) => {
     dbRole.getAllRoles().then((roles) => {
         res.send(JSON.stringify(roles));
     })
+})
+
+//PUT update existing user
+router.put('/update', (req, res, next) => {  
+    console.log("SAME + typeof:"+req.body.same + typeof(req.body.same));  
+    //if the username has not changed
+    if(req.body.same == 'true'){
+        console.log("JE SUIS DANS LE IF");
+        //update only the mail
+        dbUser.updateUserOnlyMail(req.body.email, req.body.id).then(() => {
+            res.send("success");
+        })
+    } else {
+        console.log("JE SUIS DANS LE ELSE");        
+        //check if the username already exists
+        dbUser.checkUsernameExists(req.body.username).then((user) => {
+            console.log("username : " + req.body.username);
+            console.log("user.name" + user);
+            if(user == null) {
+                //the user does not exist, we can update the user
+                dbUser.updateUser(req.body.username, req.body.email, req.body.id).then(() => {
+                    res.send("success");
+                });
+            } else {
+                console.log("THE USER EXISTS");
+                res.send("username");
+            }
+        }); 
+    }
 })
 
 

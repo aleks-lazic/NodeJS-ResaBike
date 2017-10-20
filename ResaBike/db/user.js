@@ -45,6 +45,39 @@ var getAllUsers = function(){
     })
 }
 
+var updateUser = function(username, email, id){
+    return new Promise((resolve, reject) => {
+        models.User.update({
+            username: username,
+            mail: email},
+            {where:{
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
+var updateUserOnlyMail = function(email, id){
+    return new Promise((resolve, reject) => {
+        models.User.update({
+            mail: email},
+            {where: {
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
+exports.updateUserOnlyMail = updateUserOnlyMail;
+exports.updateUser = updateUser;
 exports.getAllUsers = getAllUsers;
 exports.createUser = createUser;
 exports.checkUsernameExists = checkUsernameExists;

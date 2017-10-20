@@ -107,6 +107,7 @@
 
   /*modify the float action button to be align left*/
   .float-align-right {
-    .right-align;
-    
+    margin-right: 200px;
+    margin-top: 20px;
+
   }

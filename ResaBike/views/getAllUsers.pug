@@ -3,7 +3,7 @@ extends layoutUser
 block content
     h1= "All users"
     
-    table
+    table(id="usersTable")
         tr
             th Username
             th Email
@@ -20,6 +20,7 @@ block content
                 td
                     a(class="waves-effect waves-light btn" onclick=`deleteUser(${x.id})`) Delete
     
+    //- Modal for the modification of a user
     div(id="modal1" class="modal")
         div(class="modal-content")
             h4= "Modify the user"
@@ -28,12 +29,36 @@ block content
                 input(id="id" type="hidden")
             p
                 input(id="email", type="email")
-
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) Agree
+            a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) Save
+
+    //- Modal for the creation of a user
+    div(id="modalCreateUser" class="modal")
+        div(class="modal-content")
+            h4= "Create new user"
+            form(id="formCreateUser")
+                div(class="row")
+                    div(class="input-field")
+                        input(type="text", placeholder="Username",class="validate", id="usernamee" required autocomplete="off")
+                div(class="row")
+                    div(class="input-field")
+                        input(type="password",placeholder="Enter your password",class="validate", id="passwordd" required, autocomplete="off")
+                div(class="row")
+                    div(class="input-field")
+                        input(type="password",placeholder="Repeat your password",class="validate", id="passwordd2" required, autocomplete="off")
+                div(class="row")
+                    div(class="input-field")
+                        input(type="email", placeholder="Enter your email",class="validate", id="emaill", required autocomplete="off")
+                div.row
+                    div.input-field-col-s12
+                        select(id="selectRole", name="selectRole")
+                            option(value="", disabled selected) Select a role
+        div(class="modal-footer")
+            a(class="waves-effect waves-green btn-flat" onclick=`createUser()`) Create
+
 
     div(class="right-align float-align-right")
-        a(href="/user/create", class="btn-floating btn-large waves-effect waves-light")
+        a(class="btn-floating btn-large waves-effect waves-light" onclick="modalCreateUser()")
             i(class="material-icons") add
 
     script(src="/javascripts/user/getAllUsers.js", type="text/javascript")

@@ -29,3 +29,50 @@ $(document).ready(function() {
         })
     });
 });
+
+function modalCreateZone(){
+    //get all zone admins
+    $.ajax({
+        url : '/user/getAllZoneAdmin',
+        type : 'GET',
+        success : function(data){
+            data = JSON.parse(data);
+            var select = document.getElementById('selectUser');
+            data.forEach(function(element) {
+                console.log(element);                
+                var opt = document.createElement("option");
+                opt.value = element.id;
+                opt.textContent = element.username;
+                select.appendChild(opt);
+            }, this);
+        }
+    });
+
+    //open modal
+    $('.modal').modal();
+    $('#modalCreateZone').modal('open');
+}
+
+function createZone(){
+
+    //get all values from form
+    var name = document.getElementById('name').value;
+    var userIndex = document.getElementById('selectUser');
+    var userId = userIndex.options[userIndex.selectedIndex].value; 
+    
+    //create the object to create the zone
+    var zone = {
+        name: name,
+        userId: userId
+    };
+
+    // POST ajax to create the zone
+    $.ajax({
+        url : '/zone/create',
+        type : 'POST',
+        data: zone,
+        success : function(res){
+          
+        }
+    });
+}

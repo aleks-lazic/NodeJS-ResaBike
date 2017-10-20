@@ -1,14 +1,45 @@
-extends layoutMain
+extends layoutUser
 
 block content
     h1= "User xxxxxx's zones"
-    ul
-    each x in zones
-        a(href="/zone/get/"+x.id)
-            div
-                li= x.name
-    a(href="/zone/create")
-        p= "Create new zone"
+
+    table(id="zonesTable" class="responsive-table")
+        tr
+            th Name
+            th Responsable
+            th Edit
+            th Delete
+        each x, index in zones
+            tr
+                td= x.name
+                td= users[index]
+                td
+                    a(type="button", class="btn waves-effect waves-light", onclick="") Edit
+                td
+                    a(class="btn waves-effect waves-light" onclick="") Delete
+
+    //- Floating action button to create a user
+    div(class="right-align float-align-right")
+        a(class="btn-floating btn-large waves-effect waves-light" onclick="modalCreateZone()")
+            i(class="material-icons") add
+
+    //- Modal for the creation of a zone
+    div(id="modalCreateZone" class="modal")
+        div(class="modal-content")
+            h4= "Create new zone"
+            form(id="formCreateZone")
+                div.row
+                    div(class="input-field")
+                        input(type="text",class="validate", id="name" required autocomplete="off" placeholder="Name")
+                div.row
+                    select(id="selectUser")
+                        option(value="", disabled selected) Select a zone admin
+        div(class="modal-footer")
+            a(class="waves-effect waves-green btn-flat" onclick=`createZone()`) Create
+
+    script(src="/javascripts/zone/getAllZones.js", type="text/javascript")
+
+
         
 
 

@@ -6,15 +6,29 @@ var dbLine = require('../db/line');
 var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
+var dbUser = require('../db/user');
 var zoneSelected;
 var zones;
 
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
+    var promises = [];
     //get all zones
     dbZone.getAllZones().then((zones) => {
-        zones = zones;
-        res.render('zoneAllIndex', {zones: zones});        
+        //get all users for each zones
+        zones.forEach((z) => {
+            promises.push(dbUser.getUserByZoneId(z.id));
+        })
+
+        Promise.all(promises).then((result) => {
+            var users = [];
+            for(let k = 0 ; k<result.length ; k++){
+                users.push(result[k].username);
+                console.log(result[k]);
+            }
+
+            res.render('zoneAllIndex', {zones: zones, users: users});                    
+        })
     })
 });
 
@@ -71,85 +85,98 @@ router.get('/create', (req, res, next) => {
 });
 
 //POST when you receive the name and the stations for zone creation
+// router.post('/create', (req, res, next) => {
+//         //get values from form
+//         let zoneName = req.body.zoneName;
+//         let departure = req.body.departure.replace(/ /g, '%20');
+//         let arrival = req.body.arrival.replace(/ /g, '%20'); 
+
+//         var message;
+
+//         //request the api with the correct url
+//         var url = "https://timetable.search.ch/api/route.en.json?"    
+//         //modify the url according to the stations    
+//         url += "from=" + departure;
+//         url += "&to="+ arrival;    
+//         requestData.getDataFromAPI(url)
+//         .then((obj) => {
+//             var legs = obj.connections[0].legs;
+//             // variables for lines dep and ter
+//             var lines = [];
+//             var departures = [];
+//             var departuresID = [];
+//             var terminals = [];
+//             var terminalsID = [];
+
+//             //stocker les promises
+//             var promDep;
+//             var promArr;
+//             var promZone;
+
+//             //convert string to int (ascii addition)
+//             let idZone = convertStringToIntASCII(zoneName);  
+//             //create the zone                      
+//             promZone = dbZone.createZone(idZone, zoneName);
+
+//             for(let i = 0 ; i<legs.length ; i++){
+//                 //check if the legs type is post or bus
+//                 if(legs[i].type == 'post' || legs[i].type == 'bus'){
+
+//                     //add the lines to the array
+//                     lines.push(legs[i].line);
+//                     //add departure station of line
+//                     departures.push(legs[i].name)
+//                     //add terminal station of line
+//                     terminals.push(legs[i].terminal);
+//                     //add departure station id
+//                     departuresID.push(legs[i].stopid);
+
+//                     //get stopid terminal station
+//                     var stopidUrl = "https://timetable.search.ch/api/stationboard.en.json?stop=";                    
+//                     stopidUrl += legs[i].terminal.replace(/ /g, '%20');
+//                     requestData.getStopIDFromAPI(stopidUrl).then((terminalId) => {
+//                         //add the departure and terminal stations
+//                         promDep = dbStation.upsertStation(legs[i].stopid, legs[i].name);
+//                         promArr = dbStation.upsertStation(terminalId, legs[i].terminal);
+
+//                         Promise.all([promDep, promArr, promZone]).then((res) => {
+//                             dbLine.insertLine(legs[i].line, legs[i].name, legs[i].terminal, zoneName)
+//                             .then((idLine) => {
+//                                 //add relations between departure and line
+//                                 dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
+//                                 //add relations between terminal and line 
+//                                 console.log("RES1 : " +res[1]);       
+//                                 dbLineStation.insertStationIdAndLineId(res[1], idLine, (legs[i].stops.length +2), true);                                
+//                                 //add the stops and the relations with the line
+//                                 for(let k = 0 ; k<legs[i].stops.length ; k++){
+//                                     dbStation.upsertStation(legs[i].stops[k].stopid, legs[i].stops[k].name)
+//                                     .then((idStop) => {
+//                                         dbLineStation.insertStationIdAndLineId(idStop, idLine, (k+2), false);
+//                                     });
+//                                 }
+//                             });
+//                         })
+//                     })
+//                 }
+//             }
+//             res.redirect('/zone');               
+//         }).catch((err) => {
+//             console.log("Alekserror ! " + err);
+//             res.redirect('/zone');   
+//         });
+// });
+
 router.post('/create', (req, res, next) => {
-        //get values from form
-        let zoneName = req.body.zoneName;
-        let departure = req.body.departure.replace(/ /g, '%20');
-        let arrival = req.body.arrival.replace(/ /g, '%20'); 
+    //get all values from form
+    let zoneName = req.body.name;
+    let userId = req.body.userId;
 
-        var message;
-
-        //request the api with the correct url
-        var url = "https://timetable.search.ch/api/route.en.json?"    
-        //modify the url according to the stations    
-        url += "from=" + departure;
-        url += "&to="+ arrival;    
-        requestData.getDataFromAPI(url)
-        .then((obj) => {
-            var legs = obj.connections[0].legs;
-            // variables for lines dep and ter
-            var lines = [];
-            var departures = [];
-            var departuresID = [];
-            var terminals = [];
-            var terminalsID = [];
-
-            //stocker les promises
-            var promDep;
-            var promArr;
-            var promZone;
-
-            //convert string to int (ascii addition)
-            let idZone = convertStringToIntASCII(zoneName);  
-            //create the zone                      
-            promZone = dbZone.createZone(idZone, zoneName);
-
-            for(let i = 0 ; i<legs.length ; i++){
-                //check if the legs type is post or bus
-                if(legs[i].type == 'post' || legs[i].type == 'bus'){
-
-                    //add the lines to the array
-                    lines.push(legs[i].line);
-                    //add departure station of line
-                    departures.push(legs[i].name)
-                    //add terminal station of line
-                    terminals.push(legs[i].terminal);
-                    //add departure station id
-                    departuresID.push(legs[i].stopid);
-
-                    //get stopid terminal station
-                    var stopidUrl = "https://timetable.search.ch/api/stationboard.en.json?stop=";                    
-                    stopidUrl += legs[i].terminal.replace(/ /g, '%20');
-                    requestData.getStopIDFromAPI(stopidUrl).then((terminalId) => {
-                        //add the departure and terminal stations
-                        promDep = dbStation.upsertStation(legs[i].stopid, legs[i].name);
-                        promArr = dbStation.upsertStation(terminalId, legs[i].terminal);
-
-                        Promise.all([promDep, promArr, promZone]).then((res) => {
-                            dbLine.insertLine(legs[i].line, legs[i].name, legs[i].terminal, zoneName)
-                            .then((idLine) => {
-                                //add relations between departure and line
-                                dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
-                                //add relations between terminal and line 
-                                console.log("RES1 : " +res[1]);       
-                                dbLineStation.insertStationIdAndLineId(res[1], idLine, (legs[i].stops.length +2), true);                                
-                                //add the stops and the relations with the line
-                                for(let k = 0 ; k<legs[i].stops.length ; k++){
-                                    dbStation.upsertStation(legs[i].stops[k].stopid, legs[i].stops[k].name)
-                                    .then((idStop) => {
-                                        dbLineStation.insertStationIdAndLineId(idStop, idLine, (k+2), false);
-                                    });
-                                }
-                            });
-                        })
-                    })
-                }
-            }
-            res.redirect('/zone');               
-        }).catch((err) => {
-            console.log("Alekserror ! " + err);
-            res.redirect('/zone');   
+    //create the zone
+    dbZone.createZone(zoneName).then((zoneId) => {
+        dbUser.updateUserZoneId(userId,zoneId).then(() => {
+            res.send('success')
         });
+    });
 });
 
 function convertStringToIntASCII(zone){

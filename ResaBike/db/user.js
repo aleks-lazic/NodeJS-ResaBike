@@ -1,7 +1,6 @@
 var models = require('../models');
 var dbRole = require('../db/role');
 
-
 var checkUsernameExists = function(username){
     return new Promise((resolve, reject)=>{
         models.User.findOne({
@@ -90,6 +89,54 @@ var deleteUser = function(id){
     })
 }
 
+var getAllUsersByRole = function(roleName){
+    return new Promise((resolve, reject) => {
+        dbRole.getIdRoleByName(roleName).then((idRole) => {
+            models.User.findAll({
+                where:{
+                    RoleId: idRole
+                }
+            }).then(users =>{
+                resolve(users);
+            }).catch((err)=>{
+                reject(err.message);
+            })
+        });
+    })
+}
+
+var updateUserZoneId = function(idUser, idZone){
+    return new Promise((resolve, reject) => {
+        models.User.update({
+            ZoneId: idZone},
+            { where: {
+                id: idUser
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
+var getUserByZoneId = function(idZone){
+    return new Promise((resolve, reject) => {
+        models.User.findAll({
+            where:{
+                ZoneId: idZone
+            }
+        }).then(users =>{
+            resolve(users);
+        }).catch((err)=>{
+            reject(err.message);
+        })
+    });
+}
+
+exports.getUserByZoneId = getUserByZoneId;
+exports.updateUserZoneId = updateUserZoneId;
+exports.getAllUsersByRole = getAllUsersByRole;
 exports.deleteUser = deleteUser;
 exports.updateUserOnlyMail = updateUserOnlyMail;
 exports.updateUser = updateUser;

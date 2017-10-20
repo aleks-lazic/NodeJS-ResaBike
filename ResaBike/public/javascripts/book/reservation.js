@@ -1,4 +1,7 @@
 function reservation(stationFrom, stationArrival, timeDep, idLine, nbBike){
+    // alert(stationFrom);
+    // return;
+
     //create the book object that will be used in the post
     var book = {
         from: stationFrom,
@@ -8,7 +11,7 @@ function reservation(stationFrom, stationArrival, timeDep, idLine, nbBike){
         nbBike: nbBike
     }
 
-    window.alert("TEST");
+    //alert(idLine + " , " + timeDep + " , " + nbBike);
 
     $.ajax({
         type: 'POST',

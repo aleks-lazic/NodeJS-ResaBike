@@ -76,6 +76,21 @@ var updateUserOnlyMail = function(email, id){
     })
 }
 
+var deleteUser = function(id){
+    return new Promise((resolve, reject) => {
+        models.User.destroy({
+            where:{
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.deleteUser = deleteUser;
 exports.updateUserOnlyMail = updateUserOnlyMail;
 exports.updateUser = updateUser;
 exports.getAllUsers = getAllUsers;

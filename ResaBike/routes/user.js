@@ -62,16 +62,13 @@ router.get('/getAllRoles', (req, res, next) => {
 
 //PUT update existing user
 router.put('/update', (req, res, next) => {  
-    console.log("SAME + typeof:"+req.body.same + typeof(req.body.same));  
     //if the username has not changed
     if(req.body.same == 'true'){
-        console.log("JE SUIS DANS LE IF");
         //update only the mail
         dbUser.updateUserOnlyMail(req.body.email, req.body.id).then(() => {
             res.send("success");
         })
     } else {
-        console.log("JE SUIS DANS LE ELSE");        
         //check if the username already exists
         dbUser.checkUsernameExists(req.body.username).then((user) => {
             console.log("username : " + req.body.username);
@@ -82,12 +79,20 @@ router.put('/update', (req, res, next) => {
                     res.send("success");
                 });
             } else {
-                console.log("THE USER EXISTS");
                 res.send("username");
             }
         }); 
     }
 })
+
+//DELETE user
+router.delete('/:id', (req, res, next) => {
+    dbUser.deleteUser(req.params.id).then(() => {
+        res.send('success');
+    })
+})
+
+
 
 
 module.exports = router;

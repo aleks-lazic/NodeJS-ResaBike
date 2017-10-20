@@ -104,3 +104,9 @@
   select{
     display: block;
   }
+
+  /*modify the float action button to be align left*/
+  .float-align-right {
+    .right-align;
+    
+  }

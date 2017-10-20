@@ -18,7 +18,7 @@ block content
                 td
                     a(type="button", class="waves-effect waves-light btn", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) Edit
                 td
-                    a(class="waves-effect waves-light btn") Delete
+                    a(class="waves-effect waves-light btn" onclick=`deleteUser(${x.id})`) Delete
     
     div(id="modal1" class="modal")
         div(class="modal-content")
@@ -32,9 +32,9 @@ block content
         div(class="modal-footer")
             a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) Agree
 
-
-    a(href="/user/create")
-        p= "Create new user"
+    div(class="right-align float-align-right")
+        a(href="/user/create", class="btn-floating btn-large waves-effect waves-light")
+            i(class="material-icons") add
 
     script(src="/javascripts/user/getAllUsers.js", type="text/javascript")
 

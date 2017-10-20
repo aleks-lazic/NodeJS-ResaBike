@@ -50,3 +50,14 @@ function modifyUser(){
         }
     });
 }
+
+function deleteUser(id){
+    //ajax DELETE
+    $.ajax({
+        url : '/user/'+id,
+        type : 'DELETE',
+        success : function(res){
+            window.location.href = '/user';
+        }
+    });
+}

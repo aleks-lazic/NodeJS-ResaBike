@@ -83,7 +83,7 @@ router.post('/book', function(req, res, next){
             }
         }
 
-        console.log(arrayTimeDeparture + "," + arrayTimeArrival +","+departureFrom + ","+ arrivalTo + "," + nbBike + "," + linesWithoutDuplicates);
+        //console.log(arrayTimeDeparture + "," + arrayTimeArrival +","+departureFrom + ","+ arrivalTo + "," + nbBike + "," + linesWithoutDuplicates);
 
         res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates});
     }).catch((err)=>{

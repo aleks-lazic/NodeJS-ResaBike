@@ -26,20 +26,8 @@ block content
                     td #{arrayTimeArrival[index].split(" ")[1]}
                     td PLACES
                     td
-                        button(class="btn waves-effect waves-light" type="button", onclick=`reservation(${departureFrom},${arrivalTo},${arrayTimeDeparture[index]},${lines},${nbBike})`) Reservation
+                        button(class="btn waves-effect waves-light" type="button", onclick=`reservation(${JSON.stringify(departureFrom)}, ${JSON.stringify(arrivalTo)}, ${JSON.stringify(arrayTimeDeparture[index])}, ${JSON.stringify(lines)}, ${JSON.stringify(nbBike)})`) Reservation
                             i(class="material-icons right") book
-
-        p #{departureFrom}
-        br
-        p #{arrivalTo}
-        br
-        p #{arrayTimeDeparture}
-        br
-        p #{lines}
-        br
-        p #{nbBike}
-        br
-
 
     script(src="javascripts/book/reservation.js", type="text/javascript")
 

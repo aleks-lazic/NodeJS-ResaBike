@@ -11,12 +11,11 @@ function modalModifyUser(name, mail, id){
 
     //open modal
     $('.modal').modal();
-    $('#modal1').modal('open');
+    $('#modalUpdateUser').modal('open');
 }
 
 //modal to update the user
 function modifyUser(){
-
     //get values from modal's input
     var username = document.getElementById('username').value;
     var email = document.getElementById('email').value;
@@ -47,7 +46,9 @@ function modifyUser(){
             if(res == 'username'){
                 alert('The username already exists');
             } else if(res == 'success'){
-                window.location.href = '/user';
+                $('.modal').modal();                
+                $('#modalUpdateUser').modal('close');                
+                $('#usersTable').load(' #usersTable');
             }
         }
     });
@@ -79,16 +80,14 @@ function modalCreateUser(){
 //create the user on create button
 function createUser(){
 
-    let username = document.getElementById('usernamee').value;
+    var username = document.getElementById('usernamee').value;
     var password = document.getElementById('passwordd').value;
     var password2 = document.getElementById('passwordd2').value;
     var email = document.getElementById('emaill').value;
     var roleIndex = document.getElementById('selectRole');
     var role = roleIndex.options[roleIndex.selectedIndex].value; 
 
-    console.log("username : " + username);
-
-    // //create the object to create the user
+    //create the object to create the user
     var user = {
         username: username,
         password: password,
@@ -131,7 +130,7 @@ function deleteUser(id){
         url : '/user/'+id,
         type : 'DELETE',
         success : function(res){
-            window.location.href = '/user';
+            $('#usersTable').load(' #usersTable');            
         }
     });
 }

@@ -9,6 +9,13 @@ router.get('/create', function(req, res, next) {
     res.render('createUser');
 });
 
+//GET all ZONEADMINS
+router.get('/getAllZoneAdmin', function(req, res, next) {
+    dbUser.getAllUsersByRole("zoneadmin").then((users) => {
+        res.send(JSON.stringify(users));
+    })
+});
+
 //GET all users
 router.get('/', function(req, res, next) {
     var promises = [];

@@ -1,6 +1,10 @@
 $(document).ready(function() {
     $('#submitt_confirm').click(function() {
-      reservation($('#departureFrom').val(),$('#arrivalTo').val(),$('#dateDep').val(),$('#nbBike').val(),$('#email').val());
+        var stationFrom = document.getElementById("departureFrom").innerHTML ;
+        var stationArrival = document.getElementById("arrivalTo").innerHTML ;
+        var timeDep = document.getElementById("dateDep").innerHTML ;
+        var nbBike = document.getElementById("nbBike").innerHTML ;
+      reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val());
     });
 });
 

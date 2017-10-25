@@ -35,7 +35,7 @@ router.get('/', function(req, res, next) {
     }) 
 });
 
-//POST create new user
+//POST CREATE new user
 router.post('/create', (req, res, next) => {
     //check if the username already exists
     dbUser.checkUsernameExists(req.body.username).then((user) => {
@@ -43,9 +43,15 @@ router.post('/create', (req, res, next) => {
             //the user does not exist, check if the passwords are the same
             if(req.body.password == req.body.password2){
                 //passwords ok, create the user in the db
-                dbUser.createUser(req.body.username, req.body.password, req.body.email, req.body.role).then(() => {
-                    res.send(JSON.stringify('success'));
-                })
+                if(req.body.idZone > 0){
+                    dbUser.createUserWithZoneId(req.body.username, req.body.password, req.body.email, req.body.role, req.body.idZone).then(() => {
+                        res.send(JSON.stringify('success'));
+                    })
+                } else {
+                    dbUser.createUser(req.body.username, req.body.password, req.body.email, req.body.role).then(() => {
+                        res.send(JSON.stringify('success'));
+                    })
+                }
             } else {
                 //the passwords are not matching
                 res.send(JSON.stringify('password'));

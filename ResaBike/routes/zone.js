@@ -12,23 +12,17 @@ var zones;
 
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
-    var promises = [];
     //get all zones
     dbZone.getAllZones().then((zones) => {
-        //get all users for each zones
-        zones.forEach((z) => {
-            promises.push(dbUser.getUserByZoneId(z.id));
-        })
+        res.render('zoneAllIndex', {zones: zones}); 
+    })
+});
 
-        Promise.all(promises).then((result) => {
-            var users = [];
-            for(let k = 0 ; k<result.length ; k++){
-                users.push(result[k].username);
-                console.log(result[k]);
-            }
-
-            res.render('zoneAllIndex', {zones: zones, users: users});                    
-        })
+/* GET all zones to populate the dropdown */
+router.get('/getAllZones', (req, res, next) => {
+    //get all zones
+    dbZone.getAllZones().then((zones) => {
+        res.send(JSON.stringify(zones));                           
     })
 });
 

@@ -33,6 +33,25 @@ var createUser = function(username, password, email, role){
     })
 }
 
+var createUserWithZoneId = function(username, password, email, role, zoneId){
+    return new Promise((resolve, reject) => {
+        //get the role's id with the role
+        dbRole.getIdRoleByName(role).then((idRole) => {
+            models.User.create({
+                username: username,
+                password: password,
+                mail: email,
+                RoleId: idRole,
+                ZoneId: zoneId
+            }).then(() => {
+                resolve();
+            }).catch((err)=> {
+                reject(err.message);
+            });
+        })
+    })
+}
+
 var getAllUsers = function(){
     return new Promise((resolve, reject)=>{
         models.User.findAll({
@@ -134,6 +153,7 @@ var getUserByZoneId = function(idZone){
     });
 }
 
+exports.createUserWithZoneId = createUserWithZoneId;
 exports.getUserByZoneId = getUserByZoneId;
 exports.updateUserZoneId = updateUserZoneId;
 exports.getAllUsersByRole = getAllUsersByRole;

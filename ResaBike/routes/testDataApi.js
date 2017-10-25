@@ -109,6 +109,10 @@ function addLinesFromAPI(){
 //     })
 // });
 
+//addStationsFromAPI();
+//addLinesFromAPI();
+
+
 // dbStation.deleteStation(8501996);
 
 exports.getDataFromAPI = getDataFromAPI;

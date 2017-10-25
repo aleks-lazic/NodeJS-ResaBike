@@ -12,8 +12,8 @@ var insertReservation = function(time, token, nbBike, stationDeparture, stationT
             DepartureId: stationDeparture,
             ArrivalId: stationTerminal,
             mail: email
-        }).then(() =>{
-            resolve();
+        }).then((book) =>{
+            resolve(book.id);
         }).catch((err) =>{
             reject(err.message);
         });
@@ -21,4 +21,19 @@ var insertReservation = function(time, token, nbBike, stationDeparture, stationT
     })
 }
 
+var deleteReservationByToken = function(token){
+    return new Promise((resolve, reject) => {
+        models.Book.destroy({
+            where:{
+                token: token
+            }
+        }).then(() => {                  
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.deleteReservationByToken = deleteReservationByToken ;
 exports.insertReservation = insertReservation ;

@@ -1,4 +1,6 @@
 var userName;
+var alreadyChanged = false;
+var selectUserAlreadyOk = false;
 
 //modal to open the update user
 function modalModifyUser(name, mail, id){
@@ -56,25 +58,65 @@ function modifyUser(){
 
 //modal to open the create user
 function modalCreateUser(){
-    //load all the roles
-     $.ajax({
-        url : '/user/getAllRoles',
-        type : 'GET',
-        success : function(data){
-            data = JSON.parse(data);
-            var select = document.getElementById('selectRole');
-            data.forEach(function(element) {
-                var opt = document.createElement("option");
-                opt.value = element.name;
-                opt.textContent = element.name;
-                select.appendChild(opt);
-            }, this);
-        }
-    });
 
+    if(!selectUserAlreadyOk){
+        //load all the roles
+        $.ajax({
+            url : '/user/getAllRoles',
+            type : 'GET',
+            success : function(data){
+                selectUserAlreadyOk = true;
+                data = JSON.parse(data);
+                var select = document.getElementById('selectRole');
+                data.forEach(function(element) {
+                    var opt = document.createElement("option");
+                    opt.value = element.name;
+                    opt.textContent = element.name;
+                    select.appendChild(opt);
+                }, this);
+            }
+        });
+    }
+    
     //open modal
     $('.modal').modal();
     $('#modalCreateUser').modal('open');
+}
+
+//ON CHANGE load zones
+function loadZones(){
+    var select = document.getElementById('selectZone');
+    var roleIndex = document.getElementById('selectRole');
+    var role = roleIndex.options[roleIndex.selectedIndex].value; 
+
+    if(alreadyChanged){
+        if(role != 'sysadmin') {
+            select.style.visibility = 'visible';             
+        } else {
+            select.style.visibility = 'hidden';                         
+        }
+        return;
+    } 
+    console.log(alreadyChanged);
+    alreadyChanged = true;
+    
+    if(role != 'sysadmin'){
+        select.style.visibility = 'visible';        
+        //load all the zones
+        $.ajax({
+            url : '/zone/getAllZones',
+            type : 'GET',
+            success : function(data){
+                console.log(data);
+                data.forEach(function(element) {
+                    var opt = document.createElement("option");
+                    opt.value = element.id;
+                    opt.textContent = element.name;
+                    select.appendChild(opt);
+                }, this);
+            }
+        });
+    }
 }
 
 //create the user on create button
@@ -86,6 +128,14 @@ function createUser(){
     var email = document.getElementById('emaill').value;
     var roleIndex = document.getElementById('selectRole');
     var role = roleIndex.options[roleIndex.selectedIndex].value; 
+    var zoneIndex = document.getElementById('selectZone');
+    var idZone = zoneIndex.options[zoneIndex.selectedIndex].value;
+
+    if(idZone > 0){
+
+    } else {
+        idZone = 0;
+    }
 
     //create the object to create the user
     var user = {
@@ -93,7 +143,8 @@ function createUser(){
         password: password,
         password2: password2,
         email: email,
-        role: role
+        role: role,
+        idZone: idZone
     };
     
     $.ajax({

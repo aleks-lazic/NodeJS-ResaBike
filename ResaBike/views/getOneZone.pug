@@ -1,0 +1,44 @@
+extends layoutUser
+
+block content
+    h1= zone.name
+
+    table(id="linesTable" class="responsive-table")
+            tr
+                th From
+                th To
+                th Delete
+            each x, index in lines
+                tr
+                    td= x.departure
+                    td= x.terminal
+                    td
+                        a(class="btn waves-effect waves-light" onclick=`deleteZone()`) Delete
+    
+    //- Floating action button to create a user
+    div(class="right-align float-align-right")
+        a(class="btn-floating btn-large waves-effect waves-light" onclick=`modalCreateLine(${JSON.stringify(zone.id)})`)
+            i(class="material-icons") add
+
+    //- Modal for the creation of lines
+    div(id="modalCreateLine" class="modal")
+        div(class="modal-content")
+            h4= "Create new line"
+            form(id="formCreateLine")
+                div.row
+                    div(class="input-field")
+                        input(class="autocomplete", type="text",class="validate", id="departure" required autocomplete="off" placeholder="Station departure")
+                div.row
+                    div(class="input-field")
+                        input(class="autocomplete", type="text",class="validate", id="arrival" required autocomplete="off" placeholder="Station arrival")
+                        input(id="id" type="hidden")
+
+        div(class="modal-footer")
+            a(class="waves-effect waves-green btn-flat" onclick=`createLines()`) Create
+
+
+
+    script(src="/javascripts/zone/getOneZone.js", type="text/javascript")
+
+
+

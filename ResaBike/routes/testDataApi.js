@@ -80,6 +80,31 @@ function addLinesFromAPI(){
     
 }
 
+function getDepartureAndTerminalFromAPI(terminalStation, idLine){
+    return new Promise((resolve, reject) => {
+        let url = 'http://timetable.search.ch/api/stationboard.en.json?stop=' + terminalStation
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                var obj = JSON.parse(body);
+                var object = {
+                    departure: "",
+                    terminal: terminalStation
+                }
+
+                obj.connections.some((o) => {
+                    if(o.line == idLine){
+                        object.departure = o.terminal.name;
+                        return;
+                    }
+                })
+                url = 'http://timetable.search.ch/api/route.en.json?from='+object.departure + '&to=' + terminalStation;
+                getDataFromAPI(url).then((object) => {
+                    resolve(object);
+                })
+            }
+        })  
+    })
+}
 // function addRelationsBetweenStationsAndLines(){
 //     getDataFromAPI(url)
 //     .then((obj) =>{
@@ -115,5 +140,6 @@ function addLinesFromAPI(){
 
 // dbStation.deleteStation(8501996);
 
+exports.getDepartureAndTerminalFromAPI = getDepartureAndTerminalFromAPI;
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

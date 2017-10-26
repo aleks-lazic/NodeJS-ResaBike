@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var dbStation = require('../db/station');
 var dbBook = require('../db/book');
+var email = require('../modules/email');
+var crypto = require('crypto');
 
 
 /* GET book Page */
@@ -20,9 +22,18 @@ router.post('/confirm', function(req, res, next){
     let arrivalTo = req.body.arrival ;
     let timeDep = req.body.timeDep ;
     let nbBike = req.body.nbBike ;
-    let mail = req.body.email ;
+    let mailUser = req.body.email ;
+    let mailSubject = 'Reservation confirmation - Resabike ';
+    let mailContent = '<h1>Reservation confirmation</h1></br><p>Departure From :' + departureFrom + ', to : ' + arrivalTo + ', on : ' + timeDep + ', with : ' + nbBike + ' Bikes</p>' ;
+    let randomNumber = Math.random() ;
+    let tokenToEncrypt = mailUser + nbBike + timeDep + randomNumber;
+    //console.log(departureFrom + " ," + arrivalTo + " , " + timeDep + ", " + nbBike + " ," + mailUser);
 
-    console.log(departureFrom + " ," + arrivalTo + " , " + timeDep + ", " + nbBike + " ," + mail);
+    let secretKey = 'youWillNeverKnowTheKey12345';
+    let token = crypto.createHmac('sha256', secretKey)
+                       .update(tokenToEncrypt)
+                       .digest('hex');
+    console.log(token);
 
     let arrProm = [] ;
 
@@ -36,16 +47,27 @@ router.post('/confirm', function(req, res, next){
         
 
         //Replace 1 with TOKEN when working with the tokens
-        //dbBook.insertReservation(timeDep, 1, nbBike, idDeparture, idArrival, mail);
+        dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser);
 
         //console.log(idDeparture + ", " + idArrival);
     })
+
+    email.createEmail(mailUser, mailSubject, mailContent);
 
 
 
     //console.log(departureFrom + ", " + arrivalTo + " , " + timeDep + " , " + lineId + " , " + nbBike);
 
 });
+
+router.get('/delete/:token', function(req, res, next){
+    var token = req.params.token ;
+    console.log(token);
+    dbBook.deleteReservationByToken(token).then(()=>{
+        //If successfull
+          
+    });
+})
 
 // router.get('/back', function(req, res, next){
 //     /* GET back to home page. */

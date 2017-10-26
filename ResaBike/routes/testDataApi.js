@@ -134,6 +134,10 @@ function getDepartureAndTerminalFromAPI(terminalStation, idLine){
 //     })
 // });
 
+//addStationsFromAPI();
+//addLinesFromAPI();
+
+
 // dbStation.deleteStation(8501996);
 
 exports.getDepartureAndTerminalFromAPI = getDepartureAndTerminalFromAPI;

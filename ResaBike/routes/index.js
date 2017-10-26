@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbStation = require('../db/station');
 var requestData = require('./testDataApi');
+var email = require('../modules/email');
 
 
 /* GET home page. */
@@ -90,6 +91,23 @@ router.post('/book', function(req, res, next){
         res.send('Error : ' + err.message);
     })
 
+});
+
+router.post('/sendMail', function(req, res, next){
+    //Retrieving information from contact form
+    let name_form = req.body.name_mail ;
+    let email_form = req.body.email_mail ;
+    let subject_form = req.body.subject_mail ;
+    let message_form = req.body.message_mail ;
+
+    //Sending email to myself
+    let mailAddress = 'resabike.test@gmail.com';
+    let mailSubject = name_form + ' - ' + email_form + ' - ' + subject_form ;
+    let mailContent = message_form ;
+
+    email.createEmail(mailAddress, mailSubject, mailContent);
+
+    res.redirect('/');
 });
 
 module.exports = router;

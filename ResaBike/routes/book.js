@@ -23,8 +23,8 @@ router.post('/confirm', function(req, res, next){
     let timeDep = req.body.timeDep ;
     let nbBike = req.body.nbBike ;
     let mailUser = req.body.email ;
-    let mailSubject = 'Reservation confirmation - Resabike ';
-    let mailContent = '<h1>Reservation confirmation</h1></br><p>Departure From :' + departureFrom + ', to : ' + arrivalTo + ', on : ' + timeDep + ', with : ' + nbBike + ' Bikes</p>' ;
+
+    //Creating a random token(hash) to be able to delete the reservation
     let randomNumber = Math.random() ;
     let tokenToEncrypt = mailUser + nbBike + timeDep + randomNumber;
     //console.log(departureFrom + " ," + arrivalTo + " , " + timeDep + ", " + nbBike + " ," + mailUser);
@@ -33,7 +33,28 @@ router.post('/confirm', function(req, res, next){
     let token = crypto.createHmac('sha256', secretKey)
                        .update(tokenToEncrypt)
                        .digest('hex');
-    console.log(token);
+    //console.log(token);
+
+    let urlToDelete = "http://localhost:3000/book/delete/" + token ;
+
+    let mailSubject = 'Reservation confirmation - Resabike ';
+    let mailContent = `<div>
+                            <h1>Reservation Confirmation</h1>
+                        </div>
+                        
+                        <div>
+                            <p>Date : ${timeDep}
+                            <br>Departure From : ${departureFrom}
+                            <br>To : ${arrivalTo}
+                            <br>Numbers of bike : ${nbBike}</p>
+                        </div>
+                        
+                        <br>
+                        <div>
+                        <p>If you want to delete the reservation, you juste have to press this link : <a href="${urlToDelete}">Delete confirmation</a></p>
+                        </div>` ;
+    
+    console.log(urlToDelete);
 
     let arrProm = [] ;
 
@@ -61,18 +82,20 @@ router.post('/confirm', function(req, res, next){
 });
 
 router.get('/delete/:token', function(req, res, next){
+    
     var token = req.params.token ;
-    console.log(token);
+    //console.log(token);
     dbBook.deleteReservationByToken(token).then(()=>{
-        //If successfull
-          
+        //If successfull redirect user to a delete confirmation page
+        res.render('delete');
     });
+
 })
 
-// router.get('/back', function(req, res, next){
-//     /* GET back to home page. */
-//     return res.redirect('index');
-// });
+router.get('/back', function(req, res, next){
+     /* GET back to home page. */
+    return res.redirect('/');
+});
 
 
 module.exports = router;

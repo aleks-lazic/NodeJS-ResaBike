@@ -7,3 +7,10 @@ function confirmReservation(arrayTimeDeparture){
     $('.modal').modal();
     $('#modal1').modal('open');
 }
+
+//Closing modal and print a successfull message to the user
+function successFullReservation(){
+    $('.modal').modal();
+    $('#modal1').modal('close');
+    Materialize.toast('Reservation has been successfull', 3000, 'rounded')
+}

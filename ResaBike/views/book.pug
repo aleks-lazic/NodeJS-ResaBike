@@ -27,8 +27,8 @@ block content
                     td
                         button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index])})`) Reservation
                             i(class="material-icons right") book
-
-        //- button(class="btn waves-effect waves-light" type="button" action="/back")
+        br
+        button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") Go Back
     //- Modal for the modification of a user
     div(id="modal1" class="modal")
         div(class="modal-content")
@@ -51,27 +51,14 @@ block content
                 p(style="font-weight:bold;") Enter your email address to confirm reservation :
                 input(type="email" placeholder="Email", autofocus, name="email" id="email" autocomplete="off" required)
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" id="submitt_confirm") Confirm Reservation
-        
+            a(class="waves-effect waves-green btn-flat" id="submitt_confirm" onclick="successFullReservation()") Confirm Reservation
+    
+    //- Redirecting to index to do another search
+    script.
+        $('#goBack').click(function() {
+            window.location.href = 'http://localhost:3000/';
+        });
+    
 
     script(src="javascripts/book/reservation.js", type="text/javascript")
     script(src="javascripts/book/modalConfirm.js", type="text/javascript")
-
-    //-                     a(id="LogicLink" onclick="showTable();")
-    //-                         i(class="material-icons") arrow_drop_down_circle
-    //-     table(id="tableTime" style="display:none")
-    //-                         tr
-    //-                             td Address
-
-    //- script.
-    //-     function showTable()
-    //-     {
-    //-         var elem=document.getElementById("tableTime");
-    //-         var hide = elem.style.display =="none";
-    //-         if (hide) {
-    //-             elem.style.display="table";
-    //-         } 
-    //-         else {
-    //-         elem.style.display="none";
-    //-         }
-    //-     }

@@ -36,7 +36,9 @@ app.use('/user', user);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+  //next(err);
+  //Redirecting to index if there is any error
+  res.redirect('/');
 });
 
 // error handler

@@ -66,6 +66,38 @@ var getZoneById = function(id) {
     })
 }
 
+var updateZoneById = function(id, name){
+    return new Promise((resolve, reject) => {
+        models.Zone.update({
+            name: name
+            },
+            {where:{
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
+var deleteZone = function(id) {
+    return new Promise((resolve, reject) => {
+        models.Zone.destroy({
+            where:{
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.deleteZone = deleteZone;
+exports.updateZoneById = updateZoneById;
 exports.upsertZone = upsertZone;
 exports.createZone = createZone;
 exports.getZoneIdByName = getZoneIdByName;

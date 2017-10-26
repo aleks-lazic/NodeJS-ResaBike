@@ -7,14 +7,13 @@ var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
 var dbUser = require('../db/user');
-var zoneSelected;
 var zones;
 
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
     //get all zones
     dbZone.getAllZones().then((zones) => {
-        res.render('zoneAllIndex', {zones: zones}); 
+        res.render('getAllZones', {zones: zones}); 
     })
 });
 
@@ -42,41 +41,31 @@ router.delete('/delete/line/:id', (req, res, next) => {
 })
 
 //get one zone home page
-router.get('/get/:id', (req, res, next) => {
-    let lines;
-    var stations;
-    //get the zone by id
-    dbZone.getZoneById(req.params.id).then((zone) => {
-        //save the selected zone
-        zoneSelected = zone;
-        //get the lines depending on the zone
+router.get('/:id', (req, res, next) => {
+    let promises = [];
+    //get the selected zone
+    promises.push(dbZone.getZoneById(req.params.id));
+    //get the lines depending on the zone
+    promises.push(dbLine.getLinesByIdZone(req.params.id));
+
+    Promise.all(promises).then((resu) => {
+        var stationsPromises = [];
         var lines = [];
-        var departures = [];
-        var terminals = [];
-        var promises = [];
-        
-        dbLine.getLinesByIdZone(zone.id).then((resu) => {
-            lines = resu;
-            lines.forEach(function(l){
-                console.log(l.DepartureId + " " + l.ArrivalId)
-                promises.push(dbStation.getDepartureAndTerminalStationWithIdLine(l.DepartureId, l.ArrivalId));
-            })            
-
-            Promise.all(promises).then((result) => {
-                for(let k = 0 ; k<promises.length; k++){
-                    departures.push(result[k].dep);
-                    terminals.push(result[k].ter);
-                }
-                res.render('zoneOneIndex', {zone: zone, lines: lines , dep: departures, ter: terminals});            
-            })
+        resu[1].forEach((line) => {
+            stationsPromises.push(dbStation.getStationById(line.DepartureId).then((station) => {
+                line['departure'] = station.name;
+            }));
+            stationsPromises.push(dbStation.getStationById(line.ArrivalId).then((station) => {
+                line['terminal'] = station.name                
+            }));
         })
-    })    
+
+        Promise.all(stationsPromises).then((stations) => {
+            res.render('getOneZone', {zone: resu[0], lines : resu[1]})                                                        
+        })
+    })   
 });
 
-//get the create zone page
-router.get('/create', (req, res, next) => {
-    res.render('createZone');
-});
 
 //POST when you receive the name and the stations for zone creation
 // router.post('/create', (req, res, next) => {
@@ -160,27 +149,83 @@ router.get('/create', (req, res, next) => {
 //         });
 // });
 
+router.post('/create/line', (req, res, next) => {
+    console.log(req.body.idZone + "ZOOOOOONE");
+    //get values from body
+    let departure = req.body.departure;
+    let arrival = req.body.arrival;
+
+    //modify the url depending on departure and arrival
+    var url = "http://timetable.search.ch/api/route.en.json?from=";
+
+    //get values form api
+    requestData.getDataFromAPI(url + departure + '&to=' + arrival).then((object) => {
+        //récupérer les lines
+        var legs = object.connections[0].legs;
+        legs.forEach((l) => {
+            if(l.type == 'post' || l.type == 'bus'){
+                //aller chercher le bon departure
+                requestData.getDepartureAndTerminalFromAPI(l.terminal,l.line).then((obj) => {
+                    //nous avons le bon departure et le bon terminal
+                    //on peut ajouter la ligne dans la base de données
+                    legs = obj.connections[0].legs;
+                    legs.forEach((line) => {
+                        if(line.type == 'post' || line.type == 'bus'){
+                            var promises = [];
+                            //insert the departure station into the db
+                            promises.push(dbStation.upsertStation(line.stopid, line.name));
+                            //insert the terminal station into the db
+                            promises.push(dbStation.upsertStation(line.exit.stopid, line.exit.name));                        
+
+                            Promise.all(promises).then((res) => {
+                                dbLine.insertLine(line.line, line.name, line.terminal, req.body.idZone).then((idLine) => {
+                                    dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
+                                    dbLineStation.insertStationIdAndLineId(res[1], idLine, line.stops.length + 2, true);
+                                    for(let k = 0 ; k<line.stops.length ; k++){
+                                        let s = line.stops[k];
+                                        dbStation.upsertStation(s.stopid, s.name).then(() => {
+                                            dbLineStation.insertStationIdAndLineId(s.stopid, idLine, k+2, false);
+                                        })
+                                    }
+                                });
+                            })
+                        }   
+                    })
+                    res.send('success');
+                })
+            }
+        })
+    })
+})
+
 router.post('/create', (req, res, next) => {
     //get all values from form
     let zoneName = req.body.name;
-    let userId = req.body.userId;
 
     //create the zone
-    dbZone.createZone(zoneName).then((zoneId) => {
-        dbUser.updateUserZoneId(userId,zoneId).then(() => {
-            res.send('success')
-        });
+    dbZone.createZone(zoneName).then(() => {
+        res.send('success')
     });
+
 });
 
-function convertStringToIntASCII(zone){
-    zone = zone.toLowerCase();
-    let res = 0;
-    for(let i = 0 ; i<zone.length ; i++)
-        res += zone.charCodeAt(i);
-    return res;
-}
+router.put('/update', (req, res, next) => {
+    //get all values from form
+    let zoneName = req.body.name;
+    let id = req.body.id;
 
+    //update the zone
+    dbZone.updateZoneById(id, zoneName).then(() => {
+        res.send('success')        
+    })
+});
+
+router.delete('/delete/:id', (req, res, next) => {
+    console.log('delete');
+    dbZone.deleteZone(req.params.id).then(() => {
+        res.send('success');
+    })
+})
 
 
 module.exports = router;

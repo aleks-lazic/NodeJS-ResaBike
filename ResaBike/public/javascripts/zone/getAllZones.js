@@ -1,69 +1,18 @@
-$(document).ready(function() {
-
-    //autocomplete part
-    /* Autocomplete pour les Zones, modifier les #id */
-
-    $(function() {
-        $("#autocomplete-input").on("input",function(e){
-            var input = $(this).val();
-            $.ajax({
-                type: 'GET',
-                url: "https://timetable.search.ch/api/completion.json?term="+input,
-                success: function(response) {
-                  var stationArray = response;
-                  var dataStation = {};
-                  for (var i = 0; i < stationArray.length; i++) {
-                    //console.log(stationArray[i].label);
-                    dataStation[stationArray[i].label] = null; //countryArray[i].flag or null
-                  }
-                  $('input.autocomplete').autocomplete({
-                    data: dataStation,
-                    limit: 10, // The max amount of results that can be shown at once. Default: Infinity.
-                                onAutocomplete: function(val) {
-                    // Callback function when value is autcompleted.
-                    },
-                    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-                });
-                }
-              });
-        })
-    });
-});
-
+//Open the modal to create a zone
 function modalCreateZone(){
-    //get all zone admins
-    $.ajax({
-        url : '/user/getAllZoneAdmin',
-        type : 'GET',
-        success : function(data){
-            data = JSON.parse(data);
-            var select = document.getElementById('selectUser');
-            data.forEach(function(element) {
-                console.log(element);                
-                var opt = document.createElement("option");
-                opt.value = element.id;
-                opt.textContent = element.username;
-                select.appendChild(opt);
-            }, this);
-        }
-    });
-
     //open modal
     $('.modal').modal();
     $('#modalCreateZone').modal('open');
 }
 
+//AJAX POST to create the zone
 function createZone(){
-
     //get all values from form
     var name = document.getElementById('name').value;
-    var userIndex = document.getElementById('selectUser');
-    var userId = userIndex.options[userIndex.selectedIndex].value; 
     
     //create the object to create the zone
     var zone = {
         name: name,
-        userId: userId
     };
 
     // POST ajax to create the zone
@@ -72,7 +21,65 @@ function createZone(){
         type : 'POST',
         data: zone,
         success : function(res){
-          
+            $('.modal').modal();                
+            $('#modalCreateZone').modal('close');                
+            $('#zonesTable').load(' #zonesTable');
+            $('#formCreateZone')[0].reset();                                            
         }
     });
 }
+
+//Open the modal to edit a zone
+function modalEditZone(name, id){
+    //get the current zone name and id
+    document.getElementById('editName').value = name;
+    document.getElementById('id').value = id;
+
+    //open modal
+    $('.modal').modal();
+    $('#modalEditZone').modal('open');
+}
+
+//AJAX PUT to edit the zone
+function editZone(){
+    var name = document.getElementById('editName').value;
+    var id = document.getElementById('id').value;
+    
+    var zone = {
+        name: name,
+        id: id
+    };
+
+     // POST ajax to create the zone
+     $.ajax({
+        url : '/zone/update',
+        type : 'PUT',
+        data: zone,
+        success : function(res){
+            $('.modal').modal();                
+            $('#modalEditZone').modal('close');                
+            $('#zonesTable').load(' #zonesTable');
+            $('#formEditZone')[0].reset();                                            
+        }
+    });
+
+    
+}
+
+//AJAX DELETE to delete a zone
+function deleteZone(id){
+    // DELETE ajax to delete the zone
+    $.ajax({
+        url : '/zone/delete/'+id,
+        type : 'DELETE',
+        success : function(res){
+            $('#zonesTable').load(' #zonesTable');
+        }
+    });
+}
+
+//AJAX GET for zone details
+function detailsZone(id){
+    window.location.href = '/zone/'+id;
+}
+

@@ -6,17 +6,19 @@ block content
     table(id="zonesTable" class="responsive-table")
         tr
             th Name
-            th Responsable
+            th Details
             th Edit
             th Delete
         each x, index in zones
             tr
                 td= x.name
-                td= users[index]
                 td
-                    a(type="button", class="btn waves-effect waves-light", onclick="") Edit
+                    a(type="button", class="btn waves-effect waves-light", onclick=`detailsZone(${JSON.stringify(x.id)})`) Details
+
                 td
-                    a(class="btn waves-effect waves-light" onclick="") Delete
+                    a(type="button", class="btn waves-effect waves-light", onclick=`modalEditZone(${JSON.stringify(x.name)}, ${JSON.stringify(x.id)})`) Edit
+                td
+                    a(class="btn waves-effect waves-light" onclick=`deleteZone(${JSON.stringify(x.id)})`) Delete
 
     //- Floating action button to create a user
     div(class="right-align float-align-right")
@@ -31,11 +33,21 @@ block content
                 div.row
                     div(class="input-field")
                         input(type="text",class="validate", id="name" required autocomplete="off" placeholder="Name")
-                div.row
-                    select(id="selectUser")
-                        option(value="", disabled selected) Select a zone admin
         div(class="modal-footer")
             a(class="waves-effect waves-green btn-flat" onclick=`createZone()`) Create
+
+
+    //- Modal for the EDIT ZONE
+    div(id="modalEditZone" class="modal")
+        div(class="modal-content")
+            h4= "Edit the zone"
+            form(id="formEditZone")
+                div.row
+                    div(class="input-field")
+                        input(type="text",class="validate", id="editName" required autocomplete="off" placeholder="Name")
+                        input(id="id" type="hidden")
+        div(class="modal-footer")
+            a(class="waves-effect waves-green btn-flat" onclick=`editZone()`) Create
 
     script(src="/javascripts/zone/getAllZones.js", type="text/javascript")
 

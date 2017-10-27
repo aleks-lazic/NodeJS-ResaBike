@@ -95,9 +95,9 @@ router.post('/create/line', (req, res, next) => {
                             promises.push(dbStation.upsertStation(line.stopid, line.name));
                             //insert the terminal station into the db
                             promises.push(dbStation.upsertStation(line.exit.stopid, line.exit.name));                        
-
+                            console.log("je suis un fdp");
                             Promise.all(promises).then((result) => {
-                                dbLine.insertLine(line.line, line.name, line.terminal, req.body.idZone).then((idLine) => {
+                                dbLine.insertLine(line.line, result[0], result[1], req.body.idZone).then((idLine) => {
                                     dbLineStation.insertStationIdAndLineId(result[0], idLine, 1, true);
                                     dbLineStation.insertStationIdAndLineId(result[1], idLine, line.stops.length + 2, true);
                                     for(let k = 0 ; k<line.stops.length ; k++){

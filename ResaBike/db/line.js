@@ -3,28 +3,21 @@ var dbStation = require('./station');
 var models = require('../models');
 
 
-var insertLine = function(lineNumber, stationDeparture, stationTerminal, idZone){
+var insertLine = function(lineNumber, idDeparture, idTerminal, idZone){
     return new Promise((resolve, reject) => {
-        //get the id of station departure
-        let idDeparture = dbStation.getStationIdByName(stationDeparture);
-        //get the id of station terminal
-        let idTerminal = dbStation.getStationIdByName(stationTerminal);
-        
-        Promise.all([idDeparture, idTerminal])
-        .then((res)=>{
-            models.Line.upsert({
-                id: lineNumber,
-                DepartureId: res[0],
-                ArrivalId: res[1],
-                ZoneId: idZone
-            }).then(() =>{
-                console.log('Line '+lineNumber+' added');
-                resolve(lineNumber);
-            }).catch((err) =>{
-                console.log(err.message);
-            });
-        })
-    })          
+        console.log("DEPARTURE" +idDeparture);
+        console.log("TERMINAL"+idTerminal);        
+        models.Line.create({
+            id: lineNumber,
+            DepartureId: idDeparture,
+            ArrivalId: idTerminal,
+            ZoneId: idZone
+        }).then(() =>{
+            resolve(lineNumber);
+        }).catch((err) =>{
+            console.log(err.message);
+        });
+    })
 }
 
 var getLineIdByLineNumber = function(lineNumber){

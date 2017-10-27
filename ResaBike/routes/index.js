@@ -26,6 +26,11 @@ router.post('/book', function(req, res, next){
     let dateTravelUser = req.body.dateTravel ;
     let nbBike = req.body.nbBike ;
 
+    //If the client put the same departure and arrival it simply redirect to /
+    if(departureFrom == arrivalTo){
+        res.redirect('/');
+    }
+
 
     //Comparing the date, time with the one selected from the user
     let currentTime = new Date();

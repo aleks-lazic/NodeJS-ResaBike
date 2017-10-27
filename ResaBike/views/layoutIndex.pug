@@ -10,27 +10,29 @@ html(lang=fr)
     block scripts
       script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
   body
-    //- Fixed navbar isn't responsiv for mobile - doesn't work
-    //- div(class="navbar-fixed")
-    nav(class="white" role="navigation")
-      div(class="nav-wrapper container")
-        a(id="logo-container" href="#" class="brand-logo" style="color:black") Logo
-        ul(class="right hide-on-med-and-down")
-          li
-            a(href="#contact" style="color:black") Contact
-          li
-            a(href="#aboutus" style="color:black") About
-          li
-            a(href="#" style="color:black") Login
-        ul(id="nav-mobile" class="side-nav")
-          li
-            a(href="#contact" style="color:black") Contact
-          li
-            a(href="#aboutus" style="color:black") About
-          li
-            a(href="#" style="color:black") Login
-        a(href="#" data-activates="nav-mobile" class="button-collapse")
-          i(class="material-icons") menu
+    //- Fixed navbar isn't responsiv for mobile
+    div(class="navbar-fixed")
+      nav(class="white" role="navigation")
+        div(class="nav-wrapper container")
+          a(id="logo-container" href="#" class="brand-logo" style="color:black") Logo
+          ul(class="right hide-on-med-and-down")
+            li
+              a(href="#contact" style="color:black") Contact
+            li
+              a(href="#aboutus" style="color:black") About
+            li
+              a(href="#" style="color:black") Login
+
+          ul(id="nav-mobile" class="side-nav")
+            li
+              a(href="#contact" style="color:black") Contact
+            li
+              a(href="#aboutus" style="color:black") About
+            li
+              a(href="#" style="color:black") Login
+
+          a(href="#" data-activates="nav-mobile" class="button-collapse")
+            i(class="material-icons") menu
 
 
     block content

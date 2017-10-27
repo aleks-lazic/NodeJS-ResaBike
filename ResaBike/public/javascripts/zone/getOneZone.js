@@ -1,10 +1,18 @@
 //AJAX DELETE line of zone
-function deleteLineOfZone(idLine, idZone) {
+function deleteLine(idZone, idLine) {
+    //create object to pass through body
+    var object = {
+        idZone: idZone,
+        idLine: idLine
+    };
+    
+    // AJAX DELETE to delete a line
     $.ajax({
         url: '/zone/delete/line/'+idLine,
         type: 'DELETE',
+        data: object,
         success: function(res){
-            window.location.href = "/zone/get/"+idZone;
+            $('#linesTable').load(' #linesTable');
         }
     });
 }
@@ -72,10 +80,9 @@ function createLines(){
         data: line,
         success: function(result){
             $('.modal').modal();                
-            $('#modalCreateLine').modal('close');                
+            $('#modalCreateLine').modal('close');
+            $('#formCreateLine')[0].reset();                                                                    
             $('#linesTable').load(' #linesTable');
-            $('#formCreateLine')[0].reset();                                            
-
         }
     });
 }

@@ -66,14 +66,16 @@ router.get('/:id', (req, res, next) => {
 });
 
 
+//CREATE line
 router.post('/create/line', (req, res, next) => {
-    console.log(req.body.idZone + "ZOOOOOONE");
     //get values from body
     let departure = req.body.departure;
     let arrival = req.body.arrival;
 
     //modify the url depending on departure and arrival
     var url = "http://timetable.search.ch/api/route.en.json?from=";
+
+    var lineStationsPromises = [];    
 
     //get values form api
     requestData.getDataFromAPI(url + departure + '&to=' + arrival).then((object) => {
@@ -94,27 +96,31 @@ router.post('/create/line', (req, res, next) => {
                             //insert the terminal station into the db
                             promises.push(dbStation.upsertStation(line.exit.stopid, line.exit.name));                        
 
-                            Promise.all(promises).then((res) => {
+                            Promise.all(promises).then((result) => {
                                 dbLine.insertLine(line.line, line.name, line.terminal, req.body.idZone).then((idLine) => {
-                                    dbLineStation.insertStationIdAndLineId(res[0], idLine, 1, true);
-                                    dbLineStation.insertStationIdAndLineId(res[1], idLine, line.stops.length + 2, true);
+                                    dbLineStation.insertStationIdAndLineId(result[0], idLine, 1, true);
+                                    dbLineStation.insertStationIdAndLineId(result[1], idLine, line.stops.length + 2, true);
                                     for(let k = 0 ; k<line.stops.length ; k++){
                                         let s = line.stops[k];
                                         dbStation.upsertStation(s.stopid, s.name).then(() => {
-                                            dbLineStation.insertStationIdAndLineId(s.stopid, idLine, k+2, false);
+                                            lineStationsPromises.push(dbLineStation.insertStationIdAndLineId(s.stopid, idLine, k+2, false));
                                         })
                                     }
+                                    console.log(lineStationsPromises.length + "LENGTH");
+                                    Promise.all(lineStationsPromises).then(() => {
+                                        res.send('success');                        
+                                    })
                                 });
                             })
                         }   
                     })
-                    res.send('success');
                 })
             }
         })
     })
 })
 
+//CREATE zone
 router.post('/create', (req, res, next) => {
     //get all values from form
     let zoneName = req.body.name;
@@ -126,6 +132,7 @@ router.post('/create', (req, res, next) => {
 
 });
 
+//UPDATE zone
 router.put('/update', (req, res, next) => {
     //get all values from form
     let zoneName = req.body.name;
@@ -137,6 +144,7 @@ router.put('/update', (req, res, next) => {
     })
 });
 
+//DELETE line
 router.delete('/delete/:id', (req, res, next) => {
     console.log('delete');
     dbZone.deleteZone(req.params.id).then(() => {

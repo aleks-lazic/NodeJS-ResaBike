@@ -1,16 +1,19 @@
 var models = require('../models');
 
 var insertStationIdAndLineId = function(stationId, lineId, position, isDepOrTer){
-    models.LineStation.create({
-        LineId: lineId,
-        StationId: stationId,
-        position: position, 
-        isDepOrTer: isDepOrTer
-    }).then(() =>{
-        console.log('Relation between station and line added');
-    }).catch((err) =>{
-        console.log(err.message);
-    });
+    return new Promise((resolve, reject) => {
+        models.LineStation.upsert({
+            LineId: lineId,
+            StationId: stationId,
+            position: position, 
+            isDepOrTer: isDepOrTer
+        }).then(() =>{
+            console.log('Relation between station and line added');
+            resolve();  
+        }).catch((err) =>{
+            console.log(err.message);
+        });
+    })
 }
 
 var deleteLineIdFromLineStation = function(idLine){

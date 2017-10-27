@@ -3,17 +3,19 @@ extends layoutUser
 block content
     h1= zone.name
 
-    table(id="linesTable" class="responsive-table")
+    table.responsive-table&attributes({'id': 'linesTable'})
             tr
+                th Line
                 th From
                 th To
                 th Delete
             each x, index in lines
                 tr
+                    td= x.id
                     td= x.departure
                     td= x.terminal
                     td
-                        a(class="btn waves-effect waves-light" onclick=`deleteZone()`) Delete
+                        a(class="btn waves-effect waves-light" onclick=`deleteLine(${JSON.stringify(zone.id)}, ${JSON.stringify(x.id)})`) Delete
     
     //- Floating action button to create a user
     div(class="right-align float-align-right")

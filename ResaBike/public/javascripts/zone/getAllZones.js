@@ -74,6 +74,7 @@ function deleteZone(id){
         type : 'DELETE',
         success : function(res){
             $('#zonesTable').load(' #zonesTable');
+            $('#formCreateZone')[0].reset();                                                        
         }
     });
 }

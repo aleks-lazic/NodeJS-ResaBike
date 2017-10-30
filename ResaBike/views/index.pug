@@ -11,22 +11,23 @@ block content
         div(class="row center")
           h5(class="header col s12 light") A new way to travel with your bike
         div(class="row center")
-          a(href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
+          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
         br
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
   //- Second Section - SEARCH WITH API !
-  div(class="container" style="padding-top:80px; padding-bottom:80px;")
-    h3.center-align= "Check your fucking time ?"
+  div(id="search" class="container" style="padding-top:80px; padding-bottom:80px;")
+    h3.center-align= "Timetable and Reservation"
       div.row
         form(class="col s12" action="/book" method="post")
           div.row
             div.input-field.col.s6
-              input(type="text" value="Sierre, poste/gare" placeholder="From Station", autofocus, name="departureFrom" id="autocomplete-input" class="autocomplete" autocomplete="off" required)
+              //- NEED TO REMOVE THE VALUES AFTER
+              input(type="text" value="Sierre, poste/gare" placeholder="From Station", autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
               //i.material-icons.prefix phone
-              input(type="text" value="Les Pontis" placeholder="To Destination", name="arrivalTo" id="autocomplete-input" class="autocomplete" autocomplete="off" required)
+              input(type="text" value="Les Pontis" placeholder="To Destination", name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
               //label(for="icon_telephone") Telephone
             div.input-field.col.s6
               input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker" value="2017-11-01" required)
@@ -36,15 +37,17 @@ block content
               button(class="btn waves-effect waves-light" type="submit" name="action") Submit
                 i(class="material-icons right") send
   
-  //- Third Section - A MAP of Valais would be nice no ?
+  //- Third Section - About Us ?
   div(id="aboutus" class="parallax-container valign-wrapper")
-    div.section.no-pad-bot
-      div.container
-        h3(class="header center teal-text text-yellow accent-2") About Us
-        div(class="row center")
-          h5(class="header col s12 light") School project where you can reserve a place for your bike in a bus, done by 2 students so fuck u.
+    //- div.section.no-pad-bot
+    div.container
+      h3(class="header center teal-text text-yellow accent-2") About Us
+      div(class="row center")
+        h5(class="header col s12 light") A group of 2 students working for a School Project.
+        br
+        h5(class="header col s12 light") The goal of the project is to be able to reserve a place for your bike on a bus.
     div.parallax
-      img(src='../images/wallpaper-hipster.jpg', alt='Unsplashed background img 2')
+      img(src='../images/wallpaper-index-bus1.jpg', alt='Unsplashed background img 2')
 
   //- Fourth Section - Contact Form
   div(id="contact" class="container" style="padding-top:80px; padding-bottom:80px;")
@@ -72,6 +75,11 @@ block content
               input(id="phone_number" value="+27 481 00 00" class="validate" disabled)
               br
               i(class="material-icons prefix") map
-              input(id="" value="We are here ! So fck u" class="validate" disabled)
+              input(id="" value="Suisse, Valais, Sierre - HES-SO" class="validate" disabled)
+
+  footer(class="page-footer")
+    div(class="footer-copyright")
+      div(class="container")
+        p © 2017 Copyright Kevin Schmidt, Aleksandar Lazic
   
   script(src="javascripts/contactForm.js", type="text/javascript")

@@ -6,15 +6,6 @@ var email = require('../modules/email');
 var crypto = require('crypto');
 
 
-/* GET book Page */
-router.get('/book', function(req, res, next) { 
-    res.render('book');
-});
-
-router.post('/reservation', function(req, res, next){
-    
-});
-
 router.post('/confirm', function(req, res, next){
 
     //Retrieved the data from book and index page
@@ -54,7 +45,7 @@ router.post('/confirm', function(req, res, next){
                         <p>If you want to delete the reservation, you juste have to press this link : <a href="${urlToDelete}">Delete confirmation</a></p>
                         </div>` ;
     
-    console.log(urlToDelete);
+    //console.log(urlToDelete);
 
     let arrProm = [] ;
 

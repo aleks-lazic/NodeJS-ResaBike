@@ -18,6 +18,11 @@ router.get('/getAllStations', function(req, res) {
     })
 });
 
+/* GET login Page */
+router.get('/login', function(req, res, next) { 
+    res.render('login');
+});
+
 router.post('/book', function(req, res, next){
     
     //Retrieve the data from the user
@@ -25,6 +30,11 @@ router.post('/book', function(req, res, next){
     let arrivalTo = req.body.arrivalTo ;
     let dateTravelUser = req.body.dateTravel ;
     let nbBike = req.body.nbBike ;
+
+    //If the client put the same departure and arrival it simply redirect to /
+    if(departureFrom == arrivalTo){
+        res.redirect('/');
+    }
 
 
     //Comparing the date, time with the one selected from the user

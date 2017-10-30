@@ -14,25 +14,44 @@ html(lang=fr)
     div(class="navbar-fixed")
       nav(class="white" role="navigation")
         div(class="nav-wrapper container")
-          a(id="logo-container" href="#" class="brand-logo" style="color:black") Logo
+          a(class="scroll" id="logo-container" href="#index-banner" class="brand-logo" style="color:black") Logo
           ul(class="right hide-on-med-and-down")
             li
-              a(href="#contact" style="color:black") Contact
+              a(class="scroll" href="#search" style="color:black") Search
             li
-              a(href="#aboutus" style="color:black") About
+              a(class="scroll" href="#aboutus" style="color:black") About
             li
-              a(href="#" style="color:black") Login
+              a(class="scroll" href="#contact" style="color:black") Contact
+            li
+              a(href="/login" target="_blank" style="color:black") Login
 
           ul(id="nav-mobile" class="side-nav")
             li
-              a(href="#contact" style="color:black") Contact
+              a(class="scroll" href="#search" style="color:black") Search
             li
-              a(href="#aboutus" style="color:black") About
+              a(class="scroll" href="#aboutus" style="color:black") About
             li
-              a(href="#" style="color:black") Login
+              a(class="scroll" href="#contact" style="color:black") Contact
+            li
+              a(href="/login" target="_blank" style="color:black") Login
 
           a(href="#" data-activates="nav-mobile" class="button-collapse")
             i(class="material-icons") menu
+
+    //- Creating a smooth scrolling effect
+    script.
+       $(".scroll").click(function(event){
+         event.preventDefault();
+         //calculate destination place
+         var dest=0;
+         if($(this.hash).offset().top > $(document).height()-$(window).height()){
+              dest=$(document).height()-$(window).height();
+         }else{
+              dest=$(this.hash).offset().top;
+         }
+         //go to destination
+         $('html,body').animate({scrollTop:dest}, 500,'swing');
+     });
 
 
     block content

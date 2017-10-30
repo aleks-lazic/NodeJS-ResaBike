@@ -18,6 +18,11 @@ router.get('/getAllStations', function(req, res) {
     })
 });
 
+/* GET login Page */
+router.get('/login', function(req, res, next) { 
+    res.render('login');
+});
+
 router.post('/book', function(req, res, next){
     
     //Retrieve the data from the user

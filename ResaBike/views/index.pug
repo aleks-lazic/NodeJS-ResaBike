@@ -11,13 +11,13 @@ block content
         div(class="row center")
           h5(class="header col s12 light") A new way to travel with your bike
         div(class="row center")
-          a(href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
+          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
         br
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
   //- Second Section - SEARCH WITH API !
-  div(class="container" style="padding-top:80px; padding-bottom:80px;")
+  div(id="search" class="container" style="padding-top:80px; padding-bottom:80px;")
     h3.center-align= "Timetable and Reservation"
       div.row
         form(class="col s12" action="/book" method="post")

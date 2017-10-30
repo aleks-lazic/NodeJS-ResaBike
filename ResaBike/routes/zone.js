@@ -7,10 +7,20 @@ var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var dbLineStation = require('../db/linestation');
 var dbUser = require('../db/user');
-var zones;
+var redirection = require('../modules/redirection');
+var session = require('express-session')
 
 /* GET all user's zone home page. */
 router.get('/', (req, res, next) => {
+
+    var access = redirection.redirectAllZones(session.user);
+    console.log(access);
+
+    if(access != 'ok'){
+        res.redirect(access);
+        return;
+    }
+
     //get all zones
     dbZone.getAllZones().then((zones) => {
         res.render('getAllZones', {zones: zones}); 
@@ -42,6 +52,14 @@ router.delete('/delete/line/:id', (req, res, next) => {
 
 //get one zone home page
 router.get('/:id', (req, res, next) => {
+
+    var access = redirection.redirectOneZone(session.user, req.params.id);
+
+    if(access != 'ok'){
+        res.redirect(access);
+        return;
+    }
+    
     let promises = [];
     //get the selected zone
     promises.push(dbZone.getZoneById(req.params.id));

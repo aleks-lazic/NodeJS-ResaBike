@@ -24,7 +24,6 @@ function login(){
                     //redirect him into the zone page
                     window.location.href = '/zone/'+result.ZoneId
                 }
-                alert(result.RoleId);
             }
         }
     });

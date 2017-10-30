@@ -3,13 +3,20 @@ var router = express.Router();
 var dbRole = require('../db/role');
 var dbUser = require('../db/user');
 var session = require('express-session');
+var redirection = require('../modules/redirection');
 
 
-/* GET creation home page user. */
-router.get('/create', function(req, res, next) {
+router.use(function(req, res, next){
+    var access = redirection.redirectUser(session.user);
+    
+        if(access != 'ok'){
+            res.redirect(access);
 
-    res.render('createUser');
-});
+        } else {
+            next();
+        }
+})
+
 
 //GET all ZONEADMINS
 router.get('/getAllZoneAdmin', function(req, res, next) {
@@ -20,6 +27,9 @@ router.get('/getAllZoneAdmin', function(req, res, next) {
 
 //GET all users
 router.get('/', function(req, res, next) {
+
+
+
     var promises = [];
     var roles = [];
 

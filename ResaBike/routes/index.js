@@ -4,6 +4,7 @@ var dbStation = require('../db/station');
 var requestData = require('./testDataApi');
 var email = require('../modules/email');
 var dbUser = require('../db/user');
+var session = require('express-session');
 
 
 /* GET home page. */
@@ -29,7 +30,8 @@ router.post('/login', (req, res, next) => {
         if(user == null){
             res.send('error');
         } else {
-            res.send(JSON.stringify(user));            
+            session.user = user;
+            res.send(JSON.stringify(user));          
         }
     })
 

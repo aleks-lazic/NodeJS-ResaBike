@@ -48,19 +48,19 @@ block content
                         h5(class="header col s12 light") Please, login to your account
                     
                     //- Add method to login in action
-                    form(class="col s12" method="post" action="")
+                    div(class='row')
+                    div(class='input-field col s12')
+                        input(class='validate' type='text' name='username' id='username')
+                        label(for='username') Username
 
-                        div(class='row')
-                        div(class='input-field col s12')
-                            input(class='validate' type='text' name='username' id='username')
-                            label(for='username') Username
+                    div(class='row')
+                    div(class='input-field col s12')
+                        input(class='validate' type='password' name='password' id='password')
+                        label(for='password') Password
+                    br
+                    center
+                    br
+                    div(class='row' style="padding-top: 70px;")
+                        button(type='button' onclick="login()" class='col s12 btn waves-effect') Login
 
-                        div(class='row')
-                        div(class='input-field col s12')
-                            input(class='validate' type='password' name='password' id='password')
-                            label(for='password') Password
-                        br
-                        center
-                        br
-                        div(class='row' style="padding-top: 70px;")
-                            button(type='submit' name='btn_login' class='col s12 btn waves-effect') Login
+    script(src="/javascripts/login/login.js", type="text/javascript")

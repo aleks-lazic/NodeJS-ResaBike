@@ -153,6 +153,22 @@ var getUserByZoneId = function(idZone){
     });
 }
 
+var checkLogin = function(username, password){
+    return new Promise((resolve, reject) => {
+        models.User.findOne({
+            where:{
+                username: username,
+                password: password
+            }
+        }).then(user =>{
+            resolve(user);
+        }).catch((err)=>{
+            reject(err.message);
+        })
+    });
+}
+
+exports.checkLogin = checkLogin;
 exports.createUserWithZoneId = createUserWithZoneId;
 exports.getUserByZoneId = getUserByZoneId;
 exports.updateUserZoneId = updateUserZoneId;

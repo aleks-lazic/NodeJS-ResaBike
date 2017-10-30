@@ -3,6 +3,7 @@ var router = express.Router();
 var dbStation = require('../db/station');
 var requestData = require('./testDataApi');
 var email = require('../modules/email');
+var dbUser = require('../db/user');
 
 
 /* GET home page. */
@@ -12,7 +13,6 @@ router.get('/', function(req, res, next) {
 
 /* GET all stations for autocompletion. */
 router.get('/getAllStations', function(req, res) {
-    //console.log('suis la'); 
     dbStation.getAllStations().then((result)=> {
         res.send(result);
     })
@@ -22,6 +22,18 @@ router.get('/getAllStations', function(req, res) {
 router.get('/login', function(req, res, next) { 
     res.render('login');
 });
+
+router.post('/login', (req, res, next) => {
+    //check if the username exists
+    dbUser.checkLogin(req.body.username, req.body.password).then((user) => {
+        if(user == null){
+            res.send('error');
+        } else {
+            res.send(JSON.stringify(user));            
+        }
+    })
+
+})
 
 router.post('/book', function(req, res, next){
     

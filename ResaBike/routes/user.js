@@ -2,10 +2,12 @@ var express = require('express');
 var router = express.Router();
 var dbRole = require('../db/role');
 var dbUser = require('../db/user');
+var session = require('express-session');
 
 
 /* GET creation home page user. */
-router.get('/create', function(req, res, next) { 
+router.get('/create', function(req, res, next) {
+
     res.render('createUser');
 });
 

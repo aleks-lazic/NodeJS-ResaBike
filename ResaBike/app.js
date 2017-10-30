@@ -11,7 +11,6 @@ var index = require('./routes/index');
 var zone = require('./routes/zone');
 var book = require('./routes/book');
 var user = require('./routes/user');
-var login = require('./routes/login');
 
 //express app
 var app = express();
@@ -32,7 +31,6 @@ app.use('/', index);
 app.use('/zone', zone);
 app.use('/book', book);
 app.use('/user', user);
-app.use('/login', login);
 
 
 // catch 404 and forward to error handler

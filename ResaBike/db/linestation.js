@@ -12,6 +12,7 @@ var insertStationIdAndLineId = function(stationId, lineId, position, isDepOrTer)
             resolve();  
         }).catch((err) =>{
             console.log(err.message);
+            reject();
         });
     })
 }

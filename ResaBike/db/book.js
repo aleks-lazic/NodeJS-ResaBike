@@ -87,6 +87,21 @@ var getSumWithMultipleLines = function(departureHour, idLines){
     })
 }
 
+var getAllReservationsNotConfirmed = function(){
+    return new Promise((resolve, reject) => {
+        models.Book.findAll({
+            where:{
+                isConfirmed: false
+            }
+        }).then(books =>{
+            resolve(books);
+        }).catch((err)=>{
+            reject(err.message);
+        })
+    });
+}
+
+exports.getAllReservationsNotConfirmed = getAllReservationsNotConfirmed;
 exports.getSumWithMultipleLines = getSumWithMultipleLines;
 exports.getSumBikesByLineAndDepartureHour = getSumBikesByLineAndDepartureHour;
 exports.deleteReservationByToken = deleteReservationByToken ;

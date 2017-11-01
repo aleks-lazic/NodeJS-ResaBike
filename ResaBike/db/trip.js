@@ -29,6 +29,20 @@ var getAllReservationsByDepartureAndLine = function(departureHour, idLine){
         })
     })
 }
+var getAllTripsByIdBooking = function(idBooking){
+    return new Promise((resolve, reject) =>{
+        models.Trip.findAll({
+            where: {
+                idBooking: idBooking
+            }
+        }).then((trips)=>{
+            resolve(trips);
+        }).catch((err)=>{
+            reject(err.message);
+        });
+    })
+}
 
+exports.getAllTripsByIdBooking = getAllTripsByIdBooking;
 exports.insertTrip = insertTrip;
 exports.getAllReservationsByDepartureAndLine = getAllReservationsByDepartureAndLine;

@@ -141,4 +141,5 @@ function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailU
         });
     })
 }
+
 module.exports = router;

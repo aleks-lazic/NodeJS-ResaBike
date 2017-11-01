@@ -14,7 +14,6 @@ var session = require('express-session')
 router.get('/', (req, res, next) => {
 
     var access = redirection.redirectAllZones(session.user);
-    console.log(access);
 
     if(access != 'ok'){
         res.redirect(access);

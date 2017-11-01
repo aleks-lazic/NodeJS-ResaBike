@@ -7,15 +7,20 @@ var dbLineStation = require('../db/linestation');
 var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal,%20village%20des%20vacances";
 var dbBook = require('../db/book');
 var dbTrip = require('../db/trip');
+var bookingsManagement = require('../management/bookingsManagement');
 
+
+bookingsManagement.showAllZonesForReservations().then((zones) => {
+    console.log(zones[0].books);
+});
 // dbTrip.getAllReservationsByDepartureAndLine('2017-11-01 10:25:00', 453).then((obj) => {
 //     console.log(obj);
 // })
 // 
 
-dbBook.getSumWithMultipleLines('2017-11-01 11:25:00', [451, 453]).then((max) => {
-    console.log(max);
-})
+// dbBook.getSumWithMultipleLines('2017-11-01 11:25:00', [451, 453]).then((max) => {
+//     console.log(max);
+// })
 
 function getDataFromAPI(url){
     return new Promise((resolve, reject)=>{

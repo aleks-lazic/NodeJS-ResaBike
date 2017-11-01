@@ -121,6 +121,9 @@ router.post('/book', function(req, res, next){
         for(let k = 0 ; k<arrayTimeDeparture.length ; k++){
             promisesPlaces.push(dbBook.getSumWithMultipleLines(arrayTimeDeparture[k].timeDeparture,linesWithoutDuplicates).then((max) => {
                 arrayTimeDeparture[k].placesAvailable = MAX_PLACES - max;
+                if(arrayTimeDeparture[k].placesAvailable < 0){
+                    arrayTimeDeparture[k].placesAvailable = 0;
+                }
                 console.log(arrayTimeDeparture[k].placesAvailable);               
             }));
         }

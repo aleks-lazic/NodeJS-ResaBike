@@ -6,8 +6,9 @@ $(document).ready(function() {
         var nbBike = document.getElementById("nbBike").innerHTML ;
         var email = $('#email').val();
         var lines = document.getElementById('linee').value;
+        var placesAvailable = document.getElementById('placesAvailable').value;
         if(validateEmail(email)){
-            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines);
+            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines, placesAvailable);
         }else{
             alert("WRONG EMAIL");
         }
@@ -15,7 +16,7 @@ $(document).ready(function() {
 });
 
 
-function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines){
+function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines, placesAvailable){
     //create the book object that will be used in the post
     var booking = {
         from: stationFrom,
@@ -23,7 +24,8 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines)
         timeDep: timeDep,
         nbBike: nbBike,
         email: email,
-        lines: lines
+        lines: lines,
+        placesAvailable: placesAvailable
     };
 
     $.ajax({
@@ -31,7 +33,11 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines)
         url: '/book/confirm',
         data: booking,
         success: function(data){
-            
+            if(data == 'success'){
+                successfullReservation();
+            } else if(data == 'needConfirmation'){
+                reservationWillBeConfirmed();
+            }
         }
     });
 };
@@ -42,8 +48,20 @@ function validateEmail(email) {
 };
 
 //Closing modal and print a successfull message to the user
-function successFullReservation(){
+function successfullReservation(){
     $('.modal').modal();
     $('#modal1').modal('close');
     Materialize.toast('Reservation has been successfull', 4000, 'rounded')
+    setTimeout(function(){
+        window.location.href= "/";        
+    }, 3000);
 };
+
+function reservationWillBeConfirmed(){
+    $('.modal').modal();
+    $('#modal1').modal('close');
+    Materialize.toast('The reservation will be confirmed furthermore', 4000, 'rounded')
+    setTimeout(function(){
+        window.location.href= "/";        
+    }, 3000);
+}

@@ -3,7 +3,7 @@ var dbLine = require('./line');
 var dbTrip = require('./trip');
 var models = require('../models');
 
-var insertReservation = function(time, token, nbBike, stationDeparture, stationTerminal, email){
+var insertReservation = function(time, token, nbBike, stationDeparture, stationTerminal, email, isConfirmed){
     return new Promise((resolve, reject)=>{
         models.Book.create({
             time: time,
@@ -11,7 +11,8 @@ var insertReservation = function(time, token, nbBike, stationDeparture, stationT
             nbBike: nbBike,
             DepartureId: stationDeparture,
             ArrivalId: stationTerminal,
-            mail: email
+            mail: email,
+            isConfirmed: isConfirmed
         }).then((book) =>{
             resolve(book.id);
         }).catch((err) =>{
@@ -38,10 +39,15 @@ var getNbBikesByReservation = function(idBooking){
     return new Promise((resolve, reject)=>{
         models.Book.findOne({
             where:{
-                id: idBooking
+                id: idBooking,
+                isConfirmed: 1
             }
         }).then(book =>{
-            resolve(book.nbBike);
+            if(book != null){
+                resolve(book.nbBike);                
+            } else {
+                resolve(0);
+            }
         }).catch((err)=>{
             reject(err.message);
         })

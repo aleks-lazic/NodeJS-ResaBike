@@ -5,8 +5,6 @@ var models = require('../models');
 
 var insertLine = function(lineNumber, idDeparture, idTerminal, idZone){
     return new Promise((resolve, reject) => {
-        console.log("DEPARTURE" +idDeparture);
-        console.log("TERMINAL"+idTerminal);        
         models.Line.create({
             id: lineNumber,
             DepartureId: idDeparture,

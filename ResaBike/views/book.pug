@@ -10,7 +10,7 @@ block content
     h5(class="header center teal-text") #{dateTravelUser}
     br
     div.container
-        table(class="highlight.responsive-table")
+        table(class="highlight.responsive-table", id="tableReservations")
             tr
                 thead
                     th Departure From
@@ -25,10 +25,14 @@ block content
                     td #{arrivalTo}
                     td #{arrayTimeDeparture[index].timeDeparture.split(" ")[1]}
                     td #{arrayTimeArrival[index].split(" ")[1]}
-                    td #{arrayTimeDeparture[index].placesAvailable}
+                    if(arrayTimeDeparture[index].placesAvailable == 0)
+                        td(class="tooltip", style="color: red") #{arrayTimeDeparture[index].placesAvailable}
+                            span.tooltiptext The reservation may be confirmed furthermore
+                    else
+                        td #{arrayTimeDeparture[index].placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure
                     td
-                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index])})`) Reservation
+                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)})`) Reservation
                             i(class="material-icons right") book
         br
         button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") Go Back
@@ -45,17 +49,16 @@ block content
                             th Arrival To
                             th Date and Time
                             th Number of Bike(s)
-                            th Places available
                         tbody
                             td(name="departureFrom" id="departureFrom") #{departureFrom}
                             td(name="arrivalTo" id="arrivalTo") #{arrivalTo}
                             td(name="dateDep" id="dateDep") #{arrayTimeDeparture.timeDeparture}
                             td(name="nbBike" id="nbBike") #{nbBike}
-                            td(name="placesAvailable" id="placesAvailable") #{arrayTimeDeparture.placesAvailable}
                 br
                 p(style="font-weight:bold;") Enter your email address to confirm reservation :
                 input(type="email" placeholder="Email", autofocus, name="email" id="email" autocomplete="off" required)
                 input(type="hidden", value=lines.join(), id="linee")
+                input(type="hidden", id="placesAvailable")
         div(class="modal-footer")
             a(class="waves-effect waves-green btn-flat" id="submitt_confirm") Confirm Reservation
     

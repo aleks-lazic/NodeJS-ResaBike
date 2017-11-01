@@ -5,15 +5,17 @@ var dbZone = require('../db/zone');
 var dbLineStation = require('../db/linestation');
 
 var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal,%20village%20des%20vacances";
+var dbBook = require('../db/book');
+var dbTrip = require('../db/trip');
 
-// addStationsFromAPI();
-// dbZone.createZone("Anniviers");
-// addLinesFromAPI();
-// addRelationsBetweenStationsAndLines();
-// getStopIDFromAPI("https://timetable.search.ch/api/stationboard.en.json?stop=Zinal,%20village%20de%20vacances").then((id) => {
-//     console.log("stopid : " + id);
+// dbTrip.getAllReservationsByDepartureAndLine('2017-11-01 10:25:00', 453).then((obj) => {
+//     console.log(obj);
 // })
-// dbZone.upsertZone("Annivierss");
+// 
+
+dbBook.getSumWithMultipleLines('2017-11-01 11:25:00', [451, 453]).then((max) => {
+    console.log(max);
+})
 
 function getDataFromAPI(url){
     return new Promise((resolve, reject)=>{

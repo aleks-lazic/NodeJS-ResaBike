@@ -25,14 +25,14 @@ body
                     li
                         a(href="/zone") Zones
                     li
-                        a(href="/booking") Reservations
+                        a(href="/bookings") Reservations
                     li
                         a(href="/user/logout") Logout
                 else
                     li
                         a(href=`/zone/${currentUser.ZoneId}`) Zones
                     li
-                        a(href=`/booking/${currentUser.ZoneId}`) Reservations
+                        a(href=`/booking/s${currentUser.ZoneId}`) Reservations
                     li
                         a(href="/user/logout") Logout
             //- Deuxieme ul pour le navbar mobile
@@ -43,14 +43,14 @@ body
                     li
                         a(href="/zone") Zones
                     li
-                        a(href="/booking") Reservations
+                        a(href="/bookings") Reservations
                     li
                         a(href="/user/logout") Logout
                 else
                     li
                         a(href=`/zone/${currentUser.ZoneId}`) Zones
                     li
-                        a(href=`/booking/${currentUser.ZoneId}`) Reservations
+                        a(href=`/bookings/${currentUser.ZoneId}`) Reservations
                     li
                         a(href="/user/logout") Logout
                 

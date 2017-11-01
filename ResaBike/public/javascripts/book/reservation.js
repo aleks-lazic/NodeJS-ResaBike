@@ -5,10 +5,9 @@ $(document).ready(function() {
         var timeDep = document.getElementById("dateDep").innerHTML ;
         var nbBike = document.getElementById("nbBike").innerHTML ;
         var email = $('#email').val();
-        //console.log(validateEmail(email));
+        var lines = document.getElementById('linee').value;
         if(validateEmail(email)){
-            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val());
-            successFullReservation();
+            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines);
         }else{
             alert("WRONG EMAIL");
         }
@@ -16,24 +15,21 @@ $(document).ready(function() {
 });
 
 
-function reservation(stationFrom, stationArrival, timeDep, nbBike, email){
-
-    
+function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines){
     //create the book object that will be used in the post
-    var book = {
+    var booking = {
         from: stationFrom,
         arrival: stationArrival,
         timeDep: timeDep,
         nbBike: nbBike,
-        email: email
-    }
-
-    //alert(idLine + " , " + timeDep + " , " + nbBike);
+        email: email,
+        lines: lines
+    };
 
     $.ajax({
         type: 'POST',
         url: '/book/confirm',
-        data: book,
+        data: booking,
         success: function(data){
             
         }

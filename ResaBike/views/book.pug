@@ -17,15 +17,17 @@ block content
                     th Arrival To
                     th Time Departure
                     th Time Arrival
+                    th Places available
             tbody
             each x, index in arrayTimeDeparture
                 tr
                     td #{departureFrom}
                     td #{arrivalTo}
-                    td #{arrayTimeDeparture[index].split(" ")[1]}
+                    td #{arrayTimeDeparture[index].timeDeparture.split(" ")[1]}
                     td #{arrayTimeArrival[index].split(" ")[1]}
-                    td
+                    td #{arrayTimeDeparture[index].placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure
+                    td
                         button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index])})`) Reservation
                             i(class="material-icons right") book
         br
@@ -43,14 +45,17 @@ block content
                             th Arrival To
                             th Date and Time
                             th Number of Bike(s)
+                            th Places available
                         tbody
                             td(name="departureFrom" id="departureFrom") #{departureFrom}
                             td(name="arrivalTo" id="arrivalTo") #{arrivalTo}
-                            td(name="dateDep" id="dateDep") #{arrayTimeDeparture}
+                            td(name="dateDep" id="dateDep") #{arrayTimeDeparture.timeDeparture}
                             td(name="nbBike" id="nbBike") #{nbBike}
+                            td(name="placesAvailable" id="placesAvailable") #{arrayTimeDeparture.placesAvailable}
                 br
                 p(style="font-weight:bold;") Enter your email address to confirm reservation :
                 input(type="email" placeholder="Email", autofocus, name="email" id="email" autocomplete="off" required)
+                input(type="hidden", value=lines.join(), id="linee")
         div(class="modal-footer")
             a(class="waves-effect waves-green btn-flat" id="submitt_confirm") Confirm Reservation
     

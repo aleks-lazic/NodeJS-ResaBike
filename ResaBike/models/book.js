@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Book = sequelize.define('Book', {
-    time: DataTypes.DATE,
+    time: DataTypes.STRING,
     token: DataTypes.TEXT,
     nbBike: DataTypes.INTEGER,
-    mail: DataTypes.STRING
+    mail: DataTypes.STRING,
   });
 
   Book.associate = (models)=>{

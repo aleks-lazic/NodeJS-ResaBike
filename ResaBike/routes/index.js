@@ -5,6 +5,7 @@ var requestData = require('./testDataApi');
 var email = require('../modules/email');
 var dbUser = require('../db/user');
 var session = require('express-session');
+var dbBook = require('../db/book');
 
 
 /* GET home page. */
@@ -24,6 +25,7 @@ router.get('/login', function(req, res, next) {
     res.render('login');
 });
 
+//POST to confirm the login
 router.post('/login', (req, res, next) => {
     //check if the username exists
     dbUser.checkLogin(req.body.username, req.body.password).then((user) => {
@@ -48,6 +50,7 @@ router.post('/book', function(req, res, next){
     //If the client put the same departure and arrival it simply redirect to /
     if(departureFrom == arrivalTo){
         res.redirect('/');
+        return;
     }
 
 
@@ -72,7 +75,6 @@ router.post('/book', function(req, res, next){
     //console.log('From : ' + departureFrom + ', To : ' + arrivalTo, " at Date : " + dateTravel);
     requestData.getDataFromAPI(url)
     .then((obj) => {
-
         //console.log(obj);
         let objct = obj.connections ;
         //console.log(objct);
@@ -95,22 +97,38 @@ router.post('/book', function(req, res, next){
                     //console.log(dateSplit[0].split("-")[2]);
                     //console.log(dateTravelUser.split("-")[2]);
                     if(dateSplit[0].split("-")[2] == dateTravelUser.split("-")[2] && stringCurrentDate != dateTravelUser){
-                        arrayTimeDeparture.push(objct[i].departure);
+                        var arrayObject = {
+                            timeDeparture: objct[i].departure
+                        };
+                        arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
                         console.log("Entered if");
                     }
                     if(stringCurrentDate == dateTravelUser && dateSplit[1] > stringHourMinute){
-                        arrayTimeDeparture.push(objct[i].departure);
+                        var arrayObject = {
+                            timeDeparture: objct[i].departure
+                        };
+                        arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
                         console.log("entered else if");
                     }
                 }
             }
         }
+        //get the number of places available
+        const MAX_PLACES = 6;
+        let promisesPlaces = [];
+        for(let k = 0 ; k<arrayTimeDeparture.length ; k++){
+            promisesPlaces.push(dbBook.getSumWithMultipleLines(arrayTimeDeparture[k].timeDeparture,linesWithoutDuplicates).then((max) => {
+                arrayTimeDeparture[k].placesAvailable = MAX_PLACES - max;
+                console.log(arrayTimeDeparture[k].placesAvailable);               
+            }));
+        }
 
-        //console.log(arrayTimeDeparture + "," + arrayTimeArrival +","+departureFrom + ","+ arrivalTo + "," + nbBike + "," + linesWithoutDuplicates);
-
-        res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates});
+        Promise.all(promisesPlaces).then(() => {
+            res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates});            
+        })
+        
     }).catch((err)=>{
         res.send('Error : ' + err.message);
     })

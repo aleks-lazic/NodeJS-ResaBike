@@ -7,11 +7,14 @@ var redirection = require('../modules/redirection');
 
 
 router.use(function(req, res, next){
+    if(session.user != null)
+        if(req.path = '/logout')
+            next();
+
     var access = redirection.redirectUser(session.user);
     
         if(access != 'ok'){
             res.redirect(access);
-
         } else {
             next();
         }
@@ -28,8 +31,6 @@ router.get('/getAllZoneAdmin', function(req, res, next) {
 //GET all users
 router.get('/', function(req, res, next) {
 
-
-
     var promises = [];
     var roles = [];
 
@@ -42,10 +43,17 @@ router.get('/', function(req, res, next) {
             resu.forEach(function(r){
                 roles.push(r);
             })
-            res.render('getAllUsers', {users: users, roles: roles});                    
+            res.render('getAllUsers', {users: users, roles: roles, currentUser: session.user});                    
         })
     }) 
 });
+
+//LOGOUT
+router.get('/logout', function(req, res, next) {
+    console.log(session.user.id);
+    session.user = null;
+    res.redirect('/login');
+})
 
 //POST CREATE new user
 router.post('/create', (req, res, next) => {

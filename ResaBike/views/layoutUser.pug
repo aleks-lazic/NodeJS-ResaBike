@@ -9,5 +9,51 @@ head
         script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
 body
-    block content
 
+    //- Navbar for the admin part
+
+    nav.nav-extended
+        .nav-wrapper
+            a.brand-logo(href="#") Bienvenue #{currentUser.username}
+            a(href="#mobile-demo", data-activates="mobile-demo" class="button-collapse")
+                i.material-icons menu
+            //- Premier UL pour la navbar normal
+            ul(id="nav-mobile" class="right hide-on-med-and-down")
+                if(currentUser.RoleId == 3)
+                    li
+                        a(href="/user") Users
+                    li
+                        a(href="/zone") Zones
+                    li
+                        a(href="/booking") Reservations
+                    li
+                        a(href="/user/logout") Logout
+                else
+                    li
+                        a(href=`/zone/${currentUser.ZoneId}`) Zones
+                    li
+                        a(href=`/booking/${currentUser.ZoneId}`) Reservations
+                    li
+                        a(href="/user/logout") Logout
+            //- Deuxieme ul pour le navbar mobile
+            ul(id="mobile-demo", class="side-nav")
+                if(currentUser.RoleId == 3)
+                    li
+                        a(href="/user") Users
+                    li
+                        a(href="/zone") Zones
+                    li
+                        a(href="/booking") Reservations
+                    li
+                        a(href="/user/logout") Logout
+                else
+                    li
+                        a(href=`/zone/${currentUser.ZoneId}`) Zones
+                    li
+                        a(href=`/booking/${currentUser.ZoneId}`) Reservations
+                    li
+                        a(href="/user/logout") Logout
+                
+
+
+    block content

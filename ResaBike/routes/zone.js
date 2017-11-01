@@ -10,7 +10,7 @@ var dbUser = require('../db/user');
 var redirection = require('../modules/redirection');
 var session = require('express-session')
 
-/* GET all user's zone home page. */
+/* GET all zones home page */
 router.get('/', (req, res, next) => {
 
     var access = redirection.redirectAllZones(session.user);
@@ -23,7 +23,8 @@ router.get('/', (req, res, next) => {
 
     //get all zones
     dbZone.getAllZones().then((zones) => {
-        res.render('getAllZones', {zones: zones}); 
+        console.log(session.user);
+        res.render('getAllZones', {zones: zones, currentUser: session.user}); 
     })
 });
 
@@ -78,7 +79,7 @@ router.get('/:id', (req, res, next) => {
             }));
         })
         Promise.all(stationsPromises).then((stations) => {
-            res.render('getOneZone', {zone: resu[0], lines : resu[1]})                                                        
+            res.render('getOneZone', {zone: resu[0], lines : resu[1], currentUser: session.user})                                                        
         })
     })   
 });

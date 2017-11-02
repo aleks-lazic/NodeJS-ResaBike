@@ -10,9 +10,20 @@ var dbTrip = require('../db/trip');
 var bookingsManagement = require('../management/bookingsManagement');
 
 
-bookingsManagement.showAllZonesForReservations().then((zones) => {
-    console.log(zones[0].books);
-});
+// bookingsManagement.showAllZonesForReservations().then((zones) => {
+//     console.log(zones[0].books);
+// });
+
+bookingsManagement.getAllBookDetails(1371).then((zone) => {
+    console.log(zone.bookDetails[1]);
+})
+
+// bookingsManagement.getAllBookDetails(1371).then((zone) => {
+//     zone.books.forEach((b) => {
+//         console.log(b.DepartureId);
+//         console.log(b.ArrivalId);
+//     })
+// })
 // dbTrip.getAllReservationsByDepartureAndLine('2017-11-01 10:25:00', 453).then((obj) => {
 //     console.log(obj);
 // })

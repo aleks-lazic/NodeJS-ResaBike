@@ -25,9 +25,9 @@ block content
                     td #{arrivalTo}
                     td #{arrayTimeDeparture[index].timeDeparture.split(" ")[1]}
                     td #{arrayTimeArrival[index].split(" ")[1]}
-                    if(arrayTimeDeparture[index].placesAvailable == 0)
+                    if(arrayTimeDeparture[index].placesAvailable < nbBike)
                         td(class="tooltip", style="color: red") #{arrayTimeDeparture[index].placesAvailable}
-                            span.tooltiptext The reservation may be confirmed furthermore
+                            span.tooltiptext Request needs confirmation
                     else
                         td #{arrayTimeDeparture[index].placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure

@@ -1,9 +1,8 @@
 extends layoutUser
 
 block content
-    h1= "User xxxxxx's zones"
 
-    table(id="zonesTable" class="responsive-table")
+    table(id="bookingsTable" class="responsive-table")
         tr
             th Name
             th= Details
@@ -12,11 +11,13 @@ block content
             tr
                 td= x.name
                 td
-                    a(type="button", class="btn waves-effect waves-light", onclick=``) Details
+                    a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) Details
                 if(x.books != null)
                     td(style="color: red") #{x.books.length}
                 else
                     td 0
+    
+    script(src="/javascripts/bookings/getAllBookings.js", type="text/javascript")
 
 
         

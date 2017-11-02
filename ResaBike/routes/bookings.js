@@ -16,9 +16,24 @@ router.get('/', function(req, res, next) {
     //get all zones with reservations to confirm 
     bookingsManagement.showAllZonesForReservations().then((zones) => {
         console.log(zones[0].books[0]);
-        res.render('bookings', {zones: zones, currentUser: session.user});
+        res.render('getAllBookings', {zones: zones, currentUser: session.user});
     })
 });
 
+router.get('/:id', function(req, res, next) {
+    
+    //redirection if not access
+    var access = redirection.redirectOneZone(session.user);
+        if(access != 'ok'){
+            res.redirect(access);
+            return;
+        }
+
+    //get all reservations for the zone
+    bookingsManagement.getAllBookDetails(req.params.id).then((zone) => {
+        res.render('getOneBooking', {zone: zone, currentUser: session.user});
+    })
+
+});
 
 module.exports = router;

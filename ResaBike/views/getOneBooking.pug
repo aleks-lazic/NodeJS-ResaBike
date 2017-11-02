@@ -1,0 +1,29 @@
+extends layoutUser
+
+block content
+    h1= zone.name
+
+    table.responsive-table&attributes({'id': 'reservationsTable'})
+            tr
+                th Line(s)
+                th From
+                th To
+                th Date time
+                th Confirmed
+
+            each x, index in zone.bookDetails
+                tr
+                    td= x.lines
+                    td= x.DepartureId
+                    td= x.ArrivalId
+                    td= x.book.time
+                    if(x.book.isConfirmed == true)
+                        td Oui
+                    else
+                        td Non
+                        td
+                            input(type="button", value="accepter")
+                        td
+                            input(type="button", value="refuser")
+
+

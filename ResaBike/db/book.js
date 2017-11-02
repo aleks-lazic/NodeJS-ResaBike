@@ -101,6 +101,18 @@ var getAllReservationsNotConfirmed = function(){
     });
 }
 
+var getAllReservations = function(){
+    return new Promise((resolve, reject) => {
+        models.Book.findAll({
+        }).then(books =>{
+            resolve(books);
+        }).catch((err)=>{
+            reject(err.message);
+        })
+    });
+}
+
+exports.getAllReservations = getAllReservations;
 exports.getAllReservationsNotConfirmed = getAllReservationsNotConfirmed;
 exports.getSumWithMultipleLines = getSumWithMultipleLines;
 exports.getSumBikesByLineAndDepartureHour = getSumBikesByLineAndDepartureHour;

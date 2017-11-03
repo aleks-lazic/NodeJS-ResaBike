@@ -3,6 +3,12 @@ extends layoutUser
 block content
     h1= zone.name
 
+
+    ul(class="collapsible", data-collapsible="accordion")
+        li
+            .collapsible-header First
+            .collapsible-body First body
+            
     table.responsive-table&attributes({'id': 'reservationsTable'})
             tr
                 th Line(s)

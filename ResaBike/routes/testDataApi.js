@@ -14,10 +14,13 @@ var bookingsManagement = require('../management/bookingsManagement');
 //     console.log(zones[0].books);
 // });
 
-bookingsManagement.getAllBookDetails(1371).then((zone) => {
-    console.log(zone.bookDetails[1]);
-})
+// bookingsManagement.getAllBookDetails(1371).then((zone) => {
+//     console.log(zone.bookDetails[1]);
+// })
 
+bookingsManagement.getAllInformationsWeNeedForReservations(1371).then((reservationObject) => {
+    console.log(reservationObject);
+})
 // bookingsManagement.getAllBookDetails(1371).then((zone) => {
 //     zone.books.forEach((b) => {
 //         console.log(b.DepartureId);

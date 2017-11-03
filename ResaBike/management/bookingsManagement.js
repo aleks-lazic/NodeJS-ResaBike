@@ -111,6 +111,59 @@ var getAllBookDetails = function(idZone){
     })
 }
 
+var assignTripToALineAndHour = function(trip, nbBikes){
+    return new Promise((resolve, reject) => {
+        var tripLineHour = {
+            line : trip.idLine,
+            dateTime: trip.departureHour,
+        };
+        var tripObject = {
+            from: trip.idDeparture,
+            to: trip.idTerminal,
+            nbBike: nbBikes
+        }
+        tripLineHour.trip = tripObject;
+        resolve(tripLineHour);
+    })
+}
+var getAllInformationsWeNeedForReservations = function(idZone){
+    return new Promise((resolve, reject) => {
+        //get the zone
+        dbZone.getZoneById(idZone).then((zone) => {
+            //get zones informations
+            var zoneObject = {
+                idZone: zone.id,
+                name: zone.name
+            }; 
+            //add the zone to the whole object
+            var wholeObject = {
+                zone: zoneObject
+            };
+            //get all books
+            dbBook.getAllReservations().then((books) => {
+                //find all trips for each book
+                var promises = [];
+                var linesDeparture = [];
+                for(let k = 0 ; k<books.length ; k++){
+                    dbTrip.getAllTripsByIdBooking(books[k].id).then((trips) => {
+                        for(let i = 0 ; i<trips.length ; i++){
+                            promises.push(assignTripToALineAndHour(trips[i], books[k].nbBike));
+                        }
+                        Promise.all(promises).then((res) => {
+                            res.forEach((r) => {
+                                linesDeparture.push(r);
+                            })
+                            wholeObject.linesDeparture = linesDeparture;
+                            resolve(wholeObject);
+                        })
+                    })
+                }
+            })
+        })
+    })
+}
+
+exports.getAllInformationsWeNeedForReservations = getAllInformationsWeNeedForReservations;
 exports.getAllBookDetails = getAllBookDetails;
 exports.showReservationsForOneZone = showReservationsForOneZone;
 exports.showAllZonesForReservations = showAllZonesForReservations;

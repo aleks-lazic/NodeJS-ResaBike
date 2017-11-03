@@ -6,7 +6,7 @@ var insertTrip = function(departureHour, idLine, idBooking, idDeparture, idTermi
             departureHour: departureHour,
             idLine: idLine,
             idBooking: idBooking,
-            idDeparture: idTerminal,
+            idDeparture: idDeparture,
             idTerminal: idTerminal
         }).then((trip) =>{
             resolve(trip.id);
@@ -35,6 +35,17 @@ var getAllTripsByIdBooking = function(idBooking){
             where: {
                 idBooking: idBooking
             }
+        }).then((trips)=>{
+            resolve(trips);
+        }).catch((err)=>{
+            reject(err.message);
+        });
+    })
+}
+
+var getAllTrips = function(){
+    return new Promise((resolve, reject) =>{
+        models.Trip.findAll({
         }).then((trips)=>{
             resolve(trips);
         }).catch((err)=>{

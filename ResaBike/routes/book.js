@@ -16,7 +16,10 @@ router.post('/confirm', function(req, res, next){
     let mailUser = req.body.email ;
     let lines = req.body.lines.split(',');
     let placesAvailable = req.body.placesAvailable;
-
+    let trips = JSON.parse(req.body.trips);
+    console.log("Trips" + trips[0].idDeparture + trips[0].idTerminal);
+    console.log("Trips" + trips[1].idDeparture + trips[1].idTerminal);
+    
     //create everything we need for the mail
     //Creating a random token(hash) to be able to delete the reservation
     let randomNumber = Math.random() ;
@@ -32,11 +35,11 @@ router.post('/confirm', function(req, res, next){
     //if nbBike wanted is greather than the places available
     if(nbBike > placesAvailable){
         //send email that the confirmation will be confirmed
-        sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,res);
+        sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,trips, res);
     } else {
         //create the url with the token
         let urlToDelete = "http://localhost:3000/book/delete/" + token ;
-        sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, res);
+        sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res);
     }
 });
 
@@ -56,7 +59,7 @@ router.get('/back', function(req, res, next){
     return res.redirect('/');
 });
 
-function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, res){
+function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res){
     //mail subject
     let mailSubject = 'Reservation confirmation - Resabike ';
     //mail content
@@ -87,10 +90,10 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
         //insert the reservation
         var promisesTrip = [];
         dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, true).then((idBook) => {
-            lines.forEach(function(l) {
-                console.log(timeDep);
-                promisesTrip.push(dbTrip.insertTrip(timeDep, l, idBook, idDeparture, idArrival));
-            }, this);
+            for(let k = 0 ; k<lines.length ; k++){
+                console.log(trips[k].idDeparture + " FUCK " + trips[k].idTerminal);
+                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
+            }
             Promise.all(promisesTrip).then(() => {
                 email.createEmail(mailUser, mailSubject, mailContent);
                 res.send('success');              
@@ -99,7 +102,7 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
     })
 }
 
-function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, res){
+function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res){
     //mail subject
     let mailSubject = 'Reservation not confirmed - Resabike ';
     //mail content
@@ -130,10 +133,9 @@ function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailU
         //insert the reservation
         var promisesTrip = [];
         dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, false).then((idBook) => {
-            lines.forEach(function(l) {
-                console.log(timeDep);
-                promisesTrip.push(dbTrip.insertTrip(timeDep, l, idBook, idDeparture, idArrival));
-            }, this);
+            for(let k = 0 ; k<lines.length ; k++){
+                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
+            }
             Promise.all(promisesTrip).then(() => {
                 email.createEmail(mailUser, mailSubject, mailContent);
                 res.send('needConfirmation');              

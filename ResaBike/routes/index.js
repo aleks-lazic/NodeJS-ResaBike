@@ -83,8 +83,14 @@ router.post('/book', function(req, res, next){
 
         for (let i = 0; i < objct.length ; i++) {
             var legs = objct[i].legs ;
+            var trips = [];
             for (let j = 0 ; j < legs.length ; j++){
                 if(legs[j].type == "post" || legs[j].type == "bus" ){
+                    var trip = {
+                        idDeparture : legs[j].stopid,
+                        idTerminal : legs[j].exit.stopid
+                    };
+                    trips.push(trip);
                     //console.log(legs[j].departure);
                     lines.push(legs[j].line);
                     
@@ -129,7 +135,7 @@ router.post('/book', function(req, res, next){
         }
 
         Promise.all(promisesPlaces).then(() => {
-            res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates});            
+            res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates, trips: trips});            
         })
         
     }).catch((err)=>{

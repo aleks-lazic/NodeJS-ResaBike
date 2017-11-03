@@ -32,7 +32,7 @@ block content
                         td #{arrayTimeDeparture[index].placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure
                     td
-                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)})`) Reservation
+                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)}, ${JSON.stringify(trips)})`) Reservation
                             i(class="material-icons right") book
         br
         button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") Go Back
@@ -59,6 +59,7 @@ block content
                 input(type="email" placeholder="Email", autofocus, name="email" id="email" autocomplete="off" required)
                 input(type="hidden", value=lines.join(), id="linee")
                 input(type="hidden", id="placesAvailable")
+                input(type="hidden", id="trips")
         div(class="modal-footer")
             a(class="waves-effect waves-green btn-flat" id="submitt_confirm") Confirm Reservation
     

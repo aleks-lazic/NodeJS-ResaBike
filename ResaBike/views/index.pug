@@ -24,26 +24,26 @@ block content
           div.row
             div.input-field.col.s6
               //- NEED TO REMOVE THE VALUES AFTER
-              input(type="text" value="Sierre, poste/gare" placeholder="#{lang.searchFromStation}", autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
+              input(type="text" value="Sierre, poste/gare" placeholder=`${lang.searchFromStation}`, autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              input(type="text" value="Les Pontis" placeholder="#{lang.searchToDest}", name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
+              input(type="text" value="Les Pontis" placeholder=`${lang.searchToDest}`, name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="#{lang.}" name="dateTravel" class="datepicker" required)
+              input(type="date" id="datepicker" placeholder=`${lang.searchDate}` name="dateTravel" class="datepicker" required)
               br
-              input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
+              input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder=`${lang.searchNbBike}`)
             div.input-field.col.s6
-              button(class="btn waves-effect waves-light" type="submit" name="action") Submit
+              button(class="btn waves-effect waves-light" type="submit" name="action") #{lang.searchSubmit}
                 i(class="material-icons right") send
   
   //- Third Section - About Us ?
   div(id="aboutus" class="parallax-container valign-wrapper")
     //- div.section.no-pad-bot
     div.container
-      h3(class="header center teal-text text-yellow accent-2") About Us
+      h3(class="header center teal-text text-yellow accent-2") #{lang.aboutTitle}
       div(class="row center")
-        h5(class="header col s12 light") A group of 2 students working for a School Project.
+        h5(class="header col s12 light") #{lang.aboutText1}
         br
-        h5(class="header col s12 light") The goal of the project is to be able to reserve a place for your bike on a bus.
+        h5(class="header col s12 light") #{lang.aboutText2}
     div.parallax
       img(src='../images/wallpaper-index-bus1.jpg', alt='Unsplashed background img 2')
 
@@ -52,21 +52,21 @@ block content
     div.section
       div.row
         div.col.s12.center
-          h3.center-align= "Contact Us"
+          h3.center-align #{lang.contactTitle}
           div(class="row")
             div(class="input-field col s6")
               form(method="post" action="/sendMail")
-                input(id="name_mail" name="name_mail" type="text" class="validate" placeholder="Name" required="" aria-required="true")
+                input(id="name_mail" name="name_mail" type="text" class="validate" placeholder=`${lang.contactName}` required="" aria-required="true")
                 br
                 input(id="name_email" name="email_mail" type="text" class="validate" placeholder="Email" required="" aria-required="true")
                 br
-                input(id="subject_mail" name="subject_mail" type="text" class="validate" placeholder="Subject" required="" aria-required="true")
+                input(id="subject_mail" name="subject_mail" type="text" class="validate" placeholder=`${lang.contactSubject}` required="" aria-required="true")
                 br
-                textarea(id="message_mail" name="message_mail" type="text" class="validate" placeholder="Message" class="materialize-textarea" required="" aria-required="true")
+                textarea(id="message_mail" name="message_mail" type="text" class="validate" placeholder=`${lang.contactMessage}` class="materialize-textarea" required="" aria-required="true")
                 br
-                button(class="btn waves-effect waves-light" type="submit" name="submit_button" id="submit_button" style="margin-top:50px" disabled="disabled") Send Message
+                button(class="btn waves-effect waves-light" type="submit" name="submit_button" id="submit_button" style="margin-top:50px" disabled="disabled") #{lang.contactSendMessage}
                   i(class="material-icons right") send
-                p *You need to fill in every field to be able to send an email
+                p *#{lang.contactMsg}
 
             div(class="input-field col s6")
               i(class="material-icons prefix") phone
@@ -79,10 +79,10 @@ block content
     div(class="footer-copyright")
       div(class="container")
         p © 2017 Copyright Kevin Schmidt, Aleksandar Lazic
-        a(class="lang" href="") French
+        a(class="lang" href="/fr") #{lang.french}
         br
-        a(class="lang" href="") German
+        a(class="lang" href="/de") #{lang.german}
         br
-        a(class="lang" href="") English
+        a(class="lang" href="/en") #{lang.english}
   
   script(src="javascripts/contactForm.js", type="text/javascript")

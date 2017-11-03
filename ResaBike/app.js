@@ -28,11 +28,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next){
-  var lang = require('./lang/en');
-  res.locals.lang = lang ;
-  next();
-});
+// app.use(function(req, res, next){
+//   if (req.url == "/") {
+//     res.redirect("/en");
+//     return;
+//   } 
+//   var langUrl = req.url.split('/');
+//   var newUrl = "/";
+//   for (var i = 2; i < langUrl.length; i++) {
+//     newUrl += langUrl[i] + "/";
+//   }
+//   if (newUrl.length > 1) {
+//     newUrl = newUrl.slice(0, -1);
+//   }
+
+//   req.url = newUrl;
+//   var lang = require('./lang/' + langUrl[1] + '.js');
+//   res.locals.lang = lang;
+//   res.locals.langUsed = langUrl[1];
+  
+// next();
+
+// });
 
 app.use('/', index);
 app.use('/zone', zone);

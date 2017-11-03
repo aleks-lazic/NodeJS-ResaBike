@@ -29,7 +29,6 @@ module.exports = {
     contactSubject: 'Subject',
     contactMessage: 'Message',
     contactSendMessage: 'Send Message',
-    contactName: 'Name',
     contactMsg:'You need to fill in every field to be able to send an email',
     //Toast Message
     contactEmailSent: 'Email has been sent !',
@@ -66,5 +65,5 @@ module.exports = {
     loginButton: 'Login',
 
     //NOT FINISHED YET
-
+    
 }

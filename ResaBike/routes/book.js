@@ -17,6 +17,9 @@ router.post('/confirm', function(req, res, next){
     let lines = req.body.lines.split(',');
     let placesAvailable = req.body.placesAvailable;
     let trips = JSON.parse(req.body.trips);
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+
     
     //create everything we need for the mail
     //Creating a random token(hash) to be able to delete the reservation
@@ -32,11 +35,11 @@ router.post('/confirm', function(req, res, next){
     //if nbBike wanted is greather than the places available
     if(nbBike > placesAvailable){
         //send email that the confirmation will be confirmed
-        sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,trips, res);
+        sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,trips, firstname, lastname, res);
     } else {
         //create the url with the token
         let urlToDelete = "http://localhost:3000/book/delete/" + token ;
-        sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res);
+        sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res);
     }
 });
 
@@ -56,7 +59,7 @@ router.get('/back', function(req, res, next){
     return res.redirect('/');
 });
 
-function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res){
+function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     console.log('confirmation mail');
     //mail subject
     let mailSubject = 'Reservation confirmation - Resabike ';
@@ -87,7 +90,7 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
         let idArrival = resu[1];
         //insert the reservation
         var promisesTrip = [];
-        dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, true).then((idBook) => {
+        dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, true, firstname, lastname).then((idBook) => {
             for(let k = 0 ; k<lines.length ; k++){
                 console.log(trips[k].idDeparture + " FUCK " + trips[k].idTerminal);
                 promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
@@ -100,7 +103,7 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
     })
 }
 
-function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res){
+function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     //mail subject
     let mailSubject = 'Reservation not confirmed - Resabike ';
     //mail content
@@ -130,7 +133,7 @@ function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailU
         let idArrival = resu[1];
         //insert the reservation
         var promisesTrip = [];
-        dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, false).then((idBook) => {
+        dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, false, firstname, lastname).then((idBook) => {
             for(let k = 0 ; k<lines.length ; k++){
                 promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
             }

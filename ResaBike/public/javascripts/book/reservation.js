@@ -8,9 +8,12 @@ $(document).ready(function() {
         var lines = document.getElementById('linee').value;
         var placesAvailable = document.getElementById('placesAvailable').value;
         var trips = document.getElementById('trips').value;
+        var firstname = document.getElementById('firstname').value;
+        var lastname = document.getElementById('lastname').value;
+
 
         if(validateEmail(email)){
-            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines, placesAvailable, trips);
+            reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines, placesAvailable, trips, firstname, lastname);
         }else{
             alert("WRONG EMAIL");
         }
@@ -18,9 +21,10 @@ $(document).ready(function() {
 });
 
 
-function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines, placesAvailable, trips){
+function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines, placesAvailable, trips, firstname, lastname){
+    
     //create the book object that will be used in the post
-    var book = {
+    var books = {
         from: stationFrom,
         arrival: stationArrival,
         timeDep: timeDep,
@@ -28,13 +32,15 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines,
         email: email,
         lines: lines,
         placesAvailable: placesAvailable,
-        trips: trips
+        trips: trips,
+        firstname: firstname,
+        lastname: lastname
     };
 
     $.ajax({
         type: 'POST',
         url: '/book/confirm',
-        data: book,
+        data: books,
         success: function(data){
             if(data == 'success'){
                 successfullReservation();

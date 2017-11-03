@@ -56,7 +56,9 @@ block content
                             td(name="nbBike" id="nbBike") #{nbBike}
                 br
                 p(style="font-weight:bold;") Enter your email address to confirm reservation :
-                input(type="email" placeholder="Email", autofocus, name="email" id="email" autocomplete="off" required)
+                input(type="text", autofocus placeholder="Firstname", id="firstname", autocomplete="off", required)
+                input(type="text", placeholder="Lastname", id="lastname", autocomplete="off", required)
+                input(type="email" placeholder="Email", name="email" id="email" autocomplete="off" required)
                 input(type="hidden", value=lines.join(), id="linee")
                 input(type="hidden", id="placesAvailable")
                 input(type="hidden", id="trips")

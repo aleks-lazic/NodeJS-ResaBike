@@ -159,3 +159,8 @@
   visibility: visible;
   opacity: 1;
 }
+
+.lang{
+  text-decoration: none;
+  color: white;
+}

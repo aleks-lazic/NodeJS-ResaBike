@@ -7,30 +7,28 @@ block content
     div(class="section no-pad-bot")
       div(class="container")
         br
-        h1(class="header center teal-text text-yellow accent-2") ResaBike
+        h1(class="header center teal-text text-yellow accent-2") Resabike
         div(class="row center")
-          h5(class="header col s12 light") A new way to travel with your bike
+          h5(class="header col s12 light") #{lang.bannerText}
         div(class="row center")
-          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Contact us
+          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") #{lang.bannerContact}
         br
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
   //- Second Section - SEARCH WITH API !
   div(id="search" class="container" style="padding-top:80px; padding-bottom:80px;")
-    h3.center-align= "Timetable and Reservation"
+    h3.center-align #{lang.searchTitle}
       div.row
         form(class="col s12" action="/book" method="post")
           div.row
             div.input-field.col.s6
               //- NEED TO REMOVE THE VALUES AFTER
-              input(type="text" value="Sierre, poste/gare" placeholder="From Station", autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
+              input(type="text" value="Sierre, poste/gare" placeholder="#{lang.searchFromStation}", autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              //i.material-icons.prefix phone
-              input(type="text" value="Les Pontis" placeholder="To Destination", name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
-              //label(for="icon_telephone") Telephone
+              input(type="text" value="Les Pontis" placeholder="#{lang.searchToDest}", name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="Date" name="dateTravel" class="datepicker" value="2017-11-01" required)
+              input(type="date" id="datepicker" placeholder="#{lang.}" name="dateTravel" class="datepicker" required)
               br
               input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder="Number of Bike(s)")
             div.input-field.col.s6

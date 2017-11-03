@@ -91,7 +91,7 @@ router.post('/book', function(req, res, next){
                         idTerminal : legs[j].exit.stopid
                     };
                     trips.push(trip);
-                    console.log(legs[j].departure);
+                    console.log("TEST : " + legs[j].departure);
                     lines.push(legs[j].line);
 
                     //Delete the duplicated lines
@@ -108,7 +108,8 @@ router.post('/book', function(req, res, next){
                         };
                         arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
-                        //console.log("Entered if");
+                        console.log("TEST IF");
+                        console.log(arrayTimeDeparture);
                     }
                     else if(stringCurrentDate == dateTravelUser && dateSplit[1] > stringHourMinute){
                         var arrayObject = {
@@ -116,8 +117,10 @@ router.post('/book', function(req, res, next){
                         };
                         arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
-                        //console.log("entered else if");
+                        console.log("TEST ELSE IF");
+                        console.log(arrayTimeDeparture);
                     }
+
                 }
             }
         }
@@ -135,6 +138,7 @@ router.post('/book', function(req, res, next){
         }
 
         Promise.all(promisesPlaces).then(() => {
+            console.log(arrayTimeDeparture);
             res.render('book', {arrayTimeDeparture: arrayTimeDeparture, arrayTimeArrival: arrayTimeArrival, departureFrom: departureFrom, arrivalTo: arrivalTo, nbBike: nbBike, dateTravelUser: dateTravelUser, lines: linesWithoutDuplicates, trips: trips});            
         })
         

@@ -77,7 +77,7 @@ router.post('/book', function(req, res, next){
     .then((obj) => {
         //console.log(obj);
         let objct = obj.connections ;
-        //console.log(objct);
+        console.log(objct);
         let lines = [] ;
         let linesWithoutDuplicates = [] ;
 
@@ -91,32 +91,32 @@ router.post('/book', function(req, res, next){
                         idTerminal : legs[j].exit.stopid
                     };
                     trips.push(trip);
-                    //console.log(legs[j].departure);
+                    console.log(legs[j].departure);
                     lines.push(legs[j].line);
-                    
+
                     //Delete the duplicated lines
                     linesWithoutDuplicates = lines.filter(function(line, j, self){
                         return j == self.indexOf(line);
                     })
 
                     let dateSplit = legs[j].departure.split(" ");
-                    //console.log(dateSplit[0].split("-")[2]);
-                    //console.log(dateTravelUser.split("-")[2]);
+                    console.log(dateSplit[0].split("-")[2]);
+                    console.log(dateTravelUser.split("-")[2]);
                     if(dateSplit[0].split("-")[2] == dateTravelUser.split("-")[2] && stringCurrentDate != dateTravelUser){
                         var arrayObject = {
                             timeDeparture: objct[i].departure
                         };
                         arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
-                        console.log("Entered if");
+                        //console.log("Entered if");
                     }
-                    if(stringCurrentDate == dateTravelUser && dateSplit[1] > stringHourMinute){
+                    else if(stringCurrentDate == dateTravelUser && dateSplit[1] > stringHourMinute){
                         var arrayObject = {
                             timeDeparture: objct[i].departure
                         };
                         arrayTimeDeparture.push(arrayObject);
                         arrayTimeArrival.push(objct[i].arrival);
-                        console.log("entered else if");
+                        //console.log("entered else if");
                     }
                 }
             }

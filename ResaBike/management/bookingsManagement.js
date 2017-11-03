@@ -259,7 +259,8 @@ var addTripsToCorrectLineHours = function(idZone){
                                                 id: currentTrip.id,
                                                 dep: wholeObject.linesDeparture[k].trip.dep,
                                                 ter: wholeObject.linesDeparture[k].trip.ter,
-                                                nbBike: tripObject.nbBike
+                                                nbBike: tripObject.nbBike,
+                                                isConfirmed: currentTrip.isConfirmed
                                             };
                                             wholeObject.linesDeparture[k].trips.push(trip);
                                         } else {
@@ -267,7 +268,8 @@ var addTripsToCorrectLineHours = function(idZone){
                                                 id: currentTrip.id,
                                                 dep: wholeObject.linesDeparture[k].trip.dep,
                                                 ter: wholeObject.linesDeparture[k].trip.ter,
-                                                nbBike: tripObject.nbBike
+                                                nbBike: tripObject.nbBike,
+                                                isConfirmed: currentTrip.isConfirmed                                                
                                             };
                                             wholeObject.linesDeparture[k].trips.push(trip);
                                         }

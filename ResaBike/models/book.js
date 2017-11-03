@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     token: DataTypes.TEXT,
     nbBike: DataTypes.INTEGER,
     mail: DataTypes.STRING,
-    isConfirmed: DataTypes.BOOLEAN    
+    isConfirmed: DataTypes.BOOLEAN,
+    firstname: DataTypes.STRING,
+    lastname: DataTypes.STRING 
   });
 
   Book.associate = (models)=>{

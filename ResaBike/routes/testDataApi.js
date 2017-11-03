@@ -18,9 +18,13 @@ var bookingsManagement = require('../management/bookingsManagement');
 //     console.log(zone.bookDetails[1]);
 // })
 
-bookingsManagement.getTripStationsName(1371).then((reservationObject) => {
-    console.log(JSON.stringify(reservationObject));
-})
+// bookingsManagement.getTripStationsName(1371).then((reservationObject) => {
+//     console.log(JSON.stringify(reservationObject));
+// })
+
+bookingsManagement.addTripsToCorrectLineHours(1371).then((wholeObject) => {
+    console.log(JSON.stringify(wholeObject));
+});
 // bookingsManagement.getAllBookDetails(1371).then((zone) => {
 //     zone.books.forEach((b) => {
 //         console.log(b.DepartureId);

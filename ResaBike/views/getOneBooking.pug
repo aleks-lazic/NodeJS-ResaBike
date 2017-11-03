@@ -2,13 +2,25 @@ extends layoutUser
 
 block content
     h1= object.zone.name
-
-    each x, index in object.linesDeparture
-        ul(class="collapsible", data-collapsible="accordion")
+        
+    ul(class="collapsible", data-collapsible="accordion")
+        each x, index in object.linesDeparture
             li
-                .collapsible-header Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
-                .collapsible-body #{x.trip.dep} --- #{x.trip.ter} --- #{x.trip.nbBike} bike(s)
-
+                .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
+                .collapsible-body
+                    if(x.trips != null)
+                        table
+                            tr
+                                th id
+                                th From
+                                th To
+                                th Nb bike(s)
+                                each y in x.trips
+                                    tr
+                                        td= y.id
+                                        td= y.dep
+                                        td= y.ter
+                                        td= y.nbBike
 
 
             

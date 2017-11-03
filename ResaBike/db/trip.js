@@ -54,6 +54,25 @@ var getAllTrips = function(){
     })
 }
 
+var getAllTripsByIdBooking2 = function(idBooking, nbBike){
+    return new Promise((resolve, reject) =>{
+        models.Trip.findAll({
+            where: {
+                idBooking: idBooking
+            }
+        }).then((trips)=>{
+            var tripsObject ={
+                nbBike: nbBike,
+                trips: trips
+            };
+            resolve(tripsObject);
+        }).catch((err)=>{
+            reject(err.message);
+        });
+    })
+}
+
+exports.getAllTripsByIdBooking2 = getAllTripsByIdBooking2;
 exports.getAllTripsByIdBooking = getAllTripsByIdBooking;
 exports.insertTrip = insertTrip;
 exports.getAllReservationsByDepartureAndLine = getAllReservationsByDepartureAndLine;

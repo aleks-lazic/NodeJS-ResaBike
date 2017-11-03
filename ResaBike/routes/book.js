@@ -12,10 +12,10 @@ router.post('/confirm', function(req, res, next){
     let departureFrom = req.body.from;
     let arrivalTo = req.body.arrival ;
     let timeDep = req.body.timeDep ;
-    let nbBike = req.body.nbBike ;
+    let nbBike = Number(req.body.nbBike) ;
     let mailUser = req.body.email ;
     let lines = req.body.lines.split(',');
-    let placesAvailable = req.body.placesAvailable;
+    let placesAvailable = Number(req.body.placesAvailable);
     let trips = JSON.parse(req.body.trips);
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
@@ -33,6 +33,7 @@ router.post('/confirm', function(req, res, next){
                        .digest('hex');
 
     //if nbBike wanted is greather than the places available
+    console.log("PlacesAvailable" + placesAvailable);
     if(nbBike > placesAvailable){
         //send email that the confirmation will be confirmed
         sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,trips, firstname, lastname, res);

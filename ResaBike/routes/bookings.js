@@ -33,6 +33,7 @@ router.get('/:id', function(req, res, next) {
 
     //get all reservations for the zone
     bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((wholeObject) => {
+        console.log(JSON.stringify(wholeObject));
         res.render('getOneBooking', {object: wholeObject, currentUser: session.user});
     })
 

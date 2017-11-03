@@ -238,8 +238,13 @@ var addTripsToCorrectLineHours = function(idZone){
                 var promisesTrips = [];
                 books.forEach((b) => {
                     let nbBike = b.nbBike;
+                    let firstname = b.firstname;
+                    let lastname = b.lastname;
+                    let mail = b.mail;
+                    let idBook = b.id;
+                    let isConfirmed = b.isConfirmed;
                     //récupérer tous les trips pour chaque réservation
-                    promisesTrips.push(dbTrip.getAllTripsByIdBooking2(b.id, nbBike));
+                    promisesTrips.push(dbTrip.getAllTripsByIdBooking2(b.id, nbBike, firstname, lastname, mail, idBook, isConfirmed));
                 })
                 //une fois qu'on a tous les trips pour chaque réservation
                 Promise.all(promisesTrips).then((allTrips) => {
@@ -249,7 +254,6 @@ var addTripsToCorrectLineHours = function(idZone){
                         promisesTrip.push(new Promise((resolve, reject) => {
                             for(let l = 0; l<tripObject.trips.length ; l++){
                                 let currentTrip = tripObject.trips[l];
-                                console.log(currentTrip);
                                 for(let k = 0 ; k<wholeObject.linesDeparture.length ; k++){
                                     let currentLineDeparture = wholeObject.linesDeparture[k];
                                     if((currentTrip.idLine == currentLineDeparture.line) && (currentTrip.departureHour == currentLineDeparture.dateTime)){
@@ -260,7 +264,11 @@ var addTripsToCorrectLineHours = function(idZone){
                                                 dep: wholeObject.linesDeparture[k].trip.dep,
                                                 ter: wholeObject.linesDeparture[k].trip.ter,
                                                 nbBike: tripObject.nbBike,
-                                                isConfirmed: currentTrip.isConfirmed
+                                                idBook : tripObject.idBook,
+                                                isConfirmed: tripObject.isConfirmed,
+                                                firstname: tripObject.firstname,
+                                                lastname: tripObject.lastname,
+                                                mail: tripObject.mail
                                             };
                                             wholeObject.linesDeparture[k].trips.push(trip);
                                         } else {
@@ -269,7 +277,11 @@ var addTripsToCorrectLineHours = function(idZone){
                                                 dep: wholeObject.linesDeparture[k].trip.dep,
                                                 ter: wholeObject.linesDeparture[k].trip.ter,
                                                 nbBike: tripObject.nbBike,
-                                                isConfirmed: currentTrip.isConfirmed                                                
+                                                idBook : tripObject.idBook,
+                                                isConfirmed: tripObject.isConfirmed,
+                                                firstname: tripObject.firstname,
+                                                lastname: tripObject.lastname,
+                                                mail: tripObject.mail
                                             };
                                             wholeObject.linesDeparture[k].trips.push(trip);
                                         }

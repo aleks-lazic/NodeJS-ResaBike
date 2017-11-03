@@ -2,25 +2,41 @@ extends layoutUser
 
 block content
     h1= object.zone.name
-        
-    ul(class="collapsible", data-collapsible="accordion")
-        each x, index in object.linesDeparture
-            li
-                .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
-                .collapsible-body
-                    if(x.trips != null)
-                        table
-                            tr
-                                th id
-                                th From
-                                th To
-                                th Nb bike(s)
-                                each y in x.trips
-                                    tr
-                                        td= y.id
-                                        td= y.dep
-                                        td= y.ter
-                                        td= y.nbBike
+    div.container
+        ul(class="collapsible", data-collapsible="accordion")
+            each x, index in object.linesDeparture
+                li
+                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
+                    .collapsible-body
+                        if(x.trips != null)
+                            table
+                                tr
+                                    th id
+                                    th From
+                                    th To
+                                    th Nb bike(s)
+                                    th Firstname
+                                    th Lastname
+                                    th Mail
+                                    th idBook
+                                    each y in x.trips
+                                        tr
+                                            td= y.id
+                                            td= y.dep
+                                            td= y.ter
+                                            td= y.nbBike
+                                            td= y.firstname
+                                            td= y.lastname
+                                            td= y.mail
+                                            td= y.idBook
+                                            if(y.isConfirmed != true)
+                                                td
+                                                    a(class="waves-effect waves-light btn")
+                                                        i.material-icons check
+                                                    a(class="waves-effect waves-light btn red")
+                                                        i.material-icons clear
+
+
 
 
             

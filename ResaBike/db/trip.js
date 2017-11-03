@@ -54,7 +54,7 @@ var getAllTrips = function(){
     })
 }
 
-var getAllTripsByIdBooking2 = function(idBooking, nbBike){
+var getAllTripsByIdBooking2 = function(idBooking, nbBike, firstname, lastname, mail, idBook, isConfirmed){
     return new Promise((resolve, reject) =>{
         models.Trip.findAll({
             where: {
@@ -63,6 +63,11 @@ var getAllTripsByIdBooking2 = function(idBooking, nbBike){
         }).then((trips)=>{
             var tripsObject ={
                 nbBike: nbBike,
+                firstname: firstname,
+                lastname: lastname,
+                mail: mail,
+                idBook: idBook,
+                isConfirmed: isConfirmed,
                 trips: trips
             };
             resolve(tripsObject);

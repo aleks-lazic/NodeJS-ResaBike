@@ -1,35 +1,38 @@
 extends layoutUser
 
 block content
-    h1= zone.name
+    h1= object.zone.name
+
+    each x, index in object.linesDeparture
+        ul(class="collapsible", data-collapsible="accordion")
+            li
+                .collapsible-header Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
+                .collapsible-body #{x.trip.dep} --- #{x.trip.ter} --- #{x.trip.nbBike} bike(s)
 
 
-    ul(class="collapsible", data-collapsible="accordion")
-        li
-            .collapsible-header First
-            .collapsible-body First body
+
             
-    table.responsive-table&attributes({'id': 'reservationsTable'})
-            tr
-                th Line(s)
-                th From
-                th To
-                th Date time
-                th Confirmed
+    //- table.responsive-table&attributes({'id': 'reservationsTable'})
+    //-         tr
+    //-             th Line(s)
+    //-             th From
+    //-             th To
+    //-             th Date time
+    //-             th Confirmed
 
-            each x, index in zone.bookDetails
-                tr
-                    td= x.lines
-                    td= x.DepartureId
-                    td= x.ArrivalId
-                    td= x.book.time
-                    if(x.book.isConfirmed == true)
-                        td Oui
-                    else
-                        td Non
-                        td
-                            input(type="button", value="accepter")
-                        td
-                            input(type="button", value="refuser")
+    //-         each x, index in zone.bookDetails
+    //-             tr
+    //-                 td= x.lines
+    //-                 td= x.DepartureId
+    //-                 td= x.ArrivalId
+    //-                 td= x.book.time
+    //-                 if(x.book.isConfirmed == true)
+    //-                     td Oui
+    //-                 else
+    //-                     td Non
+    //-                     td
+    //-                         input(type="button", value="accepter")
+    //-                     td
+    //-                         input(type="button", value="refuser")
 
 

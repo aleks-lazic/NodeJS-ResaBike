@@ -30,8 +30,8 @@ router.get('/:id', function(req, res, next) {
         }
 
     //get all reservations for the zone
-    bookingsManagement.getAllBookDetails(req.params.id).then((zone) => {
-        res.render('getOneBooking', {zone: zone, currentUser: session.user});
+    bookingsManagement.getTripStationsName(req.params.id).then((wholeObject) => {
+        res.render('getOneBooking', {object: wholeObject, currentUser: session.user});
     })
 
 });

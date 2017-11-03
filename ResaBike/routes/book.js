@@ -17,8 +17,6 @@ router.post('/confirm', function(req, res, next){
     let lines = req.body.lines.split(',');
     let placesAvailable = req.body.placesAvailable;
     let trips = JSON.parse(req.body.trips);
-    console.log("Trips" + trips[0].idDeparture + trips[0].idTerminal);
-    console.log("Trips" + trips[1].idDeparture + trips[1].idTerminal);
     
     //create everything we need for the mail
     //Creating a random token(hash) to be able to delete the reservation
@@ -30,7 +28,6 @@ router.post('/confirm', function(req, res, next){
     let token = crypto.createHmac('sha256', secretKey)
                        .update(tokenToEncrypt)
                        .digest('hex');
-
 
     //if nbBike wanted is greather than the places available
     if(nbBike > placesAvailable){
@@ -60,6 +57,7 @@ router.get('/back', function(req, res, next){
 });
 
 function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, res){
+    console.log('confirmation mail');
     //mail subject
     let mailSubject = 'Reservation confirmation - Resabike ';
     //mail content

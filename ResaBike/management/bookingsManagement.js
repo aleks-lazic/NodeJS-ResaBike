@@ -10,7 +10,7 @@ var showAllZonesForReservations = function(){
         //first get all zones
         dbZone.getAllZones().then((zones) => {
             //get all reservations that are not confirmed
-            dbBook.getAllReservationsNotConfirmed().then((books) => {
+            dbBook.getAllReservations().then((books) => {
                 //get all trips for each book not confirmed
                 var promises = [];
                 books.forEach(function(b) {
@@ -154,7 +154,17 @@ var getAllInformationsWeNeedForReservations = function(idZone){
                                 linesDeparture.push(r);
                             })
                             wholeObject.linesDeparture = linesDeparture;
-                            resolve(wholeObject);
+                            var linePromises = [];
+                            for(let j = 0 ; j<wholeObject.linesDeparture.length ; j++){
+                                let idLine = wholeObject.linesDeparture[j].line;
+                                linePromises.push(getStationsDepartureAndTerminalFromLine(idLine).then((station) => {
+                                    wholeObject.linesDeparture[j].dep = station.dep;
+                                    wholeObject.linesDeparture[j].ter = station.ter;                                    
+                                }));
+                            }
+                            Promise.all(linePromises).then(() => {
+                                resolve(wholeObject);                                
+                            })
                         })
                     })
                 }
@@ -163,6 +173,36 @@ var getAllInformationsWeNeedForReservations = function(idZone){
     })
 }
 
+var getTripStationsName = function(idZone){
+    return new Promise((resolve, reject) => {
+        getAllInformationsWeNeedForReservations(idZone).then((wholeObject) => {
+            var promises = [];
+            for(let k = 0; k<wholeObject.linesDeparture.length ; k++){
+                let trip = wholeObject.linesDeparture[k].trip;
+                promises.push(dbStation.getDepartureAndTerminalStationWithIdLine(trip.from, trip.to).then((station) => {
+                    trip.dep = station.dep;
+                    trip.ter = station.ter;
+                    trip = wholeObject.linesDeparture[k].trip;
+                }));
+            }
+            Promise.all(promises).then(() => {
+                resolve(wholeObject);
+            })
+        })
+    })
+}
+
+var getStationsDepartureAndTerminalFromLine = function(idLine){
+    return new Promise((resolve, reject)=> {
+        dbLine.getLineById(idLine).then((line) => {
+            dbStation.getDepartureAndTerminalStationWithIdLine(line.DepartureId, line.ArrivalId).then((station) => {
+                resolve(station);
+            })
+        })
+    })
+}
+
+exports.getTripStationsName = getTripStationsName;
 exports.getAllInformationsWeNeedForReservations = getAllInformationsWeNeedForReservations;
 exports.getAllBookDetails = getAllBookDetails;
 exports.showReservationsForOneZone = showReservationsForOneZone;

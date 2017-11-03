@@ -94,7 +94,11 @@ var getAllReservationsNotConfirmed = function(){
                 isConfirmed: false
             }
         }).then(books =>{
-            resolve(books);
+            if(books != null){
+                resolve(books);
+            } else {
+                resolve([]);
+            }
         }).catch((err)=>{
             reject(err.message);
         })

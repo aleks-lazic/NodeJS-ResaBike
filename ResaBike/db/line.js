@@ -47,6 +47,20 @@ var deleteLineById = function(idLine){
     })
 }
 
+var getLineById = function(idLine) {
+    return new Promise((resolve, reject) => {
+        models.Line.findOne({
+            where: {
+                id: idLine
+            }
+        }).then((res)=>{
+            resolve(res);
+        }).catch((err)=>{
+            reject(err.message);
+        });
+    })
+}
+
 
 var getLinesByIdZone = function(zoneId){
     return new Promise((resolve, reject) =>{
@@ -76,6 +90,7 @@ var getZoneIdByLine = function(idLine){
     }) 
 }
 
+exports.getLineById = getLineById;
 exports.getZoneIdByLine = getZoneIdByLine;
 exports.getLinesByIdZone = getLinesByIdZone;
 exports.insertLine = insertLine;

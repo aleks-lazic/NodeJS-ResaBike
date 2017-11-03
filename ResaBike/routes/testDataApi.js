@@ -18,8 +18,8 @@ var bookingsManagement = require('../management/bookingsManagement');
 //     console.log(zone.bookDetails[1]);
 // })
 
-bookingsManagement.getAllInformationsWeNeedForReservations(1371).then((reservationObject) => {
-    console.log(reservationObject);
+bookingsManagement.getTripStationsName(1371).then((reservationObject) => {
+    console.log(JSON.stringify(reservationObject));
 })
 // bookingsManagement.getAllBookDetails(1371).then((zone) => {
 //     zone.books.forEach((b) => {

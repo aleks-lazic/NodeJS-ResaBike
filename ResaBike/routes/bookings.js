@@ -3,6 +3,8 @@ var router = express.Router();
 var session = require('express-session');
 var bookingsManagement = require('../management/bookingsManagement');
 var redirection = require('../modules/redirection');
+var dbBook = require('../db/book');
+var dbTrip = require('../db/trip');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -30,7 +32,7 @@ router.get('/:id', function(req, res, next) {
         }
 
     //get all reservations for the zone
-    bookingsManagement.getTripStationsName(req.params.id).then((wholeObject) => {
+    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((wholeObject) => {
         res.render('getOneBooking', {object: wholeObject, currentUser: session.user});
     })
 

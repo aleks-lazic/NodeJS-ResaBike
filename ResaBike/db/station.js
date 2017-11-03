@@ -1,5 +1,6 @@
 var models = require('../models');
 var dbLineStation = require('./linestation');
+var dbLine = require('../db/line');
 
 var getAllStations = function(){
     return new Promise((resolve, reject)=>{

@@ -202,6 +202,92 @@ var getStationsDepartureAndTerminalFromLine = function(idLine){
     })
 }
 
+var sortDataToRemoveDuplicatedLinesHours = function(idZone){
+    return new Promise((resolve, reject) => {
+        getTripStationsName(idZone).then((wholeObject) => {
+            var linesDeparture = [];
+            for(let k = 0 ; k<wholeObject.linesDeparture.length ; k++){
+                let currentLineDeparture = wholeObject.linesDeparture[k];
+                if(linesDeparture.length == 0){
+                    linesDeparture.push(currentLineDeparture);
+                }
+                for(let i = 0 ; i<linesDeparture.length ; i++){
+                    var flag = false;
+                    if((linesDeparture[i].line == currentLineDeparture.line) && 
+                        (linesDeparture [i].dateTime == currentLineDeparture.dateTime)){
+                            flag = true;
+                    }
+                    if(flag){
+                        break;
+                    }
+                }
+                if(!flag){
+                    linesDeparture.push(currentLineDeparture);                
+                }
+            }
+            wholeObject.linesDeparture = linesDeparture;
+            resolve(wholeObject);
+        })
+    })
+}
+var addTripsToCorrectLineHours = function(idZone){
+    return new Promise((resolve, reject) => {
+        sortDataToRemoveDuplicatedLinesHours(idZone).then((wholeObject) => {
+            //récupérer toutes les réservations
+            dbBook.getAllReservations().then((books) => {
+                var promisesTrips = [];
+                books.forEach((b) => {
+                    let nbBike = b.nbBike;
+                    //récupérer tous les trips pour chaque réservation
+                    promisesTrips.push(dbTrip.getAllTripsByIdBooking2(b.id, nbBike));
+                })
+                //une fois qu'on a tous les trips pour chaque réservation
+                Promise.all(promisesTrips).then((allTrips) => {
+                    //pour chaque trip il faut la mettre dans le bon objet
+                    var promisesTrip = [];
+                    allTrips.forEach((tripObject) => {
+                        promisesTrip.push(new Promise((resolve, reject) => {
+                            for(let l = 0; l<tripObject.trips.length ; l++){
+                                let currentTrip = tripObject.trips[l];
+                                console.log(currentTrip);
+                                for(let k = 0 ; k<wholeObject.linesDeparture.length ; k++){
+                                    let currentLineDeparture = wholeObject.linesDeparture[k];
+                                    if((currentTrip.idLine == currentLineDeparture.line) && (currentTrip.departureHour == currentLineDeparture.dateTime)){
+                                        if(wholeObject.linesDeparture[k].trips == null){
+                                            wholeObject.linesDeparture[k].trips = [];
+                                            var trip = {
+                                                id: currentTrip.id,
+                                                dep: wholeObject.linesDeparture[k].trip.dep,
+                                                ter: wholeObject.linesDeparture[k].trip.ter,
+                                                nbBike: tripObject.nbBike
+                                            };
+                                            wholeObject.linesDeparture[k].trips.push(trip);
+                                        } else {
+                                            var trip = {
+                                                id: currentTrip.id,
+                                                dep: wholeObject.linesDeparture[k].trip.dep,
+                                                ter: wholeObject.linesDeparture[k].trip.ter,
+                                                nbBike: tripObject.nbBike
+                                            };
+                                            wholeObject.linesDeparture[k].trips.push(trip);
+                                        }
+                                    }
+                                }
+                            }
+                            resolve();
+                        }))
+                    })
+                    Promise.all(promisesTrip).then(() => {
+                        resolve(wholeObject);
+                    })
+                })
+            })
+        })
+    })
+}
+
+exports.addTripsToCorrectLineHours = addTripsToCorrectLineHours;
+exports.sortDataToRemoveDuplicatedLinesHours = sortDataToRemoveDuplicatedLinesHours;
 exports.getTripStationsName = getTripStationsName;
 exports.getAllInformationsWeNeedForReservations = getAllInformationsWeNeedForReservations;
 exports.getAllBookDetails = getAllBookDetails;

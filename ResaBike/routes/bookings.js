@@ -39,4 +39,16 @@ router.get('/:id', function(req, res, next) {
 
 });
 
+router.delete('/:idBook', function(req, res, next){
+    bookingsManagement.deleteReservation(req.params.idBook).then(() => {
+        res.send('success');
+    });
+})
+
+router.put('/', function(req, res, next){
+    bookingsManagement.confirmReservation(req.body.idBook).then(() => {
+        res.send('success');
+    })
+})
+
 module.exports = router;

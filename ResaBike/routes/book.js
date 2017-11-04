@@ -47,12 +47,14 @@ router.post('/confirm', function(req, res, next){
 router.get('/delete/:token', function(req, res, next){
     
     var token = req.params.token ;
-    //console.log(token);
-    dbBook.deleteReservationByToken(token).then(()=>{
-        //If successfull redirect user to a delete confirmation page
-        res.render('delete');
-    });
 
+    dbBook.getReservationByToken(token).then((book) => {
+        dbTrip.deleteTrip(book.id);
+        dbBook.deleteReservationByToken(token).then(()=>{
+            //If successfull redirect user to a delete confirmation page
+            res.render('delete');
+        });
+    })
 })
 
 router.get('/back', function(req, res, next){

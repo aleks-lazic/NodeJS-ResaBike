@@ -118,6 +118,68 @@ var getAllReservations = function(){
     });
 }
 
+var deleteReservation = function(idBook){
+    return new Promise((resolve, reject) => {
+        models.Book.destroy({
+            where:{
+                id: idBook
+            }
+        }).then(() => {                  
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+var getReservationById = function(idBook){
+    return new Promise((resolve, reject) => {
+        models.Book.findOne({
+            where:{
+                id: idBook
+            }
+        }).then((book) => {                  
+            resolve(book);
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+var confirmReservation = function(idBook){
+    return new Promise((resolve, reject) => {
+        models.Book.update({
+            isConfirmed: true
+            },
+            {where:{
+                id: idBook
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
+            reject(err.message);
+        });
+    })
+}
+
+var getReservationByToken = function(token) {
+    return new Promise((resolve, reject) => {
+        models.Book.findOne({
+            where:{
+                token: token
+            }
+        }).then((book) => {                  
+            resolve(book);
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.getReservationByToken = getReservationByToken;
+exports.confirmReservation = confirmReservation;
+exports.getReservationById = getReservationById;
+exports.deleteReservation = deleteReservation;
 exports.getAllReservations = getAllReservations;
 exports.getAllReservationsNotConfirmed = getAllReservationsNotConfirmed;
 exports.getSumWithMultipleLines = getSumWithMultipleLines;

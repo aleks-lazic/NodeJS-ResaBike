@@ -77,6 +77,21 @@ var getAllTripsByIdBooking2 = function(idBooking, nbBike, firstname, lastname, m
     })
 }
 
+var deleteTrip = function(idBook){
+    return new Promise((resolve, reject) => {
+        models.Trip.destroy({
+            where:{
+                idBooking: idBook
+            }
+        }).then(() => {                  
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.deleteTrip = deleteTrip;
 exports.getAllTripsByIdBooking2 = getAllTripsByIdBooking2;
 exports.getAllTripsByIdBooking = getAllTripsByIdBooking;
 exports.insertTrip = insertTrip;

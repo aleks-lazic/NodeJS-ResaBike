@@ -4,6 +4,7 @@ var dbTrip = require('../db/trip');
 var dbLine = require('../db/line');
 var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
+var email = require('../modules/email');
 
 var showAllZonesForReservations = function(){
     return new Promise((resolve, reject) => {
@@ -230,6 +231,7 @@ var sortDataToRemoveDuplicatedLinesHours = function(idZone){
         })
     })
 }
+
 var addTripsToCorrectLineHours = function(idZone){
     return new Promise((resolve, reject) => {
         sortDataToRemoveDuplicatedLinesHours(idZone).then((wholeObject) => {
@@ -300,6 +302,117 @@ var addTripsToCorrectLineHours = function(idZone){
     })
 }
 
+var deleteReservation = function(idBook){
+    return new Promise((resolve, reject) => {
+        //get the book we want to delete
+        dbBook.getReservationById(idBook).then((book) => {
+            //create the object for the mail
+            var objectMail = {
+                firstname: book.firstname,
+                lastname: book.lastname,
+                from: book.DepartureId,
+                to: book.ArrivalId,
+                time: book.time,
+                mail: book.mail,
+                nBbike: book.nbBike
+            }
+
+            var promises = [];
+            //delete the trips
+            promises.push(dbTrip.deleteTrip(idBook));
+            //delete the book
+            promises.push(dbBook.deleteReservation(idBook));
+
+            Promise.all(promises).then(() => {
+                //send the mail
+                sendRefusalMail(objectMail);
+                resolve();
+            })  
+        })
+    })
+}
+
+var sendRefusalMail = function(objectMail){
+    //get departureStation and Arrival
+    var promises = [];
+    promises.push(dbStation.getStationById(objectMail.from));
+    promises.push(dbStation.getStationById(objectMail.to));
+
+    Promise.all(promises).then((stations) => {
+        //mail subject
+        let mailSubject = 'Reservation not confirmed - Resabike';
+
+        let mailContent = `<div>
+                                <h1>Reservation not confirmed</h1>
+                            </div>
+                            <div>
+                                <p>Date : ${objectMail.time}
+                                <br>Departure From : ${stations[0].name}
+                                <br>To : ${stations[1].name}
+                                <br>Numbers of bike : ${objectMail.nbBike}</p>
+                            </div>       
+                            <br>`;
+
+        email.createEmail(objectMail.mail, mailSubject, mailContent);
+    })
+}
+
+var confirmReservation = function(idBook){
+    return new Promise((resolve, reject) => {
+        //get the book we want to delete
+        dbBook.getReservationById(idBook).then((book) => {
+            //create the object for the mail
+            var objectMail = {
+                firstname: book.firstname,
+                lastname: book.lastname,
+                from: book.DepartureId,
+                to: book.ArrivalId,
+                time: book.time,
+                mail: book.mail,
+                nBbike: book.nbBike,
+                token: book.token
+            };
+            //modify the booking to confirmed
+            dbBook.confirmReservation(idBook).then(() => {
+                //send confirm email
+                sendConfirmMail(objectMail);
+                resolve();
+            })
+        })
+    })
+}
+
+var sendConfirmMail = function(objectMail){
+    console.log('jenvoie le mail de confirmation')
+    //get departureStation and Arrival
+    var promises = [];
+    promises.push(dbStation.getStationById(objectMail.from));
+    promises.push(dbStation.getStationById(objectMail.to));
+
+    Promise.all(promises).then((stations) => {
+        //mail subject
+        let mailSubject = 'Reservation confirmed - Resabike';
+        let urlToDelete = 'http://localhost:3000/book/delete/' + objectMail.token
+        let mailContent = `<div>
+                                <h1>Reservation Confirmation</h1>
+                            </div>
+                            <div>
+                                <p>Date : ${objectMail.time}
+                                <br>Departure From : ${stations[0].name}
+                                <br>To : ${stations[1].name}
+                                <br>Numbers of bike : ${objectMail.nbBike}</p>
+                            </div>       
+                            <br>
+                            <div>
+                            <p>If you want to delete the reservation, you juste have to press this link : <a href="${urlToDelete}">Delete confirmation</a></p>
+                            </div>` ;
+
+        email.createEmail(objectMail.mail, mailSubject, mailContent);
+    })
+}
+
+exports.confirmReservation = confirmReservation;
+exports.deleteReservation = deleteReservation;
 exports.addTripsToCorrectLineHours = addTripsToCorrectLineHours;
 exports.sortDataToRemoveDuplicatedLinesHours = sortDataToRemoveDuplicatedLinesHours;
 exports.getTripStationsName = getTripStationsName;

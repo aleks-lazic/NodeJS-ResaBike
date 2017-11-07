@@ -43,6 +43,19 @@ var getIdRoleByName = function(name){
     })
 }
 
+var createRole = function(id, name){
+    return new Promise((resolve, reject)=>{
+        models.Role.create({
+            id: id,
+            name: name
+        }).then(role =>{
+            resolve(role.id);
+        }).catch((err)=>{
+            reject(err.message);
+        })
+    })
+}
+exports.createRole = createRole;
 exports.getRoleNameById = getRoleNameById;
 exports.getIdRoleByName = getIdRoleByName;
 exports.getAllRoles = getAllRoles;

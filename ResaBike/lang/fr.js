@@ -68,6 +68,19 @@ module.exports = {
     loginPassword: 'Mot de passe',
     loginButton: 'Login',
 
-    //NOT FINISHED YET
+    /** NEED TO ADD TO THE OTHER TRANSLATION **/
+    loginWrongUser: 'Le username et/ou le mot de passe ne correspondent pas',
+
+    /** GET ALL ZONES */
+    zoneName: 'Nom',
+    zoneDetails: 'Détails',
+    zoneEdit: 'Modifier',
+    zoneDelete: 'Supprimer',
+    zoneCreate: 'Créer',
+
+    deleteResCanceled: 'Réservation annulée',
+    deleteResMsg: 'Votre réservation a été annulée, si ceci ne vient pas de vous, veuillez refaire la réservation',
+    
+
 
 }

@@ -9,7 +9,7 @@ function login(){
 
     //AJAX POST to login
     $.ajax({
-        url: '/fr/login',
+        url: '/'+langUsed+'/login',
         type: 'POST',
         data: user,
         success: function(result){
@@ -19,10 +19,10 @@ function login(){
                 result = JSON.parse(result);
                 //if the user is a sysadmin
                 if(result.RoleId == 3){
-                    window.location.href = '/zone';
+                    window.location.href = '/'+langUsed+'/zone';
                 } else{
                     //redirect him into the zone page
-                    window.location.href = '/zone/'+result.ZoneId
+                    window.location.href = '/'+langUsed+'/zone/'+result.ZoneId
                 }
             }
         }

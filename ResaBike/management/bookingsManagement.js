@@ -294,6 +294,18 @@ var addTripsToCorrectLineHours = function(idZone){
                         }))
                     })
                     Promise.all(promisesTrip).then(() => {
+                        for(let k = 0 ; k<wholeObject.linesDeparture.length ; k++){
+                            var totalBikeReserved = 0;
+                            var totalBikeToConfirm = 0;
+                            for(let i = 0 ; i<wholeObject.linesDeparture[k].trips.length ; i++){
+                                if(wholeObject.linesDeparture[k].trips[i].isConfirmed == true)
+                                    totalBikeReserved += wholeObject.linesDeparture[k].trips[i].nbBike;
+                                else
+                                    totalBikeToConfirm += wholeObject.linesDeparture[k].trips[i].nbBike;
+                            }
+                            wholeObject.linesDeparture[k].totalBikeReserved = totalBikeReserved;
+                            wholeObject.linesDeparture[k].totalBikeToConfirm = totalBikeToConfirm;                            
+                        }
                         resolve(wholeObject);
                     })
                 })

@@ -2,39 +2,38 @@ extends layoutUser
 
 block content
     h1= object.zone.name
-    div.container
+    div.container(id="container")
         ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
             each x, index in object.linesDeparture
                 li
-                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime}
+                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime} #{x.totalBikeReserved} bike(s) confirmed, #{x.totalBikeToConfirm} bike(s) to confirm 
                     .collapsible-body
                         if(x.trips != null)
                             table
                                 tr
-                                    th id
                                     th From
                                     th To
                                     th Nb bike(s)
                                     th Firstname
                                     th Lastname
                                     th Mail
-                                    th idBook
                                     each y in x.trips
                                         tr
-                                            td= y.id
                                             td= y.dep
                                             td= y.ter
                                             td= y.nbBike
                                             td= y.firstname
                                             td= y.lastname
                                             td= y.mail
-                                            td= y.idBook
-                                            if(y.isConfirmed != true)
-                                                td
-                                                    a(class="waves-effect waves-light btn" onclick=`confirmReservation(${y.idBook})`)
-                                                        i.material-icons check
-                                                    a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
-                                                        i.material-icons clear
+                                            if(currentUser.RoleId != 1)
+                                                if(y.isConfirmed != true)
+                                                    td
+                                                        a(class="waves-effect waves-light btn" onclick=`confirmReservation(${y.idBook})`)
+                                                            i.material-icons check
+                                                        a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
+                                                            i.material-icons clear
+                                            else
+                                                td Not confirmed
 
     script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")
 

@@ -2,20 +2,16 @@ extends layoutUser
 
 block content
 
-    table(id="bookingsTable" class="responsive-table")
-        tr
-            th Name
-            th= Details
-            th Number reservations to confirm
-        each x, index in zones
+    div.container
+        table(id="bookingsTable" class="responsive-table")
             tr
-                td= x.name
-                td
-                    a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) Details
-                if(x.books != null)
-                    td(style="color: red") #{x.books.length}
-                else
-                    td 0
+                th Zone
+                th Details
+            each x, index in zones
+                tr
+                    td= x.name
+                    td
+                        a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) Details
     
     script(src="/javascripts/bookings/getAllBookings.js", type="text/javascript")
 

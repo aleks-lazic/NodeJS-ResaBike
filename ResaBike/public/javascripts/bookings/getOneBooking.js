@@ -1,3 +1,19 @@
+//document ready
+$(document).ready(function() {
+    $('#bookingsDetails').searchIt({
+        useMaterializeCollapsible: true,
+        headerIdentifier: '.collapsible-header',
+        itemSelector : '.collapsible-header',
+        searchTemplate:
+        '<div class="row">'+ 
+            '<div class="input-field col s6">' +
+                '<input id="search" type="search" autocomplete="off" placeholder="Search">' +
+                '<i class="material-icons close-search" data-target="search">close</i>'+
+            '</div>'+
+        '</div>'        
+    }); 
+});
+
 //DELETE to delete a reservation
 function deleteReservation(idBook){
     //AJAX DELETE

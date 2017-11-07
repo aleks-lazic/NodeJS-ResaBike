@@ -55,6 +55,9 @@ module.exports = {
     //Toasts after reservation
     resSuccessfull: 'Die Reservierung wurde abgeschlossen',
     resConfirmed: 'Die Reservierung wird von einem Administrator bestätigt',
+    resToolTip: 'Die Anfrage wird bestätigt',
+    resFirstName: 'Vorname',
+    resLastName: 'Name',
 
 
     /** SIDE OF ADMIN **/

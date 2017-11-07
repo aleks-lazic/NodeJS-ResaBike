@@ -7,6 +7,10 @@ html(lang=fr)
     link(rel='stylesheet', href='/stylesheets/style.css' media="screen,projection")
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" media="screen,projection")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    script.
+      var langUsed = "#{langUsed}";
+      var lang = "#{JSON.stringify(lang)}";
+      lang = JSON.parse(lang.replace(/&quot;/g,'"'));
     block scripts
       script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
   body
@@ -17,31 +21,23 @@ html(lang=fr)
           a(class="scroll" id="logo-container" href="#index-banner" class="brand-logo" style="color:black") Logo
           ul(class="right hide-on-med-and-down")
             li
-              a(class="scroll" href="#search" style="color:black") SEARCH FUCK
-              //- #{lang.navSearch}
+              a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
             li
-              a(class="scroll" href="#aboutus" style="color:black") ABOUT FUCK
-              //- #{lang.navAbout}
+              a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
             li
-              a(class="scroll" href="#contact" style="color:black") CONTACT FUCK
-              //- #{lang.navContact}
+              a(class="scroll" href="#contact" style="color:black") #{lang.navContact}
             li
-              a(href="/login" target="_blank" style="color:black") LOGIN FUCK
-              //- #{lang.navLogin}
+              a(href="/"+langUsed+"/login" target="_blank" style="color:black") #{lang.navLogin}
 
           ul(id="nav-mobile" class="side-nav")
             li
-              a(class="scroll" href="#search" style="color:black") SEARCH FUCK
-              //- #{lang.navSearch}
+              a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
             li
-              a(class="scroll" href="#aboutus" style="color:black") ABOUT FUCK
-              //- #{lang.navAbout}
+              a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
             li
-              a(class="scroll" href="#contact" style="color:black") CONTACT FUCK
-              //- #{lang.navContact}
+              a(class="scroll" href="#contact" style="color:black")  #{lang.navContact}
             li
-              a(href="/login" target="_blank" style="color:black") LOGIN FUCK
-              //- #{lang.navLogin}
+              a(href="/"+langUsed+"/login" target="_blank" style="color:black")  #{lang.navLogin}
 
           a(href="#" data-activates="nav-mobile" class="button-collapse")
             i(class="material-icons") menu

@@ -7,6 +7,10 @@ html(lang=fr)
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
     link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    script.
+      var langUsed = "#{langUsed}";
+      var lang = "#{JSON.stringify(lang)}";
+      lang = JSON.parse(lang.replace(/&quot;/g,'"'));
     block scripts
         script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")

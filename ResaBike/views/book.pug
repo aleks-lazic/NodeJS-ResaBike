@@ -11,13 +11,13 @@ block content
     br
     div.container
         table(class="highlight.responsive-table", id="tableReservations")
-            tr
-                thead
-                    th Departure From
-                    th Arrival To
-                    th Time Departure
-                    th Time Arrival
-                    th Places available
+            thead
+                 tr
+                    th #{lang.resDepFrom}
+                    th #{lang.resArrTo}
+                    th #{lang.resTimeDep}
+                    th #{lang.resTimeArrival}
+                    th #{lang.resPlacesAvailable}
             tbody
             each x, index in arrayTimeDeparture
                 tr
@@ -27,43 +27,44 @@ block content
                     td #{arrayTimeArrival[index].split(" ")[1]}
                     if(arrayTimeDeparture[index].placesAvailable < nbBike)
                         td(class="tooltip", style="color: red") #{arrayTimeDeparture[index].placesAvailable}
-                            span.tooltiptext Request needs confirmation
+                            span.tooltiptext #{lang.resToolTip}
                     else
                         td #{arrayTimeDeparture[index].placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure
                     td
-                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)}, ${JSON.stringify(trips)})`) Reservation
+                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)}, ${JSON.stringify(trips)})`) #{lang.reservation}
                             i(class="material-icons right") book
         br
-        button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") Go Back
+        button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") #{lang.resGoBack}
     //- Modal for the modification of a user
     div(id="modal1" class="modal")
         div(class="modal-content")
-            h4= "Details Reservation"
+            h4 #{lang.resDetailsRes}
             div.container
             form(method="post" action="/confirm")
                 table(class="responsiv-table")
-                    tr
-                        thead
-                            th Departure From
-                            th Arrival To
-                            th Date and Time
-                            th Number of Bike(s)
-                        tbody
+                    thead
+                        tr
+                            th #{lang.resDepFrom}
+                            th #{lang.resArrTo}
+                            th #{lang.resDateTime}
+                            th #{lang.resNbBike}
+                    tbody
+                        tr
                             td(name="departureFrom" id="departureFrom") #{departureFrom}
                             td(name="arrivalTo" id="arrivalTo") #{arrivalTo}
                             td(name="dateDep" id="dateDep") #{arrayTimeDeparture.timeDeparture}
                             td(name="nbBike" id="nbBike") #{nbBike}
                 br
-                p(style="font-weight:bold;") Enter your email address to confirm reservation :
-                input(type="text", autofocus placeholder="Firstname", id="firstname", autocomplete="off", required)
-                input(type="text", placeholder="Lastname", id="lastname", autocomplete="off", required)
+                p(style="font-weight:bold;") #{lang.resEmailConfirm}
+                input(type="text", autofocus placeholder=`${lang.resFirstName}`, id="firstname", autocomplete="off", required)
+                input(type="text", placeholder=`${lang.resLastName}`, id="lastname", autocomplete="off", required)
                 input(type="email" placeholder="Email", name="email" id="email" autocomplete="off" required)
                 input(type="hidden", value=lines.join(), id="linee")
                 input(type="hidden", id="placesAvailable")
                 input(type="hidden", id="trips")
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" id="submitt_confirm") Confirm Reservation
+            a(class="waves-effect waves-green btn-flat" id="submitt_confirm") #{lang.resConfirm}
     
     //- Redirecting to index to do another search
     script.
@@ -71,5 +72,5 @@ block content
             window.location.href = '/';
         });
     
-    script(src="javascripts/book/modalConfirm.js", type="text/javascript")
-    script(src="javascripts/book/reservation.js", type="text/javascript")
+    script(src="/javascripts/book/modalConfirm.js", type="text/javascript")
+    script(src="/javascripts/book/reservation.js", type="text/javascript")

@@ -4,7 +4,7 @@ function autocomplete(inputId){
         var input = document.getElementById(inputId).value;
         $.ajax({
             type: 'GET',
-            url: "http://localhost:3000/getAllStations",
+            url: "/fr/getAllStations",
             success: function(response) {
                 var stationArray = response;
                 var dataStation = {};

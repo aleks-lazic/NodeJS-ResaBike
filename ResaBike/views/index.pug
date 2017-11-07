@@ -9,52 +9,40 @@ block content
         br
         h1(class="header center teal-text text-yellow accent-2") Resabike
         div(class="row center")
-          h5(class="header col s12 light") fuck
-          //- #{lang.bannerText}
+          h5(class="header col s12 light")  #{lang.bannerText}
         div(class="row center")
-          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1") Fuck
-          //- #{lang.bannerContact}
+          a(class="scroll" href="#contact" id="contact-button" class="btn waves-effect waves-light teal lighten-1")  #{lang.bannerContact}
         br
     div(class="parallax")
       img(src="../images/wallpaper-bike1.jpg" alt="Unsplashed background img 1")
 
   //- Second Section - SEARCH WITH API !
   div(id="search" class="container" style="padding-top:80px; padding-bottom:80px;")
-    h3.center-align FUCK
-      //- #{lang.searchTitle}
+    h3.center-align  #{lang.searchTitle}
       div.row
-        form(class="col s12" action="/book" method="post")
+        form(class="col s12" action="/"+langUsed+"/book" method="post")
           div.row
             div.input-field.col.s6
-              //- NEED TO REMOVE THE VALUES AFTER
-              input(type="text" value="Sierre, poste/gare" placeholder="FROM", autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
-              //- `${lang.searchFromStation}`
+              input(type="text" value="Sierre, poste/gare" placeholder=`${lang.searchFromStation}`, autofocus, name="departureFrom" id="departureFrom" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              input(type="text" value="Les Pontis" placeholder="TO", name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
-              //- `${lang.searchToDest}`
+              input(type="text" value="Les Pontis" placeholder=`${lang.searchToDest}`, name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
-              input(type="date" id="datepicker" placeholder="FUCK" name="dateTravel" class="datepicker" required)
-              //- `${lang.searchDate}`
+              input(type="date" id="datepicker" placeholder=`${lang.searchDate}` name="dateTravel" class="datepicker" required)
               br
-              input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder="NBBIKE")
-              //- `${lang.searchNbBike}`
+              input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder=`${lang.searchNbBike}`)
             div.input-field.col.s6
-              button(class="btn waves-effect waves-light" type="submit" name="action") FUCK
-                //- #{lang.searchSubmit}
+              button(class="btn waves-effect waves-light" type="submit" name="action") #{lang.searchSubmit}
                 i(class="material-icons right") send
   
   //- Third Section - About Us ?
   div(id="aboutus" class="parallax-container valign-wrapper")
     //- div.section.no-pad-bot
     div.container
-      h3(class="header center teal-text text-yellow accent-2") FUCK
-      //- #{lang.aboutTitle}
+      h3(class="header center teal-text text-yellow accent-2") #{lang.aboutTitle}
       div(class="row center")
-        h5(class="header col s12 light") FUCK
-        //- #{lang.aboutText1}
+        h5(class="header col s12 light") #{lang.aboutText1}
         br
-        h5(class="header col s12 light") FUCK
-        //- #{lang.aboutText2}
+        h5(class="header col s12 light")  #{lang.aboutText2}
     div.parallax
       img(src='../images/wallpaper-index-bus1.jpg', alt='Unsplashed background img 2')
 
@@ -63,27 +51,21 @@ block content
     div.section
       div.row
         div.col.s12.center
-          h3.center-align FUCK
-          //- #{lang.contactTitle}
+          h3.center-align  #{lang.contactTitle}
           div(class="row")
             div(class="input-field col s6")
-              form(method="post" action="/sendMail")
-                input(id="name_mail" name="name_mail" type="text" class="validate" placeholder="FUCK" required="" aria-required="true")
-                //- `${lang.contactName}`
+              form(method="post" action="/"+langUsed+"/sendMail")
+                input(id="name_mail" name="name_mail" type="text" class="validate" placeholder=`${lang.contactName}` required="" aria-required="true")
                 br
                 input(id="name_email" name="email_mail" type="text" class="validate" placeholder="Email" required="" aria-required="true")
                 br
-                input(id="subject_mail" name="subject_mail" type="text" class="validate" placeholder="FUCK" required="" aria-required="true")
-                //- `${lang.contactSubject}`
+                input(id="subject_mail" name="subject_mail" type="text" class="validate" placeholder=`${lang.contactSubject}` required="" aria-required="true")
                 br
-                textarea(id="message_mail" name="message_mail" type="text" class="validate" placeholder="FUCK" class="materialize-textarea" required="" aria-required="true")
-                //- `${lang.contactMessage}`
+                textarea(id="message_mail" name="message_mail" type="text" class="validate" placeholder=`${lang.contactMessage}` class="materialize-textarea" required="" aria-required="true")
                 br
-                button(class="btn waves-effect waves-light" type="submit" name="submit_button" id="submit_button" style="margin-top:50px" disabled="disabled") FUVCK
-                  //- #{lang.contactSendMessage}
+                button(class="btn waves-effect waves-light" type="submit" name="submit_button" id="submit_button" style="margin-top:50px" disabled="disabled") #{lang.contactSendMessage}
                   i(class="material-icons right") send
-                p *FUCK
-                //- #{lang.contactMsg}
+                p *#{lang.contactMsg}
 
             div(class="input-field col s6")
               i(class="material-icons prefix") phone
@@ -96,13 +78,10 @@ block content
     div(class="footer-copyright")
       div(class="container")
         p © 2017 Copyright Kevin Schmidt, Aleksandar Lazic
-        a(class="lang" href="/fr") FRENCH FUCK
-        //- #{lang.french}
+        a(class="lang" href="/fr") #{lang.french}
         br
-        a(class="lang" href="/de") GERMAN FUCK
-        //- #{lang.german}
+        a(class="lang" href="/de") #{lang.german}
         br
-        a(class="lang" href="/en") ENGLISH FUCK
-        //- #{lang.english}
+        a(class="lang" href="/en") #{lang.english}
   
   script(src="javascripts/contactForm.js", type="text/javascript")

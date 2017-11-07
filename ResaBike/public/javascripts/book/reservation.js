@@ -15,7 +15,7 @@ $(document).ready(function() {
         if(validateEmail(email)){
             reservation(stationFrom, stationArrival, timeDep, nbBike, $('#email').val(), lines, placesAvailable, trips, firstname, lastname);
         }else{
-            alert("WRONG EMAIL");
+            $("#email").attr("class","validate invalid");
         }
     });
 });
@@ -39,7 +39,7 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines,
 
     $.ajax({
         type: 'POST',
-        url: '/book/confirm',
+        url: '/' + langUsed + '/book/confirm',
         data: books,
         success: function(data){
             if(data == 'success'){
@@ -51,6 +51,7 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines,
     });
 };
 
+//Check function for a valid email address in the reservation
 function validateEmail(email) {
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
     return re.test(email);
@@ -60,7 +61,7 @@ function validateEmail(email) {
 function successfullReservation(){
     $('.modal').modal();
     $('#modal1').modal('close');
-    Materialize.toast('Reservation has been successfull', 4000, 'rounded')
+    Materialize.toast(`${lang.resSuccessfull}`, 4000, 'rounded')
     setTimeout(function(){
         window.location.href= "/";        
     }, 3000);
@@ -69,7 +70,7 @@ function successfullReservation(){
 function reservationWillBeConfirmed(){
     $('.modal').modal();
     $('#modal1').modal('close');
-    Materialize.toast('The reservation will be confirmed furthermore', 4000, 'rounded')
+    Materialize.toast(`${lang.resConfirmed}`, 4000, 'rounded')
     setTimeout(function(){
         window.location.href= "/";        
     }, 3000);

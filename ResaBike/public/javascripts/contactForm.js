@@ -17,7 +17,7 @@
         
     });
     $("#submit_button").click(function(){
-        Materialize.toast('Email has been sent !', 3000, 'rounded');
+        Materialize.toast(`${lang.contactEmailSent}`, 3000, 'rounded');
     });
 })()
 

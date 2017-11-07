@@ -11,7 +11,7 @@ models.sequelize.sync({force:true}).then(function () {
     promises.push(dbRole.createRole(3, 'sysadmin'));
     
     Promise.all(promises).then(() => {
-        dbUser.createUser('root', 'root', 'root@root.com', 3);
+        dbUser.createUser('root', 'root', 'root@root.com', 'sysadmin');
     })
 
 });

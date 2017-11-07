@@ -9,7 +9,7 @@ function login(){
 
     //AJAX POST to login
     $.ajax({
-        url: '/login',
+        url: '/fr/login',
         type: 'POST',
         data: user,
         success: function(result){

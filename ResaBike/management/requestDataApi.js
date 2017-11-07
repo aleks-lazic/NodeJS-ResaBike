@@ -8,8 +8,13 @@ var url = "https://timetable.search.ch/api/route.en.json?from=sierre&to=zinal,%2
 var dbBook = require('../db/book');
 var dbTrip = require('../db/trip');
 var bookingsManagement = require('../management/bookingsManagement');
+var bookManagement = require('../management/bookManagement');
 
+// bookManagement.getAllConnections('Sierre', 'Zinal', '2017/11/10', 1).then((connections) => {
+//     console.log(connections);
+// })
 
+// getDataFromAPI("https://timetable.search.ch/api/route.en.json?from=Sierre&to=Zinal&date=2017/11/10&time=06:00");
 // bookingsManagement.showAllZonesForReservations().then((zones) => {
 //     console.log(zones[0].books);
 // });
@@ -40,7 +45,7 @@ var bookingsManagement = require('../management/bookingsManagement');
 //     console.log(max);
 // })
 
-function getDataFromAPI(url){
+var getDataFromAPI = function(url){
     return new Promise((resolve, reject)=>{
         request(url, function (error, response, body) {
             if (!error && response.statusCode === 200) {
@@ -130,6 +135,10 @@ function getDepartureAndTerminalFromAPI(terminalStation, idLine){
         })  
     })
 }
+
+function sayFuck(){
+    console.log("fuck hehe");
+}
 // function addRelationsBetweenStationsAndLines(){
 //     getDataFromAPI(url)
 //     .then((obj) =>{
@@ -165,6 +174,7 @@ function getDepartureAndTerminalFromAPI(terminalStation, idLine){
 
 // dbStation.deleteStation(8501996);
 
+exports.sayFuck = sayFuck;
 exports.getDepartureAndTerminalFromAPI = getDepartureAndTerminalFromAPI;
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

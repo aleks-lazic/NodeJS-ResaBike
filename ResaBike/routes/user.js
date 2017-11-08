@@ -6,19 +6,25 @@ var session = require('express-session');
 var redirection = require('../modules/redirection');
 
 
-router.use(function(req, res, next){
-    if(session.user != null)
-        if(req.path = '/logout')
-            next();
+// router.use(function(req, res, next){
+//     if(session.user != null){
+//         console.log("le user est null");
+//         if(req.path = '/'+ res.locals.langUsed +'/logout'){
+//             console.log('le path est logout');
+//             next();            
+//         }
+//     }
 
-    var access = redirection.redirectUser(session.user);
+    // var access = redirection.redirectUser(session.user);
     
-        if(access != 'ok'){
-            res.redirect(access);
-        } else {
-            next();
-        }
-})
+    //     if(access != 'ok'){
+    //         console.log("access n'est pas ok : " + access);
+    //         res.redirect('/'+ res.locals.langUsed+'/'+access);
+    //     } else {
+    //         console.log('je suis dans le deuxieme next');
+    //         next();
+    //     }
+// })
 
 
 //GET all ZONEADMINS
@@ -30,6 +36,13 @@ router.get('/getAllZoneAdmin', function(req, res, next) {
 
 //GET all users
 router.get('/', function(req, res, next) {
+
+    var access = redirection.redirectUser(session.user);
+    
+    if(access != 'ok'){
+        res.redirect('/'+res.locals.langUsed +access);
+        return;
+    }
 
     var promises = [];
     var roles = [];
@@ -50,7 +63,6 @@ router.get('/', function(req, res, next) {
 
 //LOGOUT
 router.get('/logout', function(req, res, next) {
-    console.log(session.user.id);
     session.user = null;
     res.redirect('/' + res.locals.langUsed + '/login');
 })

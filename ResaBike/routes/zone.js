@@ -31,6 +31,7 @@ router.get('/', (req, res, next) => {
 router.get('/getAllZones', (req, res, next) => {
     //get all zones
     dbZone.getAllZones().then((zones) => {
+        console.log(zones);
         res.send(JSON.stringify(zones));                           
     })
 });

@@ -18,7 +18,7 @@ $(document).ready(function() {
 function deleteReservation(idBook){
     //AJAX DELETE
     $.ajax({
-        url : '/bookings/'+idBook,
+        url : '/fr/bookings/'+idBook,
         type : 'DELETE',
         success : function(res){
             $('#bookingsDetails').load(' #bookingsDetails');
@@ -35,7 +35,7 @@ function confirmReservation(idBook){
 
     //AJAX PUT
     $.ajax({
-        url : '/bookings',
+        url : '/fr/bookings',
         type : 'PUT',
         data: book,
         success : function(res){

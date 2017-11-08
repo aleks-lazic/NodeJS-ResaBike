@@ -1,3 +1,3 @@
 function reservationDetails(idZone){
-    window.location.href = '/bookings/'+idZone;
+    window.location.href = '/' + langUsed + '/bookings/'+idZone;
 }

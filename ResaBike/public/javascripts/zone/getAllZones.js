@@ -17,7 +17,7 @@ function createZone(){
 
     // POST ajax to create the zone
     $.ajax({
-        url : '/zone/create',
+        url : '/fr/zone/create',
         type : 'POST',
         data: zone,
         success : function(res){
@@ -52,7 +52,7 @@ function editZone(){
 
      // POST ajax to create the zone
      $.ajax({
-        url : '/zone/update',
+        url : '/fr/zone/update',
         type : 'PUT',
         data: zone,
         success : function(res){
@@ -70,7 +70,7 @@ function editZone(){
 function deleteZone(id){
     // DELETE ajax to delete the zone
     $.ajax({
-        url : '/zone/delete/'+id,
+        url : '/fr/zone/delete/'+id,
         type : 'DELETE',
         success : function(res){
             $('#zonesTable').load(' #zonesTable');
@@ -81,6 +81,6 @@ function deleteZone(id){
 
 //AJAX GET for zone details
 function detailsZone(id){
-    window.location.href = '/zone/'+id;
+    window.location.href = '/' +langUsed+ '/zone/'+id;
 }
 

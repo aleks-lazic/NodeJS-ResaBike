@@ -40,7 +40,7 @@ function modifyUser(){
 
     //ajax PUT
     $.ajax({
-        url : '/user/update',
+        url : '/fr/user/update',
         type : 'PUT',
         data: newUser,
         success : function(res){
@@ -62,7 +62,7 @@ function modalCreateUser(){
     if(!selectUserAlreadyOk){
         //load all the roles
         $.ajax({
-            url : '/user/getAllRoles',
+            url : '/fr/user/getAllRoles',
             type : 'GET',
             success : function(data){
                 selectUserAlreadyOk = true;
@@ -104,10 +104,11 @@ function loadZones(){
         select.style.visibility = 'visible';        
         //load all the zones
         $.ajax({
-            url : '/zone/getAllZones',
+            url : '/fr/zone/getAllZones',
             type : 'GET',
             success : function(data){
                 console.log(data);
+                data = JSON.parse(data);
                 data.forEach(function(element) {
                     var opt = document.createElement("option");
                     opt.value = element.id;
@@ -148,7 +149,7 @@ function createUser(){
     };
     
     $.ajax({
-        url : '/user/create',
+        url : '/fr/user/create',
         type : 'POST',
         data: user,
         success : function(res){
@@ -178,7 +179,7 @@ function createUser(){
 function deleteUser(id){
     //ajax DELETE
     $.ajax({
-        url : '/user/'+id,
+        url : '/fr/user/'+id,
         type : 'DELETE',
         success : function(res){
             $('#usersTable').load(' #usersTable');            

@@ -25,38 +25,38 @@ body
             ul(id="nav-mobile" class="right hide-on-med-and-down")
                 if(currentUser.RoleId == 3)
                     li
-                        a(href="/user") Users
+                        a(href="/" + langUsed + "/user") Users
                     li
-                        a(href="/zone") Zones
+                        a(href="/" + langUsed + "/zone") Zones
                     li
-                        a(href="/bookings") Reservations
+                        a(href="/" + langUsed + "/bookings") Reservations
                     li
-                        a(href="/user/logout") Logout
+                        a(href="/" + langUsed + "/user/logout") Logout
                 else
                     li
-                        a(href=`/zone/${currentUser.ZoneId}`) Zones
+                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) Zones
                     li
-                        a(href=`/booking/s${currentUser.ZoneId}`) Reservations
+                        a(href="/" + langUsed + `/booking/s${currentUser.ZoneId}`) Reservations
                     li
-                        a(href="/user/logout") Logout
+                        a(href="/" + langUsed + "/user/logout") Logout
             //- Deuxieme ul pour le navbar mobile
             ul(id="mobile-demo", class="side-nav")
                 if(currentUser.RoleId == 3)
                     li
-                        a(href="/user") Users
+                        a(href="/" + langUsed + "/user") Users
                     li
-                        a(href="/zone") Zones
+                        a(href="/" + langUsed + "/zone") Zones
                     li
-                        a(href="/bookings") Reservations
+                        a(href="/" + langUsed + "/bookings") Reservations
                     li
-                        a(href="/user/logout") Logout
+                        a(href="/" + langUsed + "/user/logout") Logout
                 else
                     li
-                        a(href=`/zone/${currentUser.ZoneId}`) Zones
+                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) Zones
                     li
-                        a(href=`/bookings/${currentUser.ZoneId}`) Reservations
+                        a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) Reservations
                     li
-                        a(href="/user/logout") Logout
+                        a(href="/" + langUsed + "/user/logout") Logout
                 
 
 

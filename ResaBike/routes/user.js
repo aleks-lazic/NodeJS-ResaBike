@@ -52,7 +52,7 @@ router.get('/', function(req, res, next) {
 router.get('/logout', function(req, res, next) {
     console.log(session.user.id);
     session.user = null;
-    res.redirect('/login');
+    res.redirect('/' + res.locals.langUsed + '/login');
 })
 
 //POST CREATE new user

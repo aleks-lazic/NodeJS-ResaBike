@@ -28,6 +28,8 @@ block content
               input(type="text" value="Les Pontis" placeholder=`${lang.searchToDest}`, name="arrivalTo" id="arrivalTo" class="autocomplete" autocomplete="off" required)
             div.input-field.col.s6
               input(type="date" id="datepicker" placeholder=`${lang.searchDate}` name="dateTravel" class="datepicker" required)
+            div.input-field.col.s6
+              input(type="text" id="timepicker" name="hourDep" placeholder=`${lang.searchTime}` class="timepicker")
               br
               input(type="number" value="1" id="nbBike" name="nbBike" min="1" max="20" placeholder=`${lang.searchNbBike}`)
             div.input-field.col.s6

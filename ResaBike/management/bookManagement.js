@@ -5,7 +5,7 @@ var dbBook = require('../db/book');
 //     console.log(connections);
 // })
 
-function getAllConnections(stationDeparture, arrivalTo, dateTravel, nbBike){
+function getAllConnections(stationDeparture, arrivalTo, dateTravel, timeTravel ,nbBike){
     return new Promise((resolve, reject) => {
         //url request the api
         var test = new Date(dateTravel);
@@ -16,11 +16,7 @@ function getAllConnections(stationDeparture, arrivalTo, dateTravel, nbBike){
         var currentDate = new Date(year + '/' + month + '/' + day);
         
         var url = "";
-        if(currentDate.getTime() == test.getTime()){
-            url = "https://timetable.search.ch/api/route.en.json?from=" + stationDeparture + "&to=" + arrivalTo + "&date=" + dateTravel;
-        } else {
-            url = "https://timetable.search.ch/api/route.en.json?from=" + stationDeparture + "&to=" + arrivalTo + "&date=" + dateTravel + "&time=06:00";
-        }
+        url = "https://timetable.search.ch/api/route.en.json?from=" + stationDeparture + "&to=" + arrivalTo + "&date=" + dateTravel + "&time= " + timeTravel ;
         //request the api
         requestApi.getDataFromAPI(url).then((object) => {
             //get the connections

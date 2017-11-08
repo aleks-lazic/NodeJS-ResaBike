@@ -81,6 +81,10 @@ module.exports = {
     deleteResCanceled: 'Réservation annulée',
     deleteResMsg: 'Votre réservation a été annulée, si ceci ne vient pas de vous, veuillez refaire la réservation',
     
+    searchTime: 'Heure de départ',
 
+    pickerToday :'Aujourd\'hui',
+    pickerClear: 'Supprimer',
+    pickerCancel: 'Annuler'
 
 }

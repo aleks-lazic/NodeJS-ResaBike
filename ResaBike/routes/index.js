@@ -48,7 +48,7 @@ router.post('/book', function(req, res, next){
     }
 
     bookManagement.getAllConnections(req.body.departureFrom, req.body.arrivalTo, req.body.dateTravel, req.body.hourDep ,req.body.nbBike).then((connections) => {
-        console.log(connections);
+        res.render('book', {connections: connections});
     })
 });
 

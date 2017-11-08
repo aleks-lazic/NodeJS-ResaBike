@@ -96,7 +96,7 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
         dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, true, firstname, lastname).then((idBook) => {
             for(let k = 0 ; k<lines.length ; k++){
                 console.log(trips[k].idDeparture + " FUCK " + trips[k].idTerminal);
-                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
+                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].departureId, trips[k].exitId));                
             }
             Promise.all(promisesTrip).then(() => {
                 email.createEmail(mailUser, mailSubject, mailContent);
@@ -138,7 +138,7 @@ function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailU
         var promisesTrip = [];
         dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, false, firstname, lastname).then((idBook) => {
             for(let k = 0 ; k<lines.length ; k++){
-                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].idDeparture, trips[k].idTerminal));                
+                promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].departureId, trips[k].exitId));                
             }
             Promise.all(promisesTrip).then(() => {
                 email.createEmail(mailUser, mailSubject, mailContent);

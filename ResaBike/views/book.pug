@@ -3,11 +3,11 @@ extends layoutMain
 block content
 
     div
-    h3(class="header center teal-text") #{departureFrom}
+    h3(class="header center teal-text") #{connections[0].trips[0].departureStation}
     div.center-align
         i(class="material-icons") arrow_forward 
-    h3(class="header center teal-text") #{arrivalTo}
-    h5(class="header center teal-text") #{dateTravelUser}
+    h3(class="header center teal-text") #{connections[0].trips[connections[0].trips.length-1].exitStation}
+    h5(class="header center teal-text") #{connections[0].date.split(' ')[0]}
     br
     div.container
         table(class="highlight.responsive-table", id="tableReservations")
@@ -19,23 +19,24 @@ block content
                     th #{lang.resTimeArrival}
                     th #{lang.resPlacesAvailable}
             tbody
-            each x, index in arrayTimeDeparture
+            each x, index in connections
                 tr
-                    td #{departureFrom}
-                    td #{arrivalTo}
-                    td #{arrayTimeDeparture[index].timeDeparture.split(" ")[1]}
-                    td #{arrayTimeArrival[index].split(" ")[1]}
-                    if(arrayTimeDeparture[index].placesAvailable < nbBike)
-                        td(class="tooltip", style="color: red") #{arrayTimeDeparture[index].placesAvailable}
+                    td #{x.trips[0].departureStation}
+                    td #{x.trips[x.trips.length-1].exitStation}
+                    td #{x.date.split(' ')[0]}
+                    td #{x.date.split(' ')[1]}
+                    if(x.nbBike > x.placesAvailable)
+                        td(class="tooltip", style="color: red") #{x.placesAvailable}
                             span.tooltiptext #{lang.resToolTip}
                     else
-                        td #{arrayTimeDeparture[index].placesAvailable}
+                        td #{x.placesAvailable}
                         //- Adding a method just to be able to retrieve the time departure
                     td
-                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(arrayTimeDeparture[index].timeDeparture)},${JSON.stringify(arrayTimeDeparture[index].placesAvailable)}, ${JSON.stringify(trips)})`) #{lang.reservation}
+                        button(class="btn waves-effect waves-light" type="button" onclick=`confirmReservation(${JSON.stringify(x.date)}, ${JSON.stringify(x.placesAvailable)}, ${JSON.stringify(x.trips)})`) #{lang.reservation}
                             i(class="material-icons right") book
         br
         button(class="btn waves-effect waves-light" type="button" id="goBack" name="goBack") #{lang.resGoBack}
+
     //- Modal for the modification of a user
     div(id="modal1" class="modal")
         div(class="modal-content")
@@ -51,16 +52,16 @@ block content
                             th #{lang.resNbBike}
                     tbody
                         tr
-                            td(name="departureFrom" id="departureFrom") #{departureFrom}
-                            td(name="arrivalTo" id="arrivalTo") #{arrivalTo}
-                            td(name="dateDep" id="dateDep") #{arrayTimeDeparture.timeDeparture}
-                            td(name="nbBike" id="nbBike") #{nbBike}
+                            td(name="departureFrom" id="departureFrom") #{connections[0].trips[0].departureStation}
+                            td(name="arrivalTo" id="arrivalTo") #{connections[0].trips[connections[0].trips.length-1].exitStation}
+                            td(name="dateDep" id="dateDep") 
+                            td(name="nbBike" id="nbBike") #{connections[0].nbBike}
                 br
                 p(style="font-weight:bold;") #{lang.resEmailConfirm}
                 input(type="text", autofocus placeholder=`${lang.resFirstName}`, id="firstname", autocomplete="off", required)
                 input(type="text", placeholder=`${lang.resLastName}`, id="lastname", autocomplete="off", required)
                 input(type="email" placeholder="Email", name="email" id="email" autocomplete="off" required)
-                input(type="hidden", value=lines.join(), id="linee")
+                input(type="hidden", value=connections[0].lines.join(), id="linee")
                 input(type="hidden", id="placesAvailable")
                 input(type="hidden", id="trips")
         div(class="modal-footer")

@@ -7,16 +7,23 @@ var dbBook = require('../db/book');
 
 function getAllConnections(stationDeparture, arrivalTo, dateTravel, timeTravel ,nbBike){
     return new Promise((resolve, reject) => {
-        //url request the api
+        //get the current date
         var test = new Date(dateTravel);
         var today = new Date();
         day = today.getDate();
         month = today.getMonth() +1;
         year = today.getFullYear();
         var currentDate = new Date(year + '/' + month + '/' + day);
+
+        //modify the time
+        var arrHour = timeTravel.split(':');
+        if(arrHour[0] == '23'){
+            timeTravel = "00:" + arrHour[1];
+        } else {
+            timeTravel = (Number(arrHour[0])+1) + ":" + arrHour[1];            
+        }
         
-        var url = "";
-        url = "https://timetable.search.ch/api/route.en.json?from=" + stationDeparture + "&to=" + arrivalTo + "&date=" + dateTravel + "&time= " + timeTravel ;
+        var url = "https://timetable.search.ch/api/route.en.json?from=" + stationDeparture + "&to=" + arrivalTo + "&date=" + dateTravel + "&time= " + timeTravel ;
         //request the api
         requestApi.getDataFromAPI(url).then((object) => {
             //get the connections

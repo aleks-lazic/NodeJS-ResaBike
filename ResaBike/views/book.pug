@@ -15,7 +15,7 @@ block content
                  tr
                     th #{lang.resDepFrom}
                     th #{lang.resArrTo}
-                    th #{lang.resTimeDep}
+                    th #{lang.resTimDep}
                     th #{lang.resTimeArrival}
                     th #{lang.resPlacesAvailable}
             tbody
@@ -23,8 +23,8 @@ block content
                 tr
                     td #{x.trips[0].departureStation}
                     td #{x.trips[x.trips.length-1].exitStation}
-                    td #{x.date.split(' ')[0]}
                     td #{x.date.split(' ')[1]}
+                    td #{x.arrivalTime.split(' ')[1]}
                     if(x.nbBike > x.placesAvailable)
                         td(class="tooltip", style="color: red") #{x.placesAvailable}
                             span.tooltiptext #{lang.resToolTip}

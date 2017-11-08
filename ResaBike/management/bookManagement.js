@@ -65,6 +65,7 @@ function getAllConnections(stationDeparture, arrivalTo, dateTravel, timeTravel ,
                 connection.trips = trips;
                 connection.lines = lines;
                 connection.nbBike = nbBike;
+                connection.arrivalTime = connections[i].arrival
                 connectionsArray.push(connection);
             }
 

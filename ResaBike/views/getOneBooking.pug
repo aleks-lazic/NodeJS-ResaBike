@@ -6,16 +6,16 @@ block content
         ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
             each x, index in object.linesDeparture
                 li
-                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime} #{x.totalBikeReserved} bike(s) confirmed, #{x.totalBikeToConfirm} bike(s) to confirm 
+                    .collapsible-header(style="background-color: black; color:white") #{lang.getOneBookLine} #{x.line} - #{x.dep} - #{x.ter} #{lang.getOneBookAt} #{x.dateTime} #{x.totalBikeReserved} #{lang.getOneBookBikeConf}, #{x.totalBikeToConfirm} #{lang.getOneBookBikeToConf}
                     .collapsible-body
                         if(x.trips != null)
                             table
                                 tr
-                                    th From
-                                    th To
-                                    th Nb bike(s)
-                                    th Firstname
-                                    th Lastname
+                                    th #{lang.searchFromStation}
+                                    th #{lang.searchToDest}
+                                    th #{lang.searchNbBike}
+                                    th #{lang.resFirstName}
+                                    th #{lang.resLastName}
                                     th Mail
                                     each y in x.trips
                                         tr
@@ -33,7 +33,7 @@ block content
                                                         a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
                                                             i.material-icons clear
                                             else
-                                                td Not confirmed
+                                                td #{lang.getOneBikeNotConf}
 
     script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")
 

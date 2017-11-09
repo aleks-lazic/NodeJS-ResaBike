@@ -68,5 +68,82 @@ module.exports = {
     loginButton: 'Login',
 
     //NOT FINISHED YET
+    /** NEED TO ADD TO THE OTHER TRANSLATION **/
+    loginWrongUser: 'Benutzername oder passwort ist falsch',
+    
+   /** GET ALL ZONES */
+   zoneName: 'Name',
+   zoneDetails: 'Details',
+   zoneEdit: 'Bearbeiten',
+   zoneDelete: 'Löschen',
+   zoneCreate: 'Erstellen',
+
+   layoutUserWelcome: 'Willkomemn',
+   layoutUserNavUser: 'Benutzer',
+   layoutUserNavZone: 'Zone',
+   layoutUserNavRes: 'Reservierung',
+
+   deleteResCanceled: 'Reservierung wurde storniert',
+   deleteResMsg: 'Ihre Reservierung wurde storniert, wenn es nicht Ihre Absicht war, wiederholen Sie bitte die Reservierung',
+   
+   searchTime: 'Abfahrtszeit',
+
+   pickerToday :'Heute',
+   pickerClear: 'Löschen',
+   pickerCancel: 'Annulieren',
+
+   getAllBookZone: 'Zone',
+   getAllBookDetails: 'Details',
+
+   getAllUsersUN: 'Benutzername',
+   getAllUsersMail: 'Email',
+   getAllUsersRole: 'Rolle',
+   getAllUsersEdit: 'Bearbeiten',
+   getAllUsersDel: 'Löschen',
+   getAllUsersSave: 'Speichern',
+
+   getAllUsersEnterPass: 'Geben Sie ihr Passwort ein',
+   getAllUsersRepeatPass: 'Bitte Passwort wiederholen',
+   getAllUsersEnterMail: 'Geben Sie ihr Email ein',
+   getAllUsersSelRole: 'Wählen Sie eine Rolle',
+   getAllUsersSelZone: 'Wählen Sie eine Zone',
+   getAllUsersCreate: 'Erstellen',
+
+   getOneBookLine: 'Linie',
+   getOneBookAt: 'Nach',
+   getOneBookBikeConf: 'Fahrräder bestätigt',
+   getOneBookBikeToConf: 'Fahrräder zu bestätigen',
+   getOneBikeNotConf: 'Nicht bestätigt',
+
+   getOneZoneStatDep: 'Abfahrtsstation',
+   getOneZoneStatArr: 'Ankunftsstation',
+
+   //MAIL PARTS RESERVATION
+   //CONFIRMATION
+   mailResSubject: 'Reservierungsbestätigung - Resabike',
+   mailResFirstPart: '<div><h1>Reservierungsbestätigung</h1></div><div><p>Datum :',
+   mailResSec1Part: '<br>Abfahrt von :',
+   mailResSec2Part: '<br>Ankunft an :',
+   mailResSec3Part: '<br>Anzahl Fahrräder :',
+   mailResDel1Part: '</p></div><br><div><p>Wenn Sie Ihre Reservierung löschen möchten, klicken Sie einfach auf diesen Link: <a href=',
+   mailResDel2Part: '>Reservierung löschen</a></p></div>',
+
+   //WAITING
+   mailWaitSubject: 'Reservierung wird später Bestätigt - Resabike',
+   mailWaitFirstPart: '<div><h1>Reservierung wird später Bestätigt</h1></div><div><p>Datum :',
+   mailWaitSec1Part: '<br>Abfahrt von :',
+   mailWaitSec2Part: '<br>Ankunft an :',
+   mailWaitSec3Part: '<br>Anzahl Fahrräder :',
+   mailWaitDel1Part: '</p></div><br><div><p>Ihre Reservierung wurde berücksichtigt. Ein Administrator wird Sie bald kontaktieren</p></div>',
+
+
+   //BOOKINGS MANAGEMENT
+   //REFUSAL MAIL
+   mailBmRefSubject: 'Reservierungsverweigerung - Resabike',
+   mailBmFirstPart: '<div><h1>Reservierung wurde abgelehnt</h1></div><div><p>Datum :',
+   mailBmSec1Part: '<br>Abfahrt von :',
+   mailBmSec2Part: '<br>Ankunft an:',
+   mailBmSec3Part: '<br>Anzahl Fahrräder :',
+   mailBmLastPart: '</p></div><br>',
 
 }

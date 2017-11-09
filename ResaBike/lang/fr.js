@@ -94,6 +94,57 @@ module.exports = {
 
     getAllBookZone: 'Zone',
     getAllBookDetails: 'Détails',
-    
+
+    getAllUsersUN: 'Nom d\'utilisateur',
+    getAllUsersMail: 'Email',
+    getAllUsersRole: 'Rôle',
+    getAllUsersEdit: 'Modifier',
+    getAllUsersDel: 'Supprimer',
+    getAllUsersSave: 'Sauvegarder',
+
+    getAllUsersEnterPass: 'Entrez votre mot de passe',
+    getAllUsersRepeatPass: 'Retapez votre mot de passe',
+    getAllUsersEnterMail: 'Entrez votre email',
+    getAllUsersSelRole: 'Sélectionnez un rôle',
+    getAllUsersSelZone: 'Sélectionnez une zone',
+    getAllUsersCreate: 'Créer',
+
+    getOneBookLine: 'Ligne',
+    getOneBookAt: 'à',
+    getOneBookBikeConf: 'Vélo(s) confirmé',
+    getOneBookBikeToConf: 'Vélo(s) a confirmé',
+    getOneBikeNotConf: 'Pas confirmé',
+
+    getOneZoneStatDep: 'Station de départ',
+    getOneZoneStatArr: 'Station d\'arrivée',
+
+    //MAIL PARTS RESERVATION
+    //CONFIRMATION
+    mailResSubject: 'Confirmation réservation - Resabike',
+    mailResFirstPart: '<div><h1>Confirmation réservation</h1></div><div><p>Date :',
+    mailResSec1Part: '<br>Départ de :',
+    mailResSec2Part: '<br>Arrivée à :',
+    mailResSec3Part: '<br>Nombres de vélos :',
+    mailResDel1Part: '</p></div><br><div><p>Si vous voulez supprimer la réservation, il vous suffit de cliquer sur ce lien : <a href=',
+    mailResDel2Part: '>Supprimer la réservation</a></p></div>',
+
+    //WAITING
+    mailWaitSubject: 'Réservation en attente de confirmation - Resabike',
+    mailWaitFirstPart: '<div><h1>Réservation en attente</h1></div><div><p>Date :',
+    mailWaitSec1Part: '<br>Départ de :',
+    mailWaitSec2Part: '<br>Arrivée à :',
+    mailWaitSec3Part: '<br>Nombres de vélos :',
+    mailWaitDel1Part: '</p></div><br><div><p>Votre réservation a été pris en compte. Un administrateur va vous contacter d\'ici peu</p></div>',
+
+
+    //BOOKINGS MANAGEMENT
+    //REFUSAL MAIL
+    mailBmRefSubject: 'Réservation refusée - Resabike',
+    mailBmFirstPart: '<div><h1>Réservation refusée</h1></div><div><p>Date :',
+    mailBmSec1Part: '<br>Départ de :',
+    mailBmSec2Part: '<br>Arrivée à',
+    mailBmSec3Part: '<br>Nombres de vélos :',
+    mailBmLastPart: '</p></div><br>',
+
 
 }

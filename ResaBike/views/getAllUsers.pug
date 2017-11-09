@@ -5,20 +5,20 @@ block content
     
     table(id="usersTable" class="responsive-table")
         tr
-            th Username
-            th Email
-            th Role
-            th Edit
-            th Delete
+            th #{lang.getAllUsersUN}
+            th #{lang.getAllUsersMail}
+            th #{lang.getAllUsersRole}
+            th #{lang.getAllUsersEdit}
+            th #{lang.getAllUsersDel}
         each x, index in users
             tr
                 td= x.username
                 td= x.mail
                 td= roles[index]
                 td
-                    a(type="button", class="btn waves-effect waves-light", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) Edit
+                    a(type="button", class="btn waves-effect waves-light", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) #{lang.getAllUsersEdit}
                 td
-                    a(class="btn waves-effect waves-light" onclick=`deleteUser(${x.id})`) Delete
+                    a(class="btn waves-effect waves-light" onclick=`deleteUser(${x.id})`) #{lang.getAllUsersDel}
     
     //- Modal for the modification of a user
     div(id="modalUpdateUser" class="modal")
@@ -31,7 +31,7 @@ block content
             p
                 input(id="email", type="email")
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) Save
+            a(class="waves-effect waves-green btn-flat" onclick=`modifyUser()`) #{lang.getAllUsersSave}
 
     //- Modal for the creation of a user
     div(id="modalCreateUser" class="modal")
@@ -40,27 +40,27 @@ block content
             form(id="formCreateUser")
                 div(class="row")
                     div(class="input-field")
-                        input(type="text", placeholder="Username",class="validate", id="usernamee" required autocomplete="off")
+                        input(type="text", placeholder=`${lang.getAllUsersUn}`,class="validate", id="usernamee" required autocomplete="off")
                 div(class="row")
                     div(class="input-field")
-                        input(type="password",placeholder="Enter your password",class="validate", id="passwordd" required, autocomplete="off")
+                        input(type="password",placeholder=`${lang.getAllUsersEnterPass}`,class="validate", id="passwordd" required, autocomplete="off")
                 div(class="row")
                     div(class="input-field")
-                        input(type="password",placeholder="Repeat your password",class="validate", id="passwordd2" required, autocomplete="off")
+                        input(type="password",placeholder=`${lang.getAllUsersRepeatPass}`,class="validate", id="passwordd2" required, autocomplete="off")
                 div(class="row")
                     div(class="input-field")
-                        input(type="email", placeholder="Enter your email",class="validate", id="emaill", required autocomplete="off")
+                        input(type="email", placeholder=`${lang.getAllUsersEnterMail}`,class="validate", id="emaill", required autocomplete="off")
                 div.row
                     div.input-field-col-s12
                         select(id="selectRole", name="selectRole", onchange='loadZones()')
-                            option(value="", disabled selected) Select a role
+                            option(value="", disabled selected) #{lang.getAllUsersSelRole}
                 div.row
                     div.input-field-col-s12
                         select(id="selectZone", name="selectZone", style="visibility: hidden")
-                            option(value="", disabled selected) Select a zone
+                            option(value="", disabled selected) #{lang.getAllUsersSelZone}
 
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" onclick=`createUser()`) Create
+            a(class="waves-effect waves-green btn-flat" onclick=`createUser()`) #{lang.getAllUsersCreate}
 
     //- Floating action button to create a user
     div(class="right-align float-align-right")

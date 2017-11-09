@@ -36,7 +36,6 @@ module.exports = {
     french: 'Français',
     german: 'Allemand',
     english: 'Anglais',
-    //DONT FORGET THE DATEPICKER
 
     /** RESERVATION PAGE **/
     resDepFrom: 'Départ de',

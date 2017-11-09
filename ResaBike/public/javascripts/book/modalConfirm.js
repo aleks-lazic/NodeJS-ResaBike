@@ -1,4 +1,9 @@
-//modal to open the confirmation reservation
+/**
+ * confirm a reservation with the date places available and the trips
+ * @param {*} dateTime 
+ * @param {*} placesAvailable 
+ * @param {*} trips 
+ */
 function confirmReservation(dateTime, placesAvailable, trips){
     //Display Right date
     document.getElementById('dateDep').innerHTML = dateTime ;

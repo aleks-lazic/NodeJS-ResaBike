@@ -20,7 +20,19 @@ $(document).ready(function() {
     });
 });
 
-
+/**
+ * will post the values form to add it into the db
+ * @param {*} stationFrom 
+ * @param {*} stationArrival 
+ * @param {*} timeDep 
+ * @param {*} nbBike 
+ * @param {*} email 
+ * @param {*} lines 
+ * @param {*} placesAvailable 
+ * @param {*} trips 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ */
 function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines, placesAvailable, trips, firstname, lastname){
     
     //create the book object that will be used in the post
@@ -51,13 +63,18 @@ function reservation(stationFrom, stationArrival, timeDep, nbBike, email, lines,
     });
 };
 
-//Check function for a valid email address in the reservation
+/**
+ * validates the email with regex
+ * @param {*} email 
+ */
 function validateEmail(email) {
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
     return re.test(email);
 };
 
-//Closing modal and print a successfull message to the user
+/**
+ * shows toast if the reservation is successfull
+ */
 function successfullReservation(){
     $('.modal').modal();
     $('#modal1').modal('close');
@@ -67,6 +84,9 @@ function successfullReservation(){
     }, 3000);
 };
 
+/**
+ * show toast if the reservation needs to be confirmed
+ */
 function reservationWillBeConfirmed(){
     $('.modal').modal();
     $('#modal1').modal('close');

@@ -148,12 +148,12 @@ module.exports = {
 
     allUsers: 'Alle Benutzer',
     zoneName: 'Name der Zone',
-    bookingsToCome: 'Réservations à venir',
-    bookingsHistory: 'Historique',
-    allZones: 'Toutes les zones',
-    bookingsHistoric: 'Historique des réservations',
-    noReservations: 'Pas de réservations pour le moment',
-    allReservations: 'Toutes les réservations'
+    bookingsToCome: 'Kommende Buchungen',
+    bookingsHistory: 'Historisch',
+    allZones: 'Alle Zone',
+    bookingsHistoric: 'Frühere Reservierungen',
+    noReservations: 'Keine Reservierung im Moment',
+    allReservations: 'Alle Reservierungen'
    
 
 }

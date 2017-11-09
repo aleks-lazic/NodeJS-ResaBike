@@ -2,7 +2,13 @@ var dbZone = require('./zone');
 var dbStation = require('./station');
 var models = require('../models');
 
-
+/**
+ * insert a new line
+ * @param {*} lineNumber 
+ * @param {*} idDeparture 
+ * @param {*} idTerminal 
+ * @param {*} idZone 
+ */
 var insertLine = function(lineNumber, idDeparture, idTerminal, idZone){
     return new Promise((resolve, reject) => {
         models.Line.create({
@@ -18,6 +24,10 @@ var insertLine = function(lineNumber, idDeparture, idTerminal, idZone){
     })
 }
 
+/**
+ * get line number by id line
+ * @param {*} lineNumber 
+ */
 var getLineIdByLineNumber = function(lineNumber){
     return new Promise((resolve, reject) => {
         models.Line.findOne({
@@ -32,6 +42,10 @@ var getLineIdByLineNumber = function(lineNumber){
     })
 }
 
+/**
+ * delete a line by id
+ * @param {*} idLine 
+ */
 var deleteLineById = function(idLine){
     return new Promise((resolve, reject) => {
         models.Line.destroy({
@@ -47,6 +61,10 @@ var deleteLineById = function(idLine){
     })
 }
 
+/**
+ * get a line by id
+ * @param {*} idLine 
+ */
 var getLineById = function(idLine) {
     return new Promise((resolve, reject) => {
         models.Line.findOne({
@@ -61,7 +79,10 @@ var getLineById = function(idLine) {
     })
 }
 
-
+/**
+ * get all lines by zone id
+ * @param {*} zoneId 
+ */
 var getLinesByIdZone = function(zoneId){
     return new Promise((resolve, reject) =>{
         models.Line.findAll({
@@ -76,6 +97,7 @@ var getLinesByIdZone = function(zoneId){
     })
 }
 
+//get the zone id by idline
 var getZoneIdByLine = function(idLine){
     return new Promise((resolve, reject) =>{
         models.Line.findOne({

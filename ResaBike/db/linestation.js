@@ -1,5 +1,12 @@
 var models = require('../models');
 
+/**
+ * insert new station id and line id
+ * @param {*} stationId 
+ * @param {*} lineId 
+ * @param {*} position 
+ * @param {*} isDepOrTer 
+ */
 var insertStationIdAndLineId = function(stationId, lineId, position, isDepOrTer){
     return new Promise((resolve, reject) => {
         models.LineStation.upsert({
@@ -17,6 +24,10 @@ var insertStationIdAndLineId = function(stationId, lineId, position, isDepOrTer)
     })
 }
 
+/**
+ * delete line id with id line
+ * @param {*} idLine 
+ */
 var deleteLineIdFromLineStation = function(idLine){
     return new Promise((resolve, reject) => {
         models.LineStation.destroy({
@@ -32,6 +43,10 @@ var deleteLineIdFromLineStation = function(idLine){
     })
 }
 
+/**
+ * get all stations with id line
+ * @param {*} idLine 
+ */
 var getAllStationsWithIdLine = function(idLine){
     return new Promise((resolve, reject) => {
         models.LineStation.findAll({
@@ -47,6 +62,10 @@ var getAllStationsWithIdLine = function(idLine){
     })
 }
 
+/**
+ * get station name with id station
+ * @param {*} idStation 
+ */
 var getStationWithIdStation = function(idStation){
     return new Promise((resolve, reject) => {
         models.LineStation.findAll({

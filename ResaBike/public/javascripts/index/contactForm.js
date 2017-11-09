@@ -20,10 +20,3 @@
         Materialize.toast(`${lang.contactEmailSent}`, 3000, 'rounded');
     });
 })()
-
-//$('#submit_button').click(successMailSend());
-
-//Sending a toast when successfully send email
-// function successMailSend(){
-//     Materialize.toast('Email has been sent !', 3000, 'rounded')
-// }

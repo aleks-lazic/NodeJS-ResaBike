@@ -1,4 +1,4 @@
-//document ready
+
 $(document).ready(function() {
     $('#bookingsDetails').searchIt({
         useMaterializeCollapsible: true,
@@ -14,7 +14,10 @@ $(document).ready(function() {
     }); 
 });
 
-//DELETE to delete a reservation
+/**
+ * AJAX method to delete a reservation
+ * @param {*} idBook 
+ */
 function deleteReservation(idBook){
     //AJAX DELETE
     $.ajax({
@@ -27,7 +30,10 @@ function deleteReservation(idBook){
     });
 }
 
-//PUT to modify a reservation
+/**
+ * AJAX put to to confirm a reservation
+ * @param {*} idBook 
+ */
 function confirmReservation(idBook){
     var book = {
         idBook: idBook

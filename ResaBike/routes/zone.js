@@ -11,7 +11,9 @@ var redirection = require('../modules/redirection');
 var session = require('express-session')
 var dbTrip = require('../db/trip');
 
-/* GET all zones home page */
+/**
+ * Get all zones if access is authorized
+ */
 router.get('/', (req, res, next) => {
 
     var access = redirection.redirectAllZones(session.user);
@@ -28,7 +30,9 @@ router.get('/', (req, res, next) => {
     })
 });
 
-/* GET all zones to populate the dropdown */
+/**
+ * get all zones
+ */
 router.get('/getAllZones', (req, res, next) => {
     //get all zones
     dbZone.getAllZones().then((zones) => {
@@ -37,7 +41,9 @@ router.get('/getAllZones', (req, res, next) => {
     })
 });
 
-//delete one zone's line
+/**
+ * delete line by id
+ */
 router.delete('/delete/line/:id', (req, res, next) => {
     var promises = [];
     //get all stations with idLine (to delete them)
@@ -55,7 +61,9 @@ router.delete('/delete/line/:id', (req, res, next) => {
     });
 })
 
-//get one zone home page
+/**
+ * get zone by id
+ */
 router.get('/:id', (req, res, next) => {
 
     var access = redirection.redirectOneZone(session.user, req.params.id);
@@ -89,7 +97,9 @@ router.get('/:id', (req, res, next) => {
 });
 
 
-//CREATE line
+/**
+ * Create a new line
+ */
 router.post('/create/line', (req, res, next) => {
     //get values from body
     let departure = req.body.departure;

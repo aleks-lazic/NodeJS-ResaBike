@@ -7,14 +7,18 @@ var session = require('express-session');
 var redirection = require('../modules/redirection');
 var crypto = require('crypto');
 
-//GET all ZONEADMINS
+/**
+ * Get all zone admins
+ */
 router.get('/getAllZoneAdmin', function(req, res, next) {
     dbUser.getAllUsersByRole("zoneadmin").then((users) => {
         res.send(JSON.stringify(users));
     })
 });
 
-//GET all users
+/**
+ * get users page if access authorized
+ */
 router.get('/', function(req, res, next) {
 
     var access = redirection.redirectUser(session.user);
@@ -47,13 +51,17 @@ router.get('/', function(req, res, next) {
     }) 
 });
 
-//LOGOUT
+/**
+ * logout
+ */
 router.get('/logout', function(req, res, next) {
     session.user = null;
     res.redirect('/' + res.locals.langUsed + '/login');
 })
 
-//POST CREATE new user
+/**
+ * Create a new user
+ */
 router.post('/create', (req, res, next) => {
     //check if the username already exists
     dbUser.checkUsernameExists(req.body.username).then((user) => {
@@ -90,14 +98,18 @@ router.post('/create', (req, res, next) => {
     });    
 })
 
-//GET all roles
+/**
+ * Get all roles
+ */
 router.get('/getAllRoles', (req, res, next) => {
     dbRole.getAllRoles().then((roles) => {
         res.send(JSON.stringify(roles));
     })
 })
 
-//PUT update existing user
+/**
+ * update an existing user
+ */
 router.put('/update', (req, res, next) => {  
     //if the username has not changed
     if(req.body.same == 'true'){
@@ -122,7 +134,9 @@ router.put('/update', (req, res, next) => {
     }
 })
 
-//DELETE user
+/**
+ * delete a user
+ */
 router.delete('/:id', (req, res, next) => {
     dbUser.deleteUser(req.params.id).then(() => {
         res.send('success');

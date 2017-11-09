@@ -15,9 +15,9 @@ router.get('/', function(req, res, next) {
             res.redirect(access);
             return;
         }
+        
     //get all zones with reservations to confirm 
     bookingsManagement.showAllZonesForReservations().then((zones) => {
-        console.log(zones[0].books[0]);
         res.render('getAllBookings', {zones: zones, currentUser: session.user});
     })
 });
@@ -32,11 +32,30 @@ router.get('/:id', function(req, res, next) {
         }
 
     //get all reservations for the zone
-    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((wholeObject) => {
-        console.log(JSON.stringify(wholeObject));
-        res.render('getOneBooking', {object: wholeObject, currentUser: session.user});
+    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
+        bookingsManagement.sortDataToGetReservationsToCome(object).then((wholeObject) => {
+            res.render('getOneBooking', {object: wholeObject, currentUser: session.user});            
+        })
     })
 
+});
+
+router.get('/historique/:id', function(req, res, next) {
+    
+    //redirection if not access
+    var access = redirection.redirectOneZone(session.user);
+        if(access != 'ok'){
+            res.redirect(access);
+            return;
+        }
+
+    //get all reservations for the zone
+    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
+        bookingsManagement.sortDataToGetHistorical(object).then((wholeObject)=> {
+            console.log(JSON.stringify(wholeObject));
+            res.render('getOneBookingHistorical', {object: wholeObject, currentUser: session.user});            
+        })
+    })
 });
 
 router.delete('/:idBook', function(req, res, next){

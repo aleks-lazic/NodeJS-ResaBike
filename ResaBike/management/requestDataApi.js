@@ -10,6 +10,12 @@ var dbTrip = require('../db/trip');
 var bookingsManagement = require('../management/bookingsManagement');
 var bookManagement = require('../management/bookManagement');
 
+
+// bookingsManagement.addTripsToCorrectLineHours(1371).then((wholeObject) => {
+//     bookingsManagement.sortDataToGetReservationsToCome(wholeObject).then((object) => {
+//         console.log(JSON.stringify(object));
+//     });
+// })
 // bookManagement.getAllConnections('Sierre', 'Zinal', '2017/11/10', 1).then((connections) => {
 //     console.log(connections);
 // })

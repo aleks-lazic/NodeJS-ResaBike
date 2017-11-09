@@ -47,6 +47,10 @@ router.post('/login', (req, res, next) => {
 
 })
 
+/**
+ * get all the connections with the book
+ * call of the book management
+ */
 router.post('/book', function(req, res, next){
     //If the client put the same departure and arrival it simply redirect to /
     if(req.body.departureFrom == req.body.arrivalTo){
@@ -59,6 +63,9 @@ router.post('/book', function(req, res, next){
     })
 });
 
+/**
+ * sends the mail for the feedback
+ */
 router.post('/sendMail', function(req, res, next){
     //Retrieving information from contact form
     let name_form = req.body.name_mail ;

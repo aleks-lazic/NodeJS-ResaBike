@@ -9,7 +9,6 @@ var dbZone = require('../db/zone');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
     //redirection if not access
     var access = redirection.redirectAllBookings(session.user);
         if(access != 'ok'){
@@ -59,13 +58,23 @@ router.get('/historique/:id', function(req, res, next) {
         return;
     }
 
-    //get all reservations for the zone
-    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
-        bookingsManagement.sortDataToGetHistorical(object).then((wholeObject)=> {
-            console.log(JSON.stringify(wholeObject));
-            res.render('getOneBookingHistorical', {object: wholeObject, currentUser: session.user});            
+    
+        //first check if there's any reservation
+        dbBook.getAllReservations().then((books) => {
+            if(books.length == 0){
+                dbZone.getZoneById(req.params.id).then((zone) =>{
+                    zone.books = [];
+                    res.render('getOneBooking', {object: zone, currentUser: session.user});            
+                })
+            } else {          
+                //get all reservations for the zone
+                bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
+                    bookingsManagement.sortDataToGetHistorical(object).then((wholeObject)=> {
+                        res.render('getOneBookingHistorical', {object: wholeObject, currentUser: session.user});            
+                    })
+                })
+            }
         })
-    })
 });
 
 router.delete('/:idBook', function(req, res, next){

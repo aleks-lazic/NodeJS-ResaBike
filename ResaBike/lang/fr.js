@@ -152,7 +152,8 @@ module.exports = {
     bookingsToCome: 'Réservations à venir',
     bookingsHistory: 'Historique',
     allZones: 'Toutes les zones',
-    bookingsHistoric: 'Historique des réservations'
+    bookingsHistoric: 'Historique des réservations',
+    noReservations: 'Pas de réservations pour le moment'
 
 
 

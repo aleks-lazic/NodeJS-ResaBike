@@ -1,30 +1,42 @@
 extends layoutUser
 
 block content
-    h4(style="font-weight: bold") #{lang.bookingsHistoric}
-    div.container(id="container")
-        ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
-            each x, index in object.linesDeparture
-                li
-                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime} #{x.totalBikeReserved} bike(s) confirmed 
-                    .collapsible-body
-                        if(x.trips != null)
-                            table
-                                tr
-                                    th #{lang.searchFromStation}
-                                    th #{lang.searchToDest}
-                                    th #{lang.searchNbBike}
-                                    th #{lang.resFirstName}
-                                    th #{lang.resLastName}
-                                    th Mail
-                                    each y in x.trips
-                                        tr
-                                            td= y.dep
-                                            td= y.ter
-                                            td= y.nbBike
-                                            td= y.firstname
-                                            td= y.lastname
-                                            td= y.mail
+    if(object.books != null)
+        if(object.books.length == 0)
+            h4(style="font-weight: bold") #{object.name}  #{lang.bookingsHistoric}
+        else
+            h4(style="font-weight: bold") #{object.zone.name}  #{lang.bookingsHistoric}
+
+    if(object.linesDeparture.length == 0)
+        p #{lang.noReservations}
+    else
+        div.container(id="container")
+            ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
+                each x, index in object.linesDeparture
+                    li
+                        .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime} #{x.totalBikeReserved} bike(s) confirmed 
+                        .collapsible-body
+                            if(x.trips != null)
+                                table
+                                    tr
+                                        th #{lang.searchFromStation}
+                                        th #{lang.searchToDest}
+                                        th #{lang.searchNbBike}
+                                        th #{lang.resFirstName}
+                                        th #{lang.resLastName}
+                                        th Mail
+                                        each y in x.trips
+                                            tr
+                                                td= y.dep
+                                                td= y.ter
+                                                td= y.nbBike
+                                                td= y.firstname
+                                                td= y.lastname
+                                                td= y.mail
+
+                                                
+    script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")
+
 
 
 

@@ -1,43 +1,51 @@
 extends layoutUser
 
 block content
-    h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
-    div.container(id="container")
-        ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
-            each x, index in object.linesDeparture
-                li
-                    .collapsible-header(style="background-color: black; color:white") #{lang.getOneBookLine} #{x.line} - #{x.dep} - #{x.ter} #{lang.getOneBookAt} #{x.dateTime} #{x.totalBikeReserved} #{lang.getOneBookBikeConf}, #{x.totalBikeToConfirm} #{lang.getOneBookBikeToConf}
-                    .collapsible-body
-                        if(x.trips != null)
-                            table
-                                tr
-                                    th #{lang.searchFromStation}
-                                    th #{lang.searchToDest}
-                                    th #{lang.searchNbBike}
-                                    th #{lang.resFirstName}
-                                    th #{lang.resLastName}
-                                    th Mail
-                                    each y in x.trips
-                                        tr
-                                            td= y.dep
-                                            td= y.ter
-                                            td= y.nbBike
-                                            td= y.firstname
-                                            td= y.lastname
-                                            td= y.mail
-                                            if(y.isConfirmed != true)
-                                                if(currentUser.RoleId != 1)
-                                                    td
-                                                        a(class="waves-effect waves-light btn" onclick=`confirmReservation(${y.idBook})`)
-                                                            i.material-icons check
-                                                        a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
-                                                            i.material-icons clear
+    if(object.books != null)
+        if(object.books.length == 0)
+            h4(style="font-weight: bold") #{object.name} #{lang.bookingsToCome}
+        else
+            h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
+    
+    if(object.linesDeparture == 0)
+        p #{lang.noReservations}
+    else
+        div.container(id="container")
+            ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
+                each x, index in object.linesDeparture
+                    li
+                        .collapsible-header(style="background-color: black; color:white") #{lang.getOneBookLine} #{x.line} - #{x.dep} - #{x.ter} #{lang.getOneBookAt} #{x.dateTime} #{x.totalBikeReserved} #{lang.getOneBookBikeConf}, #{x.totalBikeToConfirm} #{lang.getOneBookBikeToConf}
+                        .collapsible-body
+                            if(x.trips != null)
+                                table
+                                    tr
+                                        th #{lang.searchFromStation}
+                                        th #{lang.searchToDest}
+                                        th #{lang.searchNbBike}
+                                        th #{lang.resFirstName}
+                                        th #{lang.resLastName}
+                                        th Mail
+                                        each y in x.trips
+                                            tr
+                                                td= y.dep
+                                                td= y.ter
+                                                td= y.nbBike
+                                                td= y.firstname
+                                                td= y.lastname
+                                                td= y.mail
+                                                if(y.isConfirmed != true)
+                                                    if(currentUser.RoleId != 1)
+                                                        td
+                                                            a(class="waves-effect waves-light btn" onclick=`confirmReservation(${y.idBook})`)
+                                                                i.material-icons check
+                                                            a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
+                                                                i.material-icons clear
+                                                    else
+                                                        td #{lang.getOneBikeNotConf}
                                                 else
+                                                    td
+                                                        i.material-icons check circle
                                                     td #{lang.getOneBikeNotConf}
-                                            else
-                                                td
-                                                    i.material-icons check circle
-                                                td #{lang.getOneBikeNotConf}
 
 
     script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")

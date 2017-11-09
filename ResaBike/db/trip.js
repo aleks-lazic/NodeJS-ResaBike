@@ -91,6 +91,21 @@ var deleteTrip = function(idBook){
     })
 }
 
+var deleteTripByLine = function(idLine){
+    return new Promise((resolve, reject) => {
+        models.Trip.destroy({
+            where:{
+                idLine: idLine
+            }
+        }).then(() => {                  
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+exports.deleteTripByLine = deleteTripByLine;
 exports.deleteTrip = deleteTrip;
 exports.getAllTripsByIdBooking2 = getAllTripsByIdBooking2;
 exports.getAllTripsByIdBooking = getAllTripsByIdBooking;

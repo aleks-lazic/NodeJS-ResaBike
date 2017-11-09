@@ -5,17 +5,17 @@ block content
 
     table.responsive-table&attributes({'id': 'linesTable'})
             tr
-                th Line
-                th From
-                th To
-                th Delete
+                th #{lang.getOneBookLine}
+                th #{lang.searchFromStation}
+                th #{lang.getOneBookAt}
+                th #{lang.getAllUsersDel}
             each x, index in lines
                 tr
                     td= x.id
                     td= x.departure
                     td= x.terminal
                     td
-                        a(class="btn waves-effect waves-light" onclick=`deleteLine(${JSON.stringify(zone.id)}, ${JSON.stringify(x.id)})`) Delete
+                        a(class="btn waves-effect waves-light" onclick=`deleteLine(${JSON.stringify(zone.id)}, ${JSON.stringify(x.id)})`) #{lang.getAllUsersDel}
     
     //- Floating action button to create a user
     div(class="right-align float-align-right")
@@ -29,14 +29,14 @@ block content
             form(id="formCreateLine")
                 div.row
                     div(class="input-field")
-                        input(class="autocomplete", type="text",class="validate", id="departure" required autocomplete="off" placeholder="Station departure")
+                        input(class="autocomplete", type="text",class="validate", id="departure" required autocomplete="off" placeholder=`${lang.getOneZoneStatDep}`)
                 div.row
                     div(class="input-field")
-                        input(class="autocomplete", type="text",class="validate", id="arrival" required autocomplete="off" placeholder="Station arrival")
+                        input(class="autocomplete", type="text",class="validate", id="arrival" required autocomplete="off" placeholder=`${lang.getOneZoneStatArr}`)
                         input(id="id" type="hidden")
 
         div(class="modal-footer")
-            a(class="waves-effect waves-green btn-flat" onclick=`createLines()`) Create
+            a(class="waves-effect waves-green btn-flat" onclick=`createLines()`) #{lang.getAllUsersCreate}
 
 
 

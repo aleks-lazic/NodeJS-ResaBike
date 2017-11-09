@@ -324,7 +324,7 @@ var addTripsToCorrectLineHours = function(idZone){
     })
 }
 
-var deleteReservation = function(idBook){
+var deleteReservation = function(idBook, res){
     return new Promise((resolve, reject) => {
         //get the book we want to delete
         dbBook.getReservationById(idBook).then((book) => {
@@ -347,14 +347,14 @@ var deleteReservation = function(idBook){
 
             Promise.all(promises).then(() => {
                 //send the mail
-                sendRefusalMail(objectMail);
+                sendRefusalMail(objectMail, res);
                 resolve();
             })  
         })
     })
 }
 
-var sendRefusalMail = function(objectMail){
+var sendRefusalMail = function(objectMail, res){
     //get departureStation and Arrival
     var promises = [];
     promises.push(dbStation.getStationById(objectMail.from));
@@ -362,24 +362,19 @@ var sendRefusalMail = function(objectMail){
 
     Promise.all(promises).then((stations) => {
         //mail subject
-        let mailSubject = 'Reservation not confirmed - Resabike';
+        let mailSubject = res.locals.lang.mailBmRefSubject ;
 
-        let mailContent = `<div>
-                                <h1>Reservation not confirmed</h1>
-                            </div>
-                            <div>
-                                <p>Date : ${objectMail.time}
-                                <br>Departure From : ${stations[0].name}
-                                <br>To : ${stations[1].name}
-                                <br>Numbers of bike : ${objectMail.nbBike}</p>
-                            </div>       
-                            <br>`;
+        let mailContent = res.locals.lang.mailBmFirstPart + objectMail.time +
+                          res.locals.lang.mailBmSec1Part + stations[0].name +
+                          res.locals.lang.mailBmSec2Part + stations[1].name + 
+                          res.locals.lang.mailBmSec3Part + objectMail.nbBike + 
+                          res.locals.lang.mailBmLastPart ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
     })
 }
 
-var confirmReservation = function(idBook){
+var confirmReservation = function(idBook, res){
     return new Promise((resolve, reject) => {
         //get the book we want to delete
         dbBook.getReservationById(idBook).then((book) => {
@@ -397,14 +392,14 @@ var confirmReservation = function(idBook){
             //modify the booking to confirmed
             dbBook.confirmReservation(idBook).then(() => {
                 //send confirm email
-                sendConfirmMail(objectMail);
+                sendConfirmMail(objectMail, res);
                 resolve();
             })
         })
     })
 }
 
-var sendConfirmMail = function(objectMail){
+var sendConfirmMail = function(objectMail, res){
     console.log('jenvoie le mail de confirmation')
     //get departureStation and Arrival
     var promises = [];
@@ -413,21 +408,14 @@ var sendConfirmMail = function(objectMail){
 
     Promise.all(promises).then((stations) => {
         //mail subject
-        let mailSubject = 'Reservation confirmed - Resabike';
-        let urlToDelete = 'http://localhost:3000/book/delete/' + objectMail.token
-        let mailContent = `<div>
-                                <h1>Reservation Confirmation</h1>
-                            </div>
-                            <div>
-                                <p>Date : ${objectMail.time}
-                                <br>Departure From : ${stations[0].name}
-                                <br>To : ${stations[1].name}
-                                <br>Numbers of bike : ${objectMail.nbBike}</p>
-                            </div>       
-                            <br>
-                            <div>
-                            <p>If you want to delete the reservation, you juste have to press this link : <a href="${urlToDelete}">Delete confirmation</a></p>
-                            </div>` ;
+        let mailSubject = res.locals.lang.mailResSubject ;
+        //CHANGE URL WHEN DEPLOY
+        let urlToDelete = 'http://localhost:3000/' + res.locals.langUsed + '/book/delete/' + objectMail.token
+        let mailContent = res.locals.lang.mailResFirstPart + objectMail.time +
+                          res.locals.lang.mailResSec1Part + stations[0].name + 
+                          res.locals.lang.mailResSec2Part + stations[1].name + 
+                          res.locals.lang.mailResSec3Part + objectMail.nbBike + 
+                          mailResDel1Part + urlToDelete + mailResDel2Part ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
     })

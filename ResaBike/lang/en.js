@@ -68,5 +68,82 @@ module.exports = {
     loginButton: 'Login',
 
     //NOT FINISHED YET
+    /** NEED TO ADD TO THE OTHER TRANSLATION **/
+    loginWrongUser: 'Username or password is wrong',
+     
+    /** GET ALL ZONES */
+    zoneName: 'Name',
+    zoneDetails: 'Details',
+    zoneEdit: 'Edit',
+    zoneDelete: 'Delete',
+    zoneCreate: 'Create',
+
+    layoutUserWelcome: 'Welcome',
+    layoutUserNavUser: 'Users',
+    layoutUserNavZone: 'Zones',
+    layoutUserNavRes: 'Reservations',
+
+    deleteResCanceled: 'Reservation canceled',
+    deleteResMsg: 'Your reservation has been canceled, if it wasn\'t your intention please redo the reservation',
+    
+    searchTime: 'Time departure',
+
+    pickerToday :'Today',
+    pickerClear: 'Delete',
+    pickerCancel: 'Cancel',
+
+    getAllBookZone: 'Zone',
+    getAllBookDetails: 'Details',
+
+    getAllUsersUN: 'Username',
+    getAllUsersMail: 'Email',
+    getAllUsersRole: 'Role',
+    getAllUsersEdit: 'Edit',
+    getAllUsersDel: 'Delete',
+    getAllUsersSave: 'Save',
+
+    getAllUsersEnterPass: 'Enter your password',
+    getAllUsersRepeatPass: 'Reenter your password',
+    getAllUsersEnterMail: 'Enter your email address',
+    getAllUsersSelRole: 'Select a role',
+    getAllUsersSelZone: 'Select a zone',
+    getAllUsersCreate: 'Create',
+
+    getOneBookLine: 'Line',
+    getOneBookAt: 'To',
+    getOneBookBikeConf: 'Bike(s) confirmed',
+    getOneBookBikeToConf: 'Bike(s) to confirm',
+    getOneBikeNotConf: 'Not confirmed',
+
+    getOneZoneStatDep: 'Departure Station',
+    getOneZoneStatArr: 'Arrival Station',
+
+    //MAIL PARTS RESERVATION
+    //CONFIRMATION
+    mailResSubject: 'Reservation Confirmation - Resabike',
+    mailResFirstPart: '<div><h1>Reservation Confirmation</h1></div><div><p>Date :',
+    mailResSec1Part: '<br>Departure From :',
+    mailResSec2Part: '<br>Arrival To :',
+    mailResSec3Part: '<br>Number bikes :',
+    mailResDel1Part: '</p></div><br><div><p>If you want to delete your reservation, you just have to click on this link: <a href=',
+    mailResDel2Part: '>Delete reservation</a></p></div>',
+
+    //WAITING
+    mailWaitSubject: 'Reservation waiting for confirmation - Resabike',
+    mailWaitFirstPart: '<div><h1>Reservation waiting for confirmation</h1></div><div><p>Date :',
+    mailWaitSec1Part: '<br>Departure From :',
+    mailWaitSec2Part: '<br>Arrival To :',
+    mailWaitSec3Part: '<br>Number bikes :',
+    mailWaitDel1Part: '</p></div><br><div><p>Your reservation has been taken into account. An administrator will contact you soon</p></div>',
+
+
+    //BOOKINGS MANAGEMENT
+    //REFUSAL MAIL
+    mailBmRefSubject: 'Reservation refusal - Resabike',
+    mailBmFirstPart: '<div><h1>Reservation has been refused</h1></div><div><p>Date :',
+    mailBmSec1Part: '<br>Departure From :',
+    mailBmSec2Part: '<br>Arrival To',
+    mailBmSec3Part: '<br>Number bikes :',
+    mailBmLastPart: '</p></div><br>',
     
 }

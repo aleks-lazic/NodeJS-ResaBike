@@ -39,8 +39,10 @@ router.post('/confirm', function(req, res, next){
         sendWaitingMail(token,departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines ,trips, firstname, lastname, res);
     } else {
         //create the url with the token
-        let urlToDelete = "http://localhost:3000/book/delete/" + token ;
+        //A MODIFIER L'URL AU DEPLOIEMENT
+        let urlToDelete = "http://localhost:3000/" + res.locals.langUsed + "/book/delete/" + token ;
         sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res);
+        console.log(urlToDelete);
     }
 });
 
@@ -65,22 +67,14 @@ router.get('/back', function(req, res, next){
 function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     console.log('confirmation mail');
     //mail subject
-    let mailSubject = 'Reservation confirmation - Resabike ';
+    let mailSubject = res.locals.lang.mailResSubject ;
     //mail content
-    let mailContent = `<div>
-                            <h1>Reservation Confirmation</h1>
-                        </div>
-                        <div>
-                            <p>Date : ${timeDep}
-                            <br>Departure From : ${departureFrom}
-                            <br>To : ${arrivalTo}
-                            <br>Numbers of bike : ${nbBike}</p>
-                        </div>       
-                        <br>
-                        <div>
-                        <p>If you want to delete the reservation, you juste have to press this link : <a href="${urlToDelete}">Delete confirmation</a></p>
-                        </div>` ;
+    let mailContent = res.locals.lang.mailResFirstPart  + timeDep + res.locals.lang.mailResSec1Part +  departureFrom +
+                      res.locals.lang.mailResSec2Part + arrivalTo + res.locals.lang.mailResSec3Part +  nbBike +
+                      res.locals.lang.mailResDel1Part+ urlToDelete + res.locals.lang.mailResDel2Part;
     
+    console.log(mailSubject);
+    console.log(mailContent);
     //array promises 
     let arrProm = [] ;
 
@@ -95,7 +89,6 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
         var promisesTrip = [];
         dbBook.insertReservation(timeDep, token, nbBike, idDeparture, idArrival, mailUser, true, firstname, lastname).then((idBook) => {
             for(let k = 0 ; k<lines.length ; k++){
-                console.log(trips[k].idDeparture + " FUCK " + trips[k].idTerminal);
                 promisesTrip.push(dbTrip.insertTrip(timeDep, lines[k], idBook, trips[k].departureId, trips[k].exitId));                
             }
             Promise.all(promisesTrip).then(() => {
@@ -108,21 +101,11 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
 
 function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     //mail subject
-    let mailSubject = 'Reservation not confirmed - Resabike ';
+    let mailSubject = res.locals.lang.mailWaitSubject ;
     //mail content
-    let mailContent = `<div>
-                            <h1>Reservation not confirmed</h1>
-                        </div>
-                        <div>
-                            <p>Date : ${timeDep}
-                            <br>Departure From : ${departureFrom}
-                            <br>To : ${arrivalTo}
-                            <br>Numbers of bike : ${nbBike}</p>
-                        </div>       
-                        <br>
-                        <div>
-                        <p>Your reservation has been taken into account. An administrator will contact you soon for confirmation.</a></p>
-                        </div>` ;
+    let mailContent = res.locals.lang.mailWaitFirstPart  + timeDep + res.locals.lang.mailWaitSec1Part +  departureFrom +
+                      res.locals.lang.mailWaitSec2Part + arrivalTo + res.locals.lang.mailWaitSec3Part +  nbBike +
+                      res.locals.lang.mailWaitDel1Part ;
 
     //array promises 
     let arrProm = [] ;

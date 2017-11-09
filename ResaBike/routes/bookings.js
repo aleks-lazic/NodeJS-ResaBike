@@ -69,13 +69,13 @@ router.get('/historique/:id', function(req, res, next) {
 });
 
 router.delete('/:idBook', function(req, res, next){
-    bookingsManagement.deleteReservation(req.params.idBook).then(() => {
+    bookingsManagement.deleteReservation(req.params.idBook, res).then(() => {
         res.send('success');
     });
 })
 
 router.put('/', function(req, res, next){
-    bookingsManagement.confirmReservation(req.body.idBook).then(() => {
+    bookingsManagement.confirmReservation(req.body.idBook, res).then(() => {
         res.send('success');
     })
 })

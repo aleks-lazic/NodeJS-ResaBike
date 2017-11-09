@@ -53,11 +53,11 @@ router.get('/:id', function(req, res, next) {
 router.get('/historique/:id', function(req, res, next) {
     
     //redirection if not access
-    var access = redirection.redirectOneZone(session.user);
-        if(access != 'ok'){
-            res.redirect(access);
-            return;
-        }
+    var access = redirection.redirectOneBooking(session.user, req.params.id);
+    if(access != 'ok'){
+        res.redirect('/'+ res.locals.langUsed + access);
+        return;
+    }
 
     //get all reservations for the zone
     bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {

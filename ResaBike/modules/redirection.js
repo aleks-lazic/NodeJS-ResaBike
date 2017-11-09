@@ -47,7 +47,7 @@ var redirectAllBookings = function(user){
     if(user == null){
         return '/login';
     } else {
-        if(user.RoleId == 3){
+        if(user.RoleId != 1){
             return 'ok';
         } else {
             return '/bookings/'+user.ZoneId;

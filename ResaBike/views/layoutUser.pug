@@ -35,8 +35,12 @@ body
                 else
                     li
                         a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
-                    li
-                        a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
+                    if(currentUser.RoleId == 1)
+                        li
+                            a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
+                    else
+                        li
+                            a(href="/" + langUsed + `/bookings`) #{lang.layoutUserNavRes}
                     li
                         a(href="/" + langUsed + "/user/logout") Logout
             //- Deuxieme ul pour le navbar mobile

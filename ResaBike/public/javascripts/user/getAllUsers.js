@@ -2,7 +2,12 @@ var userName;
 var alreadyChanged = false;
 var selectUserAlreadyOk = false;
 
-//modal to open the update user
+/**
+ * Open a modal to modify an user
+ * @param {*} name 
+ * @param {*} mail 
+ * @param {*} id 
+ */
 function modalModifyUser(name, mail, id){
     //get inputs values
     document.getElementById('username').value = name;
@@ -16,7 +21,9 @@ function modalModifyUser(name, mail, id){
     $('#modalUpdateUser').modal('open');
 }
 
-//modal to update the user
+/**
+ * Modify an user
+ */
 function modifyUser(){
     //get values from modal's input
     var username = document.getElementById('username').value;
@@ -56,7 +63,9 @@ function modifyUser(){
     });
 }
 
-//modal to open the create user
+/**
+ * Modal for creating an user
+ */
 function modalCreateUser(){
 
     if(!selectUserAlreadyOk){
@@ -83,7 +92,9 @@ function modalCreateUser(){
     $('#modalCreateUser').modal('open');
 }
 
-//ON CHANGE load zones
+/**
+ * When changes appends retrieve zones
+ */
 function loadZones(){
     var select = document.getElementById('selectZone');
     var roleIndex = document.getElementById('selectRole');
@@ -120,7 +131,9 @@ function loadZones(){
     }
 }
 
-//create the user on create button
+/**
+ * Creation of an user when clicking on button
+ */
 function createUser(){
 
     var username = document.getElementById('usernamee').value;
@@ -175,7 +188,10 @@ function createUser(){
     });
 }
 
-//delete the user by id
+/**
+ * Delete an user using its id using an ajax request
+ * @param {*} id 
+ */
 function deleteUser(id){
     //ajax DELETE
     $.ajax({

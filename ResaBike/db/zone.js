@@ -1,5 +1,10 @@
 var models = require('../models');
 
+/**
+ * Insertion of a zone if the zone already exists update it
+ * @param {*} id 
+ * @param {*} zoneName 
+ */
 var upsertZone = function(id, zoneName){
     return new Promise((resolve, reject) => {  
         models.Zone.upsert({
@@ -12,7 +17,10 @@ var upsertZone = function(id, zoneName){
         });
     })
 }
-
+/**
+ * Create a zone in the database
+ * @param {*} zoneName 
+ */
 var createZone = function(zoneName){
     return new Promise((resolve, reject) => {  
         models.Zone.create({
@@ -24,7 +32,10 @@ var createZone = function(zoneName){
         });
     })
 }
-
+/**
+ * Retrieve a zone id using its name
+ * @param {*} name 
+ */
 var getZoneIdByName = function(name){
     return new Promise((resolve, reject) =>{
         models.Zone.findOne({
@@ -39,6 +50,9 @@ var getZoneIdByName = function(name){
     })
 }
 
+/**
+ * Retrieve all the zones
+ */
 var getAllZones = function(){
     return new Promise((resolve, reject) => {
         models.Zone.findAll({
@@ -50,7 +64,10 @@ var getAllZones = function(){
         })    
     })
 }
-
+/**
+ * Retrieve a zone using its id
+ * @param {*} id 
+ */
 var getZoneById = function(id) {
     return new Promise((resolve, reject) => {
         models.Zone.findOne({
@@ -66,6 +83,11 @@ var getZoneById = function(id) {
     })
 }
 
+/**
+ * Update a zone using its id
+ * @param {*} id 
+ * @param {*} name 
+ */
 var updateZoneById = function(id, name){
     return new Promise((resolve, reject) => {
         models.Zone.update({
@@ -82,6 +104,10 @@ var updateZoneById = function(id, name){
     })
 }
 
+/**
+ * Delete a zone using its id
+ * @param {*} id 
+ */
 var deleteZone = function(id) {
     return new Promise((resolve, reject) => {
         models.Zone.destroy({

@@ -1,11 +1,15 @@
-//Open the modal to create a zone
+/**
+ * Open a model for creaeting a zone
+ */
 function modalCreateZone(){
     //open modal
     $('.modal').modal();
     $('#modalCreateZone').modal('open');
 }
 
-//AJAX POST to create the zone
+/**
+ * Creation of a zone using an ajax request of POST type
+ */
 function createZone(){
     //get all values from form
     var name = document.getElementById('name').value;
@@ -29,7 +33,11 @@ function createZone(){
     });
 }
 
-//Open the modal to edit a zone
+/**
+ * Open the modal for editing a zone
+ * @param {*} name 
+ * @param {*} id 
+ */
 function modalEditZone(name, id){
     //get the current zone name and id
     document.getElementById('editName').value = name;
@@ -40,7 +48,9 @@ function modalEditZone(name, id){
     $('#modalEditZone').modal('open');
 }
 
-//AJAX PUT to edit the zone
+/**
+ * Edit a zone 
+ */
 function editZone(){
     var name = document.getElementById('editName').value;
     var id = document.getElementById('id').value;
@@ -66,7 +76,10 @@ function editZone(){
     
 }
 
-//AJAX DELETE to delete a zone
+/**
+ * Deletion of a zone using an ajax request
+ * @param {*} id 
+ */
 function deleteZone(id){
     // DELETE ajax to delete the zone
     $.ajax({
@@ -78,8 +91,10 @@ function deleteZone(id){
         }
     });
 }
-
-//AJAX GET for zone details
+/**
+ * Redirect to a zone details
+ * @param {*} id 
+ */
 function detailsZone(id){
     window.location.href = '/' +langUsed+ '/zone/'+id;
 }

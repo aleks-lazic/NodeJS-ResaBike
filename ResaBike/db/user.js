@@ -1,6 +1,9 @@
 var models = require('../models');
 var dbRole = require('../db/role');
-
+/**
+ * Check if a username exists in the database
+ * @param {*} username 
+ */
 var checkUsernameExists = function(username){
     return new Promise((resolve, reject)=>{
         models.User.findOne({
@@ -14,7 +17,13 @@ var checkUsernameExists = function(username){
         })
     })
 }
-
+/**
+ * Create a user in the database
+ * @param {*} username 
+ * @param {*} password 
+ * @param {*} email 
+ * @param {*} role 
+ */
 var createUser = function(username, password, email, role){
     return new Promise((resolve, reject) => {
         //get the role's id with the role
@@ -32,7 +41,14 @@ var createUser = function(username, password, email, role){
         })
     })
 }
-
+/**
+ * Create a user with a zone linked to it 
+ * @param {*} username 
+ * @param {*} password 
+ * @param {*} email 
+ * @param {*} role 
+ * @param {*} zoneId 
+ */
 var createUserWithZoneId = function(username, password, email, role, zoneId){
     return new Promise((resolve, reject) => {
         //get the role's id with the role
@@ -51,7 +67,9 @@ var createUserWithZoneId = function(username, password, email, role, zoneId){
         })
     })
 }
-
+/**
+ * Retrieve all users from the database
+ */
 var getAllUsers = function(){
     return new Promise((resolve, reject)=>{
         models.User.findAll({
@@ -62,7 +80,12 @@ var getAllUsers = function(){
         })
     })
 }
-
+/**
+ * Update a user in the database
+ * @param {*} username 
+ * @param {*} email 
+ * @param {*} id 
+ */
 var updateUser = function(username, email, id){
     return new Promise((resolve, reject) => {
         models.User.update({
@@ -78,7 +101,11 @@ var updateUser = function(username, email, id){
         });
     })
 }
-
+/**
+ * Update a users email only
+ * @param {*} email 
+ * @param {*} id 
+ */
 var updateUserOnlyMail = function(email, id){
     return new Promise((resolve, reject) => {
         models.User.update({
@@ -93,7 +120,10 @@ var updateUserOnlyMail = function(email, id){
         });
     })
 }
-
+/**
+ * Delete a user from the database
+ * @param {*} id 
+ */
 var deleteUser = function(id){
     return new Promise((resolve, reject) => {
         models.User.destroy({
@@ -107,7 +137,10 @@ var deleteUser = function(id){
         });
     })
 }
-
+/**
+ * Get all users using its role
+ * @param {*} roleName 
+ */
 var getAllUsersByRole = function(roleName){
     return new Promise((resolve, reject) => {
         dbRole.getIdRoleByName(roleName).then((idRole) => {
@@ -123,7 +156,11 @@ var getAllUsersByRole = function(roleName){
         });
     })
 }
-
+/**
+ * Update a user using its id
+ * @param {*} idUser 
+ * @param {*} idZone 
+ */
 var updateUserZoneId = function(idUser, idZone){
     return new Promise((resolve, reject) => {
         models.User.update({
@@ -138,7 +175,10 @@ var updateUserZoneId = function(idUser, idZone){
         });
     })
 }
-
+/**
+ * Get user using its zone id
+ * @param {*} idZone 
+ */
 var getUserByZoneId = function(idZone){
     return new Promise((resolve, reject) => {
         models.User.findAll({
@@ -152,7 +192,11 @@ var getUserByZoneId = function(idZone){
         })
     });
 }
-
+/**
+ * Check the login connection
+ * @param {*} username 
+ * @param {*} password 
+ */
 var checkLogin = function(username, password){
     return new Promise((resolve, reject) => {
         models.User.findOne({

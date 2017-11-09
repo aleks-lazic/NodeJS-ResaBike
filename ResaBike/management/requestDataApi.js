@@ -10,47 +10,11 @@ var dbTrip = require('../db/trip');
 var bookingsManagement = require('../management/bookingsManagement');
 var bookManagement = require('../management/bookManagement');
 
-
-// bookingsManagement.addTripsToCorrectLineHours(1371).then((wholeObject) => {
-//     bookingsManagement.sortDataToGetReservationsToCome(wholeObject).then((object) => {
-//         console.log(JSON.stringify(object));
-//     });
-// })
-// bookManagement.getAllConnections('Sierre', 'Zinal', '2017/11/10', 1).then((connections) => {
-//     console.log(connections);
-// })
-
-// getDataFromAPI("https://timetable.search.ch/api/route.en.json?from=Sierre&to=Zinal&date=2017/11/10&time=06:00");
-// bookingsManagement.showAllZonesForReservations().then((zones) => {
-//     console.log(zones[0].books);
-// });
-
-// bookingsManagement.getAllBookDetails(1371).then((zone) => {
-//     console.log(zone.bookDetails[1]);
-// })
-
-// bookingsManagement.getTripStationsName(1371).then((reservationObject) => {
-//     console.log(JSON.stringify(reservationObject));
-// })
-
-// bookingsManagement.addTripsToCorrectLineHours(1371).then((wholeObject) => {
-//     console.log(JSON.stringify(wholeObject));
-// });
-// bookingsManagement.getAllBookDetails(1371).then((zone) => {
-//     zone.books.forEach((b) => {
-//         console.log(b.DepartureId);
-//         console.log(b.ArrivalId);
-//     })
-// })
-// dbTrip.getAllReservationsByDepartureAndLine('2017-11-01 10:25:00', 453).then((obj) => {
-//     console.log(obj);
-// })
-// 
-
-// dbBook.getSumWithMultipleLines('2017-11-01 11:25:00', [451, 453]).then((max) => {
-//     console.log(max);
-// })
-
+/**
+ * Retrieve data from api using url
+ * Check if the url retrieve correct data otherwise reject an error
+ * @param {*} url 
+ */
 var getDataFromAPI = function(url){
     return new Promise((resolve, reject)=>{
         request(url, function (error, response, body) {
@@ -69,7 +33,10 @@ var getDataFromAPI = function(url){
         })  
     })
 }
-
+/**
+ * Retrieve a stop id from the api using url
+ * @param {*} url 
+ */
 function getStopIDFromAPI(url){
     return new Promise((resolve, reject)=>{
         request(url, function (error, response, body) {
@@ -83,7 +50,9 @@ function getStopIDFromAPI(url){
         })  
     })
 }
-
+/**
+ * Add all stations array from the api
+ */
 function addStationsFromAPI(){
     getDataFromAPI(url)
     .then((obj) => {
@@ -96,7 +65,9 @@ function addStationsFromAPI(){
         }
     })
 }
-
+/**
+ * Add lines retrieved from the api
+ */
 function addLinesFromAPI(){
     getDataFromAPI(url)
     .then((obj) =>{
@@ -116,6 +87,11 @@ function addLinesFromAPI(){
     
 }
 
+/**
+ * Retrieve the correct departure and the correct terminal form the api using only a terminal station and the id
+ * @param {*} terminalStation 
+ * @param {*} idLine 
+ */
 function getDepartureAndTerminalFromAPI(terminalStation, idLine){
     return new Promise((resolve, reject) => {
         let url = 'http://timetable.search.ch/api/stationboard.en.json?stop=' + terminalStation
@@ -142,43 +118,6 @@ function getDepartureAndTerminalFromAPI(terminalStation, idLine){
     })
 }
 
-function sayFuck(){
-    console.log("fuck hehe");
-}
-// function addRelationsBetweenStationsAndLines(){
-//     getDataFromAPI(url)
-//     .then((obj) =>{
-//         var legs = obj.connections[0].legs;
-//         console.log("hello");
-//         for(let i = 1 ; i<legs.length ; i++){
-//             //get lineId by lineNumber
-//             let idLine = dbLine.getLineIdByLineNumber(legs[i].line);
-//             //get station id by name
-//             let idStation = dbStation.getStationIdByName(legs[i].name);
-//             Promise.all([idStation, idLine]).then((res) =>{
-//                 dbLineStation.insertStationIdAndLineId(res[0], res[1], 1);
-//             })
-//             for(let j = 0 ; j < legs[i].stops.length ; j++){
-//                 idStation = dbStation.getStationIdByName(legs[i].stops[j].name);
-//                 Promise.all([idStation, idLine]).then((res) =>{
-//                     dbLineStation.insertStationIdAndLineId(res[0], res[1], (j+2));
-//                 })  
-//             }           
-//         }
-//     })
-// }
-
-// dbStation.getAllStationsWithLineId(453).then((res) =>{
-//     res.forEach((s) => {
-//         console.log(s.name);
-//     })
-// });
-
-//addStationsFromAPI();
-//addLinesFromAPI();
-
-
-// dbStation.deleteStation(8501996);
 
 exports.sayFuck = sayFuck;
 exports.getDepartureAndTerminalFromAPI = getDepartureAndTerminalFromAPI;

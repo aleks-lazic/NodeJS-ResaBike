@@ -1,4 +1,9 @@
-//AJAX DELETE line of zone
+
+/**
+ * Delete a line using an ajax request
+ * @param {*} idZone 
+ * @param {*} idLine 
+ */
 function deleteLine(idZone, idLine) {
     //create object to pass through body
     var object = {
@@ -17,7 +22,10 @@ function deleteLine(idZone, idLine) {
     });
 }
 
-//function for the autocompletion
+/**
+ * Autocomplete function retrieving API stations
+ * @param {*} inputId 
+ */
 function autocomplete(inputId){
     $('#'+inputId).on("input", (e) => {
         var input = document.getElementById(inputId).value;
@@ -43,14 +51,19 @@ function autocomplete(inputId){
     })
 }
 
-//autocompletion
+/**
+ * Use of autocomplete for departure fields and arrival fields
+ */
 $(function() {
     autocomplete('departure');
     autocomplete('arrival');
 })
 
 
-//OPEN the modal to create a line
+/**
+ * Open the modal for creating the line
+ * @param {*} idZone 
+ */
 function modalCreateLine(idZone){
     document.getElementById('id').value = idZone;
 
@@ -59,7 +72,9 @@ function modalCreateLine(idZone){
     $('#modalCreateLine').modal('open');
 }
 
-//AJAX POST to create the lines
+/**
+ * Creation of lines using an ajax request
+ */
 function createLines(){
     //get the values from form
     var departure = document.getElementById('departure').value;

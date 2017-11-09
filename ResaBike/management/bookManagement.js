@@ -1,10 +1,15 @@
 var requestApi = require('./requestDataApi');
 var dbBook = require('../db/book');
 
-// getAllConnections('Sierre', 'Zinal', '2017/11/10', 1).then((connections) => {
-//     console.log(connections);
-// })
-
+/**
+ * Retrieve all connections from API during the booking reservation
+ * Using a departure, a destination, a date, a time and the number of bikes for the reservation
+ * @param {*} stationDeparture 
+ * @param {*} arrivalTo 
+ * @param {*} dateTravel 
+ * @param {*} timeTravel 
+ * @param {*} nbBike 
+ */
 function getAllConnections(stationDeparture, arrivalTo, dateTravel, timeTravel ,nbBike){
     return new Promise((resolve, reject) => {
         //get the current date

@@ -1,5 +1,12 @@
 var models = require('../models');
-
+/**
+ * Innsert a trip using its departure hour, its line, its booking id, its departure and its terminal
+ * @param {*} departureHour 
+ * @param {*} idLine 
+ * @param {*} idBooking 
+ * @param {*} idDeparture 
+ * @param {*} idTerminal 
+ */
 var insertTrip = function(departureHour, idLine, idBooking, idDeparture, idTerminal){
     return new Promise((resolve, reject)=>{
         models.Trip.create({
@@ -15,6 +22,11 @@ var insertTrip = function(departureHour, idLine, idBooking, idDeparture, idTermi
         });
     })
 }
+/**
+ * Retrieve all reservations using departure and the line
+ * @param {*} departureHour 
+ * @param {*} idLine 
+ */
 var getAllReservationsByDepartureAndLine = function(departureHour, idLine){
     return new Promise((resolve, reject) => {
         models.Trip.findAll({
@@ -29,6 +41,10 @@ var getAllReservationsByDepartureAndLine = function(departureHour, idLine){
         })
     })
 }
+/**
+ * Retrieve all trips using its booking id
+ * @param {*} idBooking 
+ */
 var getAllTripsByIdBooking = function(idBooking){
     return new Promise((resolve, reject) =>{
         models.Trip.findAll({
@@ -42,7 +58,9 @@ var getAllTripsByIdBooking = function(idBooking){
         });
     })
 }
-
+/**
+ * Retrieve all trips from the database
+ */
 var getAllTrips = function(){
     return new Promise((resolve, reject) =>{
         models.Trip.findAll({
@@ -53,7 +71,16 @@ var getAllTrips = function(){
         });
     })
 }
-
+/**
+ * Retrieve all trips using its id booking. Retrieve all informations about trips
+ * @param {*} idBooking 
+ * @param {*} nbBike 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ * @param {*} mail 
+ * @param {*} idBook 
+ * @param {*} isConfirmed 
+ */
 var getAllTripsByIdBooking2 = function(idBooking, nbBike, firstname, lastname, mail, idBook, isConfirmed){
     return new Promise((resolve, reject) =>{
         models.Trip.findAll({
@@ -76,7 +103,10 @@ var getAllTripsByIdBooking2 = function(idBooking, nbBike, firstname, lastname, m
         });
     })
 }
-
+/**
+ * Delete trip using its booking id linked to it
+ * @param {*} idBook 
+ */
 var deleteTrip = function(idBook){
     return new Promise((resolve, reject) => {
         models.Trip.destroy({

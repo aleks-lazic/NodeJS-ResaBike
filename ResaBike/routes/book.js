@@ -6,7 +6,9 @@ var dbTrip = require('../db/trip');
 var email = require('../modules/email');
 var crypto = require('crypto');
 
-
+/**
+ * post to confirm a reservation
+ */
 router.post('/confirm', function(req, res, next){
     //Retrieved the data from book and index page
     let departureFrom = req.body.from;
@@ -46,6 +48,9 @@ router.post('/confirm', function(req, res, next){
     }
 });
 
+/**
+ * delete a reservation with the token
+ */
 router.get('/delete/:token', function(req, res, next){
     
     var token = req.params.token ;
@@ -59,11 +64,29 @@ router.get('/delete/:token', function(req, res, next){
     })
 })
 
+/**
+ * come back to the home page
+ */
 router.get('/back', function(req, res, next){
      /* GET back to home page. */
     return res.redirect('/');
 });
 
+/**
+ * send confirmation mail
+ * @param {*} token 
+ * @param {*} urlToDelete 
+ * @param {*} departureFrom 
+ * @param {*} arrivalTo 
+ * @param {*} timeDep 
+ * @param {*} nbBike 
+ * @param {*} mailUser 
+ * @param {*} lines 
+ * @param {*} trips 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ * @param {*} res 
+ */
 function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     console.log('confirmation mail');
     //mail subject
@@ -99,6 +122,20 @@ function sendConfirmationMailAndAddToDb(token, urlToDelete, departureFrom, arriv
     })
 }
 
+/**
+ * send waiting mail
+ * @param {*} token 
+ * @param {*} departureFrom 
+ * @param {*} arrivalTo 
+ * @param {*} timeDep 
+ * @param {*} nbBike 
+ * @param {*} mailUser 
+ * @param {*} lines 
+ * @param {*} trips 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ * @param {*} res 
+ */
 function sendWaitingMail(token, departureFrom, arrivalTo, timeDep, nbBike, mailUser, lines, trips, firstname, lastname, res){
     //mail subject
     let mailSubject = res.locals.lang.mailWaitSubject ;

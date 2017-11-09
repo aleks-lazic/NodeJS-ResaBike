@@ -22,6 +22,9 @@ router.get('/', function(req, res, next) {
     })
 });
 
+/**
+ * get bookings details for one zone
+ */
 router.get('/:id', function(req, res, next) {
     
     //redirection if not access
@@ -49,6 +52,9 @@ router.get('/:id', function(req, res, next) {
     })
 });
 
+/**
+ * get bookings historic for one zone id
+ */
 router.get('/historique/:id', function(req, res, next) {
     
     //redirection if not access
@@ -77,12 +83,16 @@ router.get('/historique/:id', function(req, res, next) {
         })
 });
 
+/**
+ * delete a reservation by idbook
+ */
 router.delete('/:idBook', function(req, res, next){
     bookingsManagement.deleteReservation(req.params.idBook, res).then(() => {
         res.send('success');
     });
 })
 
+/** update a reservation (confirm it) by the zone admin*/
 router.put('/', function(req, res, next){
     bookingsManagement.confirmReservation(req.body.idBook, res).then(() => {
         res.send('success');

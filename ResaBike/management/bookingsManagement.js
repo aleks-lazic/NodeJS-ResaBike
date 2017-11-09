@@ -10,8 +10,18 @@ var showAllZonesForReservations = function(){
     return new Promise((resolve, reject) => {
         //first get all zones
         dbZone.getAllZones().then((zones) => {
-            //get all reservations that are not confirmed
+            //get all reservations
             dbBook.getAllReservations().then((books) => {
+                console.log(books);                
+                if(books.length == 0){
+                    console.log("BOOOOOKS" + books);
+                    for(let k = 0 ; k<zones.length ; k++){
+                        zones[k].books = [];                            
+                    }
+                    console.log(zones);
+                    resolve(zones);
+                    return;
+                }
                 //get all trips for each book not confirmed
                 var promises = [];
                 books.forEach(function(b) {

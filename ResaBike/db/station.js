@@ -2,6 +2,9 @@ var models = require('../models');
 var dbLineStation = require('./linestation');
 var dbLine = require('../db/line');
 
+/**
+ * get all stations
+ */
 var getAllStations = function(){
     return new Promise((resolve, reject)=>{
         models.Station.findAll({
@@ -13,6 +16,10 @@ var getAllStations = function(){
     })
 }
 
+/**
+ * get station id by name
+ * @param {*} name 
+ */
 var getStationIdByName = function(name){
     return new Promise((resolve, reject) =>{
         models.Station.findOne({
@@ -27,6 +34,10 @@ var getStationIdByName = function(name){
     })
 }
 
+/**
+ * get station by id
+ * @param {*} id 
+ */
 var getStationById = function(id){
     return new Promise((resolve, reject) =>{
         models.Station.findOne({
@@ -41,6 +52,10 @@ var getStationById = function(id){
     })
 }
 
+/**
+ * insert new station with station name
+ * @param {*} stationName 
+ */
 var insertStation = function(stationName){
     models.Station.create({
         name: stationName,
@@ -51,6 +66,11 @@ var insertStation = function(stationName){
     });
 }
 
+/**
+ * upsert a new station (create if not exists)
+ * @param {*} idStation 
+ * @param {*} stationName 
+ */
 var upsertStation = function(idStation, stationName){
     return new Promise((resolve, reject) => {
         models.Station.upsert({
@@ -91,6 +111,11 @@ var getAllStationsWithLineId = function(idLine){
     })
 }
 
+/**
+ * get departure and terminal station with id line
+ * @param {*} idDep 
+ * @param {*} idTer 
+ */
 var getDepartureAndTerminalStationWithIdLine = function(idDep, idTer) {
     return new Promise((resolve, reject) => {
         var station = {
@@ -111,6 +136,10 @@ var getDepartureAndTerminalStationWithIdLine = function(idDep, idTer) {
     })
 }
 
+/**
+ * delete a station
+ * @param {*} idStation 
+ */
 var deleteStation = function(idStation) {
     return new Promise((resolve, reject) => {
         //first check if the station still exists in the linestation

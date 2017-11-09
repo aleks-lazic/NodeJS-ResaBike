@@ -1,6 +1,8 @@
 var models = require('../models');
 
-
+/**
+ * get all roles
+ */
 var getAllRoles = function(){
     return new Promise((resolve, reject)=>{
         models.Role.findAll({
@@ -13,6 +15,10 @@ var getAllRoles = function(){
     })
 }
 
+/**
+ * get role name by id
+ * @param {*} id 
+ */
 var getRoleNameById = function(id){
     return new Promise((resolve, reject)=>{
         models.Role.findOne({
@@ -28,6 +34,10 @@ var getRoleNameById = function(id){
     })
 }
 
+/**
+ * get id role by name
+ * @param {*} name 
+ */
 var getIdRoleByName = function(name){
     return new Promise((resolve, reject)=>{
         models.Role.findOne({
@@ -43,6 +53,11 @@ var getIdRoleByName = function(name){
     })
 }
 
+/**
+ * create a new role
+ * @param {*} id 
+ * @param {*} name 
+ */
 var createRole = function(id, name){
     return new Promise((resolve, reject)=>{
         models.Role.create({

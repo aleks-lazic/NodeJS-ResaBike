@@ -1,3 +1,7 @@
+/**
+ * AJAX POST to check if login is ok
+ * displays a toast if ok or not
+ */
 function login(){
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
@@ -14,7 +18,7 @@ function login(){
         data: user,
         success: function(result){
             if(result == 'error') {
-                Materialize.toast('Le username et/ou le mot de passe ne correspondent pas', 4000);                
+                Materialize.toast(`${lang.loginWrongUser}`, 4000);                
             } else {
                 result = JSON.parse(result);
                 //if the user is a sysadmin

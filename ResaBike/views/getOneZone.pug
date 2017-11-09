@@ -2,25 +2,28 @@ extends layoutUser
 
 block content
     h4(style="font-weight: bold") #{zone.name}
-
-    table.responsive-table&attributes({'id': 'linesTable'})
-            tr
-                th #{lang.getOneBookLine}
-                th #{lang.searchFromStation}
-                th #{lang.getOneBookAt}
-                th #{lang.getAllUsersDel}
-            each x, index in lines
+    div.container
+        table.responsive-table&attributes({'id': 'linesTable'})
                 tr
-                    td= x.id
-                    td= x.departure
-                    td= x.terminal
-                    td
-                        a(class="btn waves-effect waves-light" onclick=`deleteLine(${JSON.stringify(zone.id)}, ${JSON.stringify(x.id)})`) #{lang.getAllUsersDel}
-    
-    //- Floating action button to create a user
-    div(class="right-align float-align-right")
-        a(class="btn-floating btn-large waves-effect waves-light" onclick=`modalCreateLine(${JSON.stringify(zone.id)})`)
-            i(class="material-icons") add
+                    th #{lang.getOneBookLine}
+                    th #{lang.searchFromStation}
+                    th #{lang.getOneBookAt}
+                    if(currentUser.RoleId != 1)
+                        th #{lang.getAllUsersDel}
+                each x, index in lines
+                    tr
+                        td= x.id
+                        td= x.departure
+                        td= x.terminal
+                        td
+                            if(currentUser.RoleId != 1)
+                                a(class="btn waves-effect waves-light" onclick=`deleteLine(${JSON.stringify(zone.id)}, ${JSON.stringify(x.id)})`) #{lang.getAllUsersDel}
+
+    if(currentUser.RoleId != 1) 
+        //- Floating action button to create a user
+        div(class="right-align float-align-right")
+            a(class="btn-floating btn-large waves-effect waves-light" onclick=`modalCreateLine(${JSON.stringify(zone.id)})`)
+                i(class="material-icons") add
 
     //- Modal for the creation of lines
     div(id="modalCreateLine" class="modal")

@@ -3,6 +3,18 @@ var dbLine = require('./line');
 var dbTrip = require('./trip');
 var models = require('../models');
 
+/**
+ * Insert a new reservation
+ * @param {*} time 
+ * @param {*} token 
+ * @param {*} nbBike 
+ * @param {*} stationDeparture 
+ * @param {*} stationTerminal 
+ * @param {*} email 
+ * @param {*} isConfirmed 
+ * @param {*} firstname 
+ * @param {*} lastname 
+ */
 var insertReservation = function(time, token, nbBike, stationDeparture, stationTerminal, email, isConfirmed, firstname, lastname){
     return new Promise((resolve, reject)=>{
         models.Book.create({
@@ -23,6 +35,10 @@ var insertReservation = function(time, token, nbBike, stationDeparture, stationT
     })
 }
 
+/**
+ * Delete a reservation by token
+ * @param {*} token 
+ */
 var deleteReservationByToken = function(token){
     return new Promise((resolve, reject) => {
         models.Book.destroy({
@@ -37,6 +53,10 @@ var deleteReservationByToken = function(token){
     })
 }
 
+/**
+ * Get the number of bikes booked by id reservation
+ * @param {*} idBooking 
+ */
 var getNbBikesByReservation = function(idBooking){
     return new Promise((resolve, reject)=>{
         models.Book.findOne({
@@ -56,6 +76,11 @@ var getNbBikesByReservation = function(idBooking){
     })
 }
 
+/**
+ * get the sum of bikes by line and departure hour
+ * @param {*} departureHour 
+ * @param {*} idLine 
+ */
 var getSumBikesByLineAndDepartureHour = function(departureHour, idLine){
     return new Promise((resolve, reject) => {
         dbTrip.getAllReservationsByDepartureAndLine(departureHour, idLine).then((trips) => {
@@ -73,6 +98,11 @@ var getSumBikesByLineAndDepartureHour = function(departureHour, idLine){
     })
 }
 
+/**
+ * get sum of bikes with array of idLines
+ * @param {*} departureHour 
+ * @param {*} idLines 
+ */
 var getSumWithMultipleLines = function(departureHour, idLines){
     return new Promise((resolve, reject) => {
         var promises = [];
@@ -89,6 +119,9 @@ var getSumWithMultipleLines = function(departureHour, idLines){
     })
 }
 
+/**
+ * get all reservations that are not confirmed
+ */
 var getAllReservationsNotConfirmed = function(){
     return new Promise((resolve, reject) => {
         models.Book.findAll({
@@ -107,6 +140,9 @@ var getAllReservationsNotConfirmed = function(){
     });
 }
 
+/**
+ * get all reservations
+ */
 var getAllReservations = function(){
     return new Promise((resolve, reject) => {
         models.Book.findAll({
@@ -118,6 +154,10 @@ var getAllReservations = function(){
     });
 }
 
+/**
+ * delete a reservation
+ * @param {*} idBook 
+ */
 var deleteReservation = function(idBook){
     return new Promise((resolve, reject) => {
         models.Book.destroy({
@@ -132,6 +172,10 @@ var deleteReservation = function(idBook){
     })
 }
 
+/**
+ * get a reservation by id
+ * @param {*} idBook 
+ */
 var getReservationById = function(idBook){
     return new Promise((resolve, reject) => {
         models.Book.findOne({
@@ -146,6 +190,10 @@ var getReservationById = function(idBook){
     })
 }
 
+/**
+ * confirm a reservation with the id book
+ * @param {*} idBook 
+ */
 var confirmReservation = function(idBook){
     return new Promise((resolve, reject) => {
         models.Book.update({
@@ -162,6 +210,10 @@ var confirmReservation = function(idBook){
     })
 }
 
+/**
+ * get a reservation by token
+ * @param {*} token 
+ */
 var getReservationByToken = function(token) {
     return new Promise((resolve, reject) => {
         models.Book.findOne({

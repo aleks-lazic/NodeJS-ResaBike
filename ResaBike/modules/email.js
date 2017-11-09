@@ -3,6 +3,14 @@ const striptags = require('striptags');
 
 var self = module.exports = {
 
+    /**
+     * create the email with the mail addres
+     * to
+     * subject etc...
+     * @param {*} to 
+     * @param {*} subject 
+     * @param {*} html 
+     */
     createEmail(to, subject, html) {
         return new Promise((resolve, reject) => {
             let mailOptions = {
@@ -18,6 +26,9 @@ var self = module.exports = {
             })
         });
     },
+    /**
+     * creates the smtp server with user and password
+     */
     createTransporter() {
         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -30,6 +41,11 @@ var self = module.exports = {
         });
         return transporter;
     },
+    /**
+     * sents the email
+     * @param {*} transporter 
+     * @param {*} mailOptions 
+     */
     sendEmail(transporter, mailOptions) {
         return new Promise((resolve, reject) => {
             transporter.sendMail(mailOptions, (error, info) => {

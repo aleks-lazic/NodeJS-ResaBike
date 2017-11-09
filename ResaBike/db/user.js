@@ -101,12 +101,41 @@ var updateUser = function(username, email, id){
         });
     })
 }
+<<<<<<< HEAD
 /**
  * Update a users email only
  * @param {*} email 
  * @param {*} id 
  */
 var updateUserOnlyMail = function(email, id){
+=======
+
+
+
+var deleteUser = function(id){
+>>>>>>> 6ec2f31545800d2c473bf81286e00bb944617e01
+    return new Promise((resolve, reject) => {
+        models.User.destroy({
+            where:{
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+<<<<<<< HEAD
+/**
+ * Delete a user from the database
+ * @param {*} id 
+ */
+var deleteUser = function(id){
+=======
+
+var updateUserOnlyMail = function(email, id){
+>>>>>>> 6ec2f31545800d2c473bf81286e00bb944617e01
     return new Promise((resolve, reject) => {
         models.User.update({
             mail: email},
@@ -116,23 +145,6 @@ var updateUserOnlyMail = function(email, id){
         }).then(() => {
             resolve();
         }).catch((err) => {
-            reject(err.message);
-        });
-    })
-}
-/**
- * Delete a user from the database
- * @param {*} id 
- */
-var deleteUser = function(id){
-    return new Promise((resolve, reject) => {
-        models.User.destroy({
-            where:{
-                id: id
-            }
-        }).then(() => {
-            resolve();
-        }).catch((err)=> {
             reject(err.message);
         });
     })

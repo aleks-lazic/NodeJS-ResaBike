@@ -9,6 +9,7 @@ var dbLineStation = require('../db/linestation');
 var dbUser = require('../db/user');
 var redirection = require('../modules/redirection');
 var session = require('express-session')
+var dbTrip = require('../db/trip');
 
 /* GET all zones home page */
 router.get('/', (req, res, next) => {
@@ -46,7 +47,10 @@ router.delete('/delete/line/:id', (req, res, next) => {
                 dbStation.deleteStation(s.StationId);
             })
             dbLine.deleteLineById(req.params.id);
-            res.send(JSON.stringify("ok"));            
+            promises.push(dbTrip.deleteTripByLine(req.params.id));
+            Promise.all(promises).then(() => {
+                res.send(JSON.stringify("ok"));                            
+            })
         });  
     });
 })

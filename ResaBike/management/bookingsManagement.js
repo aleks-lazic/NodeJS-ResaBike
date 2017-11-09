@@ -6,6 +6,9 @@ var dbZone = require('../db/zone');
 var dbStation = require('../db/station');
 var email = require('../modules/email');
 
+/**
+ * show all zones with all reservations
+ */
 var showAllZonesForReservations = function(){
     return new Promise((resolve, reject) => {
         //first get all zones
@@ -49,6 +52,10 @@ var showAllZonesForReservations = function(){
     })
 }
 
+/**
+ * get all trips for each reservation
+ * @param {*} book 
+ */
 var getAllTripsForEachReservation = function(book){
     return new Promise((resolve, reject) => {
         dbTrip.getAllTripsByIdBooking(book.id).then((listTrips) => {
@@ -72,6 +79,10 @@ var getAllTripsForEachReservation = function(book){
     })
 }
 
+/**
+ * show the reservations for one zone with idZone
+ * @param {*} idZone 
+ */
 var showReservationsForOneZone = function(idZone){
     return new Promise((resolve, reject) => {
         dbZone.getZoneById(idZone).then((zone) => {
@@ -101,6 +112,10 @@ var showReservationsForOneZone = function(idZone){
     })
 }
 
+/**
+ * get all book details with idZone
+ * @param {*} idZone 
+ */
 var getAllBookDetails = function(idZone){
     return new Promise((resolve, reject) => {
         showReservationsForOneZone(idZone).then((zone) => {
@@ -122,6 +137,11 @@ var getAllBookDetails = function(idZone){
     })
 }
 
+/**
+ * assign a trip to a line and hour
+ * @param {*} trip 
+ * @param {*} nbBikes 
+ */
 var assignTripToALineAndHour = function(trip, nbBikes){
     return new Promise((resolve, reject) => {
         var tripLineHour = {
@@ -137,6 +157,11 @@ var assignTripToALineAndHour = function(trip, nbBikes){
         resolve(tripLineHour);
     })
 }
+
+/**
+ * get all informations we need for reservations
+ * @param {*} idZone 
+ */
 var getAllInformationsWeNeedForReservations = function(idZone){
     return new Promise((resolve, reject) => {
         //get the zone
@@ -184,6 +209,10 @@ var getAllInformationsWeNeedForReservations = function(idZone){
     })
 }
 
+/**
+ * get trip stations name
+ * @param {*} idZone 
+ */
 var getTripStationsName = function(idZone){
     return new Promise((resolve, reject) => {
         getAllInformationsWeNeedForReservations(idZone).then((wholeObject) => {
@@ -203,6 +232,10 @@ var getTripStationsName = function(idZone){
     })
 }
 
+/**
+ * get stations departure and terminal from line
+ * @param {*} idLine 
+ */
 var getStationsDepartureAndTerminalFromLine = function(idLine){
     return new Promise((resolve, reject)=> {
         dbLine.getLineById(idLine).then((line) => {
@@ -213,6 +246,10 @@ var getStationsDepartureAndTerminalFromLine = function(idLine){
     })
 }
 
+/**
+ * sort data to remove duplicated lines hours
+ * @param {*} idZone 
+ */
 var sortDataToRemoveDuplicatedLinesHours = function(idZone){
     return new Promise((resolve, reject) => {
         getTripStationsName(idZone).then((wholeObject) => {
@@ -242,6 +279,10 @@ var sortDataToRemoveDuplicatedLinesHours = function(idZone){
     })
 }
 
+/**
+ * add trips to correct line HOURS
+ * @param {*} idZone 
+ */
 var addTripsToCorrectLineHours = function(idZone){
     return new Promise((resolve, reject) => {
         sortDataToRemoveDuplicatedLinesHours(idZone).then((wholeObject) => {
@@ -324,6 +365,11 @@ var addTripsToCorrectLineHours = function(idZone){
     })
 }
 
+/**
+ * delete a reservation when the zone admin deletes it
+ * @param {*} idBook 
+ * @param {*} res 
+ */
 var deleteReservation = function(idBook, res){
     return new Promise((resolve, reject) => {
         //get the book we want to delete
@@ -354,6 +400,11 @@ var deleteReservation = function(idBook, res){
     })
 }
 
+/**
+ * send the refusal mail if the admin has canceled it
+ * @param {*} objectMail 
+ * @param {*} res 
+ */
 var sendRefusalMail = function(objectMail, res){
     //get departureStation and Arrival
     var promises = [];
@@ -367,13 +418,18 @@ var sendRefusalMail = function(objectMail, res){
         let mailContent = res.locals.lang.mailBmFirstPart + objectMail.time +
                           res.locals.lang.mailBmSec1Part + stations[0].name +
                           res.locals.lang.mailBmSec2Part + stations[1].name + 
-                          res.locals.lang.mailBmSec3Part + objectMail.nbBike + 
+                          res.locals.lang.mailBmSec3Part + objectMail.nBbike + 
                           res.locals.lang.mailBmLastPart ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
     })
 }
 
+/**
+ * confirm reservation if the admin has accepted it
+ * @param {*} idBook 
+ * @param {*} res 
+ */
 var confirmReservation = function(idBook, res){
     return new Promise((resolve, reject) => {
         //get the book we want to delete
@@ -389,6 +445,7 @@ var confirmReservation = function(idBook, res){
                 nBbike: book.nbBike,
                 token: book.token
             };
+            console.log(objectMail);
             //modify the booking to confirmed
             dbBook.confirmReservation(idBook).then(() => {
                 //send confirm email
@@ -399,6 +456,11 @@ var confirmReservation = function(idBook, res){
     })
 }
 
+/**
+ * send confirm mail if the admin has accepted it
+ * @param {*} objectMail 
+ * @param {*} res 
+ */
 var sendConfirmMail = function(objectMail, res){
     console.log('jenvoie le mail de confirmation')
     //get departureStation and Arrival
@@ -414,13 +476,17 @@ var sendConfirmMail = function(objectMail, res){
         let mailContent = res.locals.lang.mailResFirstPart + objectMail.time +
                           res.locals.lang.mailResSec1Part + stations[0].name + 
                           res.locals.lang.mailResSec2Part + stations[1].name + 
-                          res.locals.lang.mailResSec3Part + objectMail.nbBike + 
-                          mailResDel1Part + urlToDelete + mailResDel2Part ;
+                          res.locals.lang.mailResSec3Part + objectMail.nBbike + 
+                          res.locals.lang.mailResDel1Part + urlToDelete + res.locals.lang.mailResDel2Part ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
     })
 }
 
+/**
+ * sort data to get only the historical (all reservations before today)
+ * @param {*} wholeObject 
+ */
 var sortDataToGetHistorical = function(wholeObject){
     return new Promise((resolve, reject) => {
         var currentDate = new Date();
@@ -439,6 +505,10 @@ var sortDataToGetHistorical = function(wholeObject){
         resolve(wholeObject);    })
 }
 
+/**
+ * sort data to get only the upcoming reservations
+ * @param {*} wholeObject 
+ */
 var sortDataToGetReservationsToCome = function(wholeObject){
     return new Promise((resolve, reject) => {
         var currentDate = new Date();

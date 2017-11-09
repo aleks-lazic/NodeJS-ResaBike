@@ -36,7 +36,6 @@ module.exports = {
     french: 'Français',
     german: 'Allemand',
     english: 'Anglais',
-    //DONT FORGET THE DATEPICKER
 
     /** RESERVATION PAGE **/
     resDepFrom: 'Départ de',
@@ -152,7 +151,9 @@ module.exports = {
     bookingsToCome: 'Réservations à venir',
     bookingsHistory: 'Historique',
     allZones: 'Toutes les zones',
-    bookingsHistoric: 'Historique des réservations'
+    bookingsHistoric: 'Historique des réservations',
+    noReservations: 'Pas de réservations pour le moment',
+    allReservations: 'Toutes les réservations'
 
 
 

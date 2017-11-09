@@ -14,33 +14,31 @@ html(lang=fr)
     block scripts
       script(src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous")
   body
-    //- Fixed navbar isn't responsiv for mobile
-    div(class="navbar-fixed")
-      nav(class="white" role="navigation")
-        div(class="nav-wrapper container")
-          a(class="scroll" id="logo-container" href="#index-banner" class="brand-logo" style="color:black") Logo
-          ul(class="right hide-on-med-and-down")
-            li
-              a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
-            li
-              a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
-            li
-              a(class="scroll" href="#contact" style="color:black") #{lang.navContact}
-            li
-              a(href="/"+langUsed+"/login" style="color:black") #{lang.navLogin}
+    nav(class="white" role="navigation")
+      div(class="nav-wrapper container")
+        a(class="scroll" id="logo-container" href="#index-banner" class="brand-logo" style="color:black") Logo
+        ul(class="right hide-on-med-and-down")
+          li
+            a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
+          li
+            a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
+          li
+            a(class="scroll" href="#contact" style="color:black") #{lang.navContact}
+          li
+            a(href="/"+langUsed+"/login" style="color:black") #{lang.navLogin}
 
-          ul(id="nav-mobile" class="side-nav")
-            li
-              a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
-            li
-              a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
-            li
-              a(class="scroll" href="#contact" style="color:black")  #{lang.navContact}
-            li
-              a(href="/"+langUsed+"/login" style="color:black")  #{lang.navLogin}
-              
-          a(href="#" data-activates="nav-mobile" class="button-collapse")
-            i(class="material-icons") menu
+        ul(id="nav-mobile" class="side-nav")
+          li
+            a(class="scroll" href="#search" style="color:black")  #{lang.navSearch}
+          li
+            a(class="scroll" href="#aboutus" style="color:black")  #{lang.navAbout}
+          li
+            a(class="scroll" href="#contact" style="color:black")  #{lang.navContact}
+          li
+            a(href="/"+langUsed+"/login" style="color:black")  #{lang.navLogin}
+            
+        a(href="#" data-activates="nav-mobile" class="button-collapse")
+          i(class="material-icons") menu
 
     //- Creating a smooth scrolling effect
     script.

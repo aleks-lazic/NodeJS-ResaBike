@@ -17,8 +17,8 @@ body
     //- Navbar for the admin part
 
     nav.nav-extended
-        .nav-wrapper
-            a.brand-logo(href="#") #{lang.layoutUserWelcome} #{currentUser.username}
+        .nav-wrapper(style="background-color:#009688 !important")
+            a.brand-logo(class="center") #{lang.layoutUserWelcome} #{currentUser.username}
             a(href="#mobile-demo", data-activates="mobile-demo" class="button-collapse")
                 i.material-icons menu
             //- Premier UL pour la navbar normal

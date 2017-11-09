@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbRole = require('../db/role');
 var dbUser = require('../db/user');
+var dbZone = require('../db/zone');
 var session = require('express-session');
 var redirection = require('../modules/redirection');
 var crypto = require('crypto');
@@ -27,14 +28,20 @@ router.get('/', function(req, res, next) {
     var roles = [];
 
     dbUser.getAllUsers().then((users) => {
-        users.forEach(function(u) {
-            promises.push(dbRole.getRoleNameById(u.RoleId));
-        }, this);
+        for(let k = 0 ; k<users.length ; k++){
+            //get the role name
+            promises.push(dbRole.getRoleNameById(users[k].RoleId).then((name) => {
+                users[k].roleName = name;
+            }));
+            if(users[k].ZoneId != null){
+                promises.push(dbZone.getZoneById(users[k].ZoneId).then((zone) => {
+                    users[k].zoneName = zone.name;
+                }))
+            }
+        }
 
         Promise.all(promises).then((resu) => {
-            resu.forEach(function(r){
-                roles.push(r);
-            })
+            console.log(users);
             res.render('getAllUsers', {users: users, roles: roles, currentUser: session.user});                    
         })
     }) 

@@ -1,7 +1,7 @@
 extends layoutUser
 
 block content
-    h1= zone.name
+    h4(style="font-weight: bold") #{zone.name}
 
     table.responsive-table&attributes({'id': 'linesTable'})
             tr

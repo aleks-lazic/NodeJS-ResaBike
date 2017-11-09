@@ -146,5 +146,15 @@ module.exports = {
     mailBmSec3Part: '<br>Nombres de vélos :',
     mailBmLastPart: '</p></div><br>',
 
+    //A RAJOUTER DANS LES AUTRES
+    allUsers: 'Tous les utilisateurs',
+    zoneName: 'Nom de la zone',
+    bookingsToCome: 'Réservations à venir',
+    bookingsHistory: 'Historique',
+    allZones: 'Toutes les zones',
+    bookingsHistoric: 'Historique des réservations'
+
+
+
 
 }

@@ -1,7 +1,7 @@
 extends layoutUser
 
 block content
-    h1 #{object.zone.name} bookings historic 
+    h4(style="font-weight: bold") #{lang.bookingsHistoric}
     div.container(id="container")
         ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
             each x, index in object.linesDeparture
@@ -11,11 +11,11 @@ block content
                         if(x.trips != null)
                             table
                                 tr
-                                    th From
-                                    th To
-                                    th Nb bike(s)
-                                    th Firstname
-                                    th Lastname
+                                    th #{lang.searchFromStation}
+                                    th #{lang.searchToDest}
+                                    th #{lang.searchNbBike}
+                                    th #{lang.resFirstName}
+                                    th #{lang.resLastName}
                                     th Mail
                                     each y in x.trips
                                         tr

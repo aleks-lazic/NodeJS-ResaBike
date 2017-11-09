@@ -1,7 +1,7 @@
 extends layoutUser
 
 block content
-    h1= object.zone.name
+    h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
     div.container(id="container")
         ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
             each x, index in object.linesDeparture
@@ -33,7 +33,7 @@ block content
                                                         a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
                                                             i.material-icons clear
                                                 else
-                                                    td Not confirmed
+                                                    td #{lang.getOneBikeNotConf}
                                             else
                                                 td
                                                     i.material-icons check circle

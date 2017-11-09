@@ -1,24 +1,29 @@
 extends layoutUser
 
 block content
-    h1= "All users"
-    
-    table(id="usersTable" class="responsive-table")
-        tr
-            th #{lang.getAllUsersUN}
-            th #{lang.getAllUsersMail}
-            th #{lang.getAllUsersRole}
-            th #{lang.getAllUsersEdit}
-            th #{lang.getAllUsersDel}
-        each x, index in users
+    h4(style="font-weight: bold") #{lang.allUsers}
+    div.container
+        table(id="usersTable" class="responsive-table")
             tr
-                td= x.username
-                td= x.mail
-                td= roles[index]
-                td
-                    a(type="button", class="btn waves-effect waves-light", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) #{lang.getAllUsersEdit}
-                td
-                    a(class="btn waves-effect waves-light" onclick=`deleteUser(${x.id})`) #{lang.getAllUsersDel}
+                th #{lang.getAllUsersUN}
+                th #{lang.getAllUsersMail}
+                th #{lang.getAllUsersRole}
+                th #{lang.zoneName}
+                th #{lang.getAllUsersEdit}
+                th #{lang.getAllUsersDel}
+            each x, index in users
+                tr
+                    td= x.username
+                    td= x.mail
+                    td= x.roleName
+                    if(x.zoneName != null)
+                        td= x.zoneName
+                    else
+                        td -
+                    td
+                        a(type="button", class="btn waves-effect waves-light", onclick=`modalModifyUser(${JSON.stringify(x.username)}, ${JSON.stringify(x.mail)}, ${x.id})`) #{lang.getAllUsersEdit}
+                    td
+                        a(class="btn waves-effect waves-light" onclick=`deleteUser(${x.id})`) #{lang.getAllUsersDel}
     
     //- Modal for the modification of a user
     div(id="modalUpdateUser" class="modal")
@@ -40,7 +45,7 @@ block content
             form(id="formCreateUser")
                 div(class="row")
                     div(class="input-field")
-                        input(type="text", placeholder=`${lang.getAllUsersUn}`,class="validate", id="usernamee" required autocomplete="off")
+                        input(type="text", placeholder=`${lang.getAllUsersUN}`,class="validate", id="usernamee" required autocomplete="off")
                 div(class="row")
                     div(class="input-field")
                         input(type="password",placeholder=`${lang.getAllUsersEnterPass}`,class="validate", id="passwordd" required, autocomplete="off")

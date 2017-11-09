@@ -1,13 +1,13 @@
 extends layoutUser
 
 block content
-
+    h4(style="font-weight: bold") #{lang.bookingsToCome}
     div.container
         table(id="bookingsTable" class="responsive-table")
             tr
                 th #{lang.getAllBookZone}
                 th #{lang.getAllBookDetails}
-                th Historical
+                th #{lang.bookingsHistory}
             each x, index in zones
                 if(currentUser.ZoneId != null)
                     if(currentUser.ZoneId == x.id)

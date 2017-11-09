@@ -6,10 +6,8 @@ var redirectUser = function(user){
         return '/login';
     } else {
         if(user.RoleId == 3){
-            console.log('je suis sysadmin et jai access');
             return 'ok';
         } else {
-            console.log('je suis kevin et je vais dans ma zone id');
             return '/zone/'+user.ZoneId;
         }
     }
@@ -44,6 +42,36 @@ var redirectOneZone = function(user, zoneWanted){
     }
 }
 
+var redirectAllBookings = function(user){
+    //if user is null redirect to login
+    if(user == null){
+        return '/login';
+    } else {
+        if(user.RoleId == 3){
+            return 'ok';
+        } else {
+            return '/bookings/'+user.ZoneId;
+        }
+    }
+}
+
+var redirectOneBooking = function(user, zoneWanted){
+    //if user is null redirect to login
+    if(user == null){
+        return '/login';
+    } else {
+        if(user.RoleId == 3){
+            return 'ok';
+        } else if(user.ZoneId == zoneWanted){
+            return 'ok';
+        } else {
+            return '/zone/'+user.ZoneId;            
+        }
+    }
+}
+
+exports.redirectOneBooking = redirectOneBooking;
+exports.redirectAllBookings = redirectAllBookings;
 exports.redirectOneZone = redirectOneZone;
 exports.redirectAllZones = redirectAllZones;
 exports.redirectUser = redirectUser;

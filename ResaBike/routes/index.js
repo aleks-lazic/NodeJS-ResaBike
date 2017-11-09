@@ -7,6 +7,7 @@ var dbUser = require('../db/user');
 var session = require('express-session');
 var dbBook = require('../db/book');
 var bookManagement = require('../management/bookManagement');
+var crypto = require('crypto');
 
 
 /* GET home page. */
@@ -28,8 +29,14 @@ router.get('/login', function(req, res, next) {
 
 //POST to confirm the login
 router.post('/login', (req, res, next) => {
+    //encrypt the password
+    var secret = "You'll never find the key";
+    var hash = crypto.createHmac('sha256', secret)
+                    .update(req.body.password)
+                    .digest('hex');
+    console.log(hash);
     //check if the username exists
-    dbUser.checkLogin(req.body.username, req.body.password).then((user) => {
+    dbUser.checkLogin(req.body.username, hash).then((user) => {
         if(user == null){
             res.send('error');
         } else {

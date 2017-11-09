@@ -9,19 +9,25 @@ block content
                 th #{lang.getAllBookDetails}
                 th Historical
             each x, index in zones
-                tr
-                    td #{x.name}
-                    if(x.books.length == 0)
-                        td
-                            a(type="button", class="btn waves-effect waves-light" disabled) #{lang.getAllBookDetails}
-                        td
-                            a(type="button", class="btn waves-effect waves-light", disabled) Historical
+                if(currentUser.ZoneId != null)
+                    if(currentUser.ZoneId == x.id)
+                        tr
+                            td #{x.name}
+                            td
+                                a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) #{lang.getAllBookDetails}
+                            td
+                                a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) Historical
                     else
+                else
+                    tr
+                        td #{x.books}
                         td
                             a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) #{lang.getAllBookDetails}
                         td
                             a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) Historical
 
+
+                
     
     script(src="/javascripts/bookings/getAllBookings.js", type="text/javascript")
 

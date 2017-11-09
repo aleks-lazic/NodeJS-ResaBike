@@ -25,15 +25,18 @@ block content
                                             td= y.firstname
                                             td= y.lastname
                                             td= y.mail
-                                            if(currentUser.RoleId != 1)
-                                                if(y.isConfirmed != true)
+                                            if(y.isConfirmed != true)
+                                                if(currentUser.RoleId != 1)
                                                     td
                                                         a(class="waves-effect waves-light btn" onclick=`confirmReservation(${y.idBook})`)
                                                             i.material-icons check
                                                         a(class="waves-effect waves-light btn red" onclick=`deleteReservation(${y.idBook})`)
                                                             i.material-icons clear
+                                                else
+                                                    td Not confirmed
                                             else
-                                                td Not confirmed
+                                                    td
+                                                        i.material-icons check circle
 
     script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")
 

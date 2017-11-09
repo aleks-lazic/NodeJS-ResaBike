@@ -4,28 +4,7 @@ var dbRole = require('../db/role');
 var dbUser = require('../db/user');
 var session = require('express-session');
 var redirection = require('../modules/redirection');
-
-
-// router.use(function(req, res, next){
-//     if(session.user != null){
-//         console.log("le user est null");
-//         if(req.path = '/'+ res.locals.langUsed +'/logout'){
-//             console.log('le path est logout');
-//             next();            
-//         }
-//     }
-
-    // var access = redirection.redirectUser(session.user);
-    
-    //     if(access != 'ok'){
-    //         console.log("access n'est pas ok : " + access);
-    //         res.redirect('/'+ res.locals.langUsed+'/'+access);
-    //     } else {
-    //         console.log('je suis dans le deuxieme next');
-    //         next();
-    //     }
-// })
-
+var crypto = require('crypto');
 
 //GET all ZONEADMINS
 router.get('/getAllZoneAdmin', function(req, res, next) {
@@ -74,13 +53,19 @@ router.post('/create', (req, res, next) => {
         if(user == null) {
             //the user does not exist, check if the passwords are the same
             if(req.body.password == req.body.password2){
+                //encrypt the password
+                var secret = "You'll never find the key";
+                var hash = crypto.createHmac('sha256', secret)
+                                .update(req.body.password)
+                                .digest('hex');
+                console.log(hash);
                 //passwords ok, create the user in the db
                 if(req.body.idZone > 0){
-                    dbUser.createUserWithZoneId(req.body.username, req.body.password, req.body.email, req.body.role, req.body.idZone).then(() => {
+                    dbUser.createUserWithZoneId(req.body.username, hash, req.body.email, req.body.role, req.body.idZone).then(() => {
                         res.send(JSON.stringify('success'));
                     })
                 } else {
-                    dbUser.createUser(req.body.username, req.body.password, req.body.email, req.body.role).then(() => {
+                    dbUser.createUser(req.body.username, hash, req.body.email, req.body.role).then(() => {
                         res.send(JSON.stringify('success'));
                     })
                 }

@@ -5,14 +5,15 @@ var bookingsManagement = require('../management/bookingsManagement');
 var redirection = require('../modules/redirection');
 var dbBook = require('../db/book');
 var dbTrip = require('../db/trip');
+var dbZone = require('../db/zone');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
     //redirection if not access
-    var access = redirection.redirectAllZones(session.user);
+    var access = redirection.redirectAllBookings(session.user);
         if(access != 'ok'){
-            res.redirect(access);
+            res.redirect('/'+ res.locals.langUsed + access);
             return;
         }
         
@@ -25,19 +26,28 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
     
     //redirection if not access
-    var access = redirection.redirectOneZone(session.user);
+    var access = redirection.redirectOneBooking(session.user, req.params.id);
         if(access != 'ok'){
-            res.redirect(access);
+            res.redirect('/'+ res.locals.langUsed + access);
             return;
         }
 
-    //get all reservations for the zone
-    bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
-        bookingsManagement.sortDataToGetReservationsToCome(object).then((wholeObject) => {
-            res.render('getOneBooking', {object: wholeObject, currentUser: session.user});            
-        })
+    //first check if there's any reservation
+    dbBook.getAllReservations().then((books) => {
+        if(books.length == 0){
+            dbZone.getZoneById(req.params.id).then((zone) =>{
+                zone.books = [];
+                res.render('getOneBooking', {object: zone, currentUser: session.user});            
+            })
+        } else {          
+            //get all reservations for the zone
+            bookingsManagement.addTripsToCorrectLineHours(req.params.id).then((object) => {
+                bookingsManagement.sortDataToGetReservationsToCome(object).then((wholeObject) => {
+                    res.render('getOneBooking', {object: wholeObject, currentUser: session.user});            
+                })
+            })
+        }
     })
-
 });
 
 router.get('/historique/:id', function(req, res, next) {

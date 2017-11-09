@@ -8,7 +8,7 @@ function deleteLine(idZone, idLine) {
     
     // AJAX DELETE to delete a line
     $.ajax({
-        url: '/zone/delete/line/'+idLine,
+        url: '/fr/zone/delete/line/'+idLine,
         type: 'DELETE',
         data: object,
         success: function(res){
@@ -75,7 +75,7 @@ function createLines(){
 
     //AJAX POST to create the line
     $.ajax({
-        url: '/zone/create/line',
+        url: '/fr/zone/create/line',
         type: 'POST',
         data: line,
         success: function(result){

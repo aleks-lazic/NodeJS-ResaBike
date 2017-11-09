@@ -78,6 +78,11 @@ module.exports = {
     zoneDelete: 'Supprimer',
     zoneCreate: 'Créer',
 
+    layoutUserWelcome: 'Bienvenue',
+    layoutUserNavUser: 'Utilisateur',
+    layoutUserNavZone: 'Zones',
+    layoutUserNavRes: 'Réservations',
+ 
     deleteResCanceled: 'Réservation annulée',
     deleteResMsg: 'Votre réservation a été annulée, si ceci ne vient pas de vous, veuillez refaire la réservation',
     
@@ -85,6 +90,10 @@ module.exports = {
 
     pickerToday :'Aujourd\'hui',
     pickerClear: 'Supprimer',
-    pickerCancel: 'Annuler'
+    pickerCancel: 'Annuler',
+
+    getAllBookZone: 'Zone',
+    getAllBookDetails: 'Détails',
+    
 
 }

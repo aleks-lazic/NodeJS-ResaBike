@@ -18,43 +18,43 @@ body
 
     nav.nav-extended
         .nav-wrapper
-            a.brand-logo(href="#") Bienvenue #{currentUser.username}
+            a.brand-logo(href="#") #{lang.layoutUserWelcome} #{currentUser.username}
             a(href="#mobile-demo", data-activates="mobile-demo" class="button-collapse")
                 i.material-icons menu
             //- Premier UL pour la navbar normal
             ul(id="nav-mobile" class="right hide-on-med-and-down")
                 if(currentUser.RoleId == 3)
                     li
-                        a(href="/" + langUsed + "/user") Users
+                        a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
                     li
-                        a(href="/" + langUsed + "/zone") Zones
+                        a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
                     li
-                        a(href="/" + langUsed + "/bookings") Reservations
+                        a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
                     li
                         a(href="/" + langUsed + "/user/logout") Logout
                 else
                     li
-                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) Zones
+                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
                     li
-                        a(href="/" + langUsed + `/booking/s${currentUser.ZoneId}`) Reservations
+                        a(href="/" + langUsed + `/booking/s${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
                     li
                         a(href="/" + langUsed + "/user/logout") Logout
             //- Deuxieme ul pour le navbar mobile
             ul(id="mobile-demo", class="side-nav")
                 if(currentUser.RoleId == 3)
                     li
-                        a(href="/" + langUsed + "/user") Users
+                        a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
                     li
-                        a(href="/" + langUsed + "/zone") Zones
+                        a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
                     li
-                        a(href="/" + langUsed + "/bookings") Reservations
+                        a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
                     li
                         a(href="/" + langUsed + "/user/logout") Logout
                 else
                     li
-                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) Zones
+                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
                     li
-                        a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) Reservations
+                        a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
                     li
                         a(href="/" + langUsed + "/user/logout") Logout
                 

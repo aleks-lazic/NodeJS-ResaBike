@@ -34,6 +34,10 @@ app.use(function(req, res, next){
     res.redirect("/fr");
     return;
   } 
+  if (req.url == "/login") {
+    res.redirect("/fr/login");
+    return ;
+  }
   var langUrl = req.url.split('/');
   var newUrl = "/";
   for (var i = 2; i < langUrl.length; i++) {

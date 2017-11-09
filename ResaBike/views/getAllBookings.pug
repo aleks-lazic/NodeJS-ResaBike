@@ -5,13 +5,13 @@ block content
     div.container
         table(id="bookingsTable" class="responsive-table")
             tr
-                th Zone
-                th Details
+                th #{lang.getAllBookZone}
+                th #{lang.getAllBookDetails}
             each x, index in zones
                 tr
                     td= x.name
                     td
-                        a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) Details
+                        a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) #{lang.getAllBookDetails}
     
     script(src="/javascripts/bookings/getAllBookings.js", type="text/javascript")
 

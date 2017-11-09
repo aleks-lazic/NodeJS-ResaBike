@@ -4,8 +4,8 @@ block content
     if(object.books != null)
         if(object.books.length == 0)
             h4(style="font-weight: bold") #{object.name} #{lang.bookingsToCome}
-        else
-            h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
+    else
+        h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
     
     if(object.linesDeparture == 0)
         p #{lang.noReservations}
@@ -45,7 +45,6 @@ block content
                                                 else
                                                     td
                                                         i.material-icons check circle
-                                                    td #{lang.getOneBikeNotConf}
 
 
     script(src="/javascripts/bookings/getOneBooking.js" type="text/javascript")

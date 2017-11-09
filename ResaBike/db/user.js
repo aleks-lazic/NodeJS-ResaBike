@@ -79,20 +79,7 @@ var updateUser = function(username, email, id){
     })
 }
 
-var updateUserOnlyMail = function(email, id){
-    return new Promise((resolve, reject) => {
-        models.User.update({
-            mail: email},
-            {where: {
-                id: id
-            }
-        }).then(() => {
-            resolve();
-        }).catch((err) => {
-            reject(err.message);
-        });
-    })
-}
+
 
 var deleteUser = function(id){
     return new Promise((resolve, reject) => {
@@ -103,6 +90,21 @@ var deleteUser = function(id){
         }).then(() => {
             resolve();
         }).catch((err)=> {
+            reject(err.message);
+        });
+    })
+}
+
+var updateUserOnlyMail = function(email, id){
+    return new Promise((resolve, reject) => {
+        models.User.update({
+            mail: email},
+            {where: {
+                id: id
+            }
+        }).then(() => {
+            resolve();
+        }).catch((err) => {
             reject(err.message);
         });
     })

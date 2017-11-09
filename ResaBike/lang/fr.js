@@ -153,7 +153,8 @@ module.exports = {
     bookingsHistory: 'Historique',
     allZones: 'Toutes les zones',
     bookingsHistoric: 'Historique des réservations',
-    noReservations: 'Pas de réservations pour le moment'
+    noReservations: 'Pas de réservations pour le moment',
+    allReservations: 'Toutes les réservations'
 
 
 

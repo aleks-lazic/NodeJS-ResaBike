@@ -367,7 +367,7 @@ var sendRefusalMail = function(objectMail, res){
         let mailContent = res.locals.lang.mailBmFirstPart + objectMail.time +
                           res.locals.lang.mailBmSec1Part + stations[0].name +
                           res.locals.lang.mailBmSec2Part + stations[1].name + 
-                          res.locals.lang.mailBmSec3Part + objectMail.nbBike + 
+                          res.locals.lang.mailBmSec3Part + objectMail.nBbike + 
                           res.locals.lang.mailBmLastPart ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
@@ -389,6 +389,7 @@ var confirmReservation = function(idBook, res){
                 nBbike: book.nbBike,
                 token: book.token
             };
+            console.log(objectMail);
             //modify the booking to confirmed
             dbBook.confirmReservation(idBook).then(() => {
                 //send confirm email
@@ -414,8 +415,8 @@ var sendConfirmMail = function(objectMail, res){
         let mailContent = res.locals.lang.mailResFirstPart + objectMail.time +
                           res.locals.lang.mailResSec1Part + stations[0].name + 
                           res.locals.lang.mailResSec2Part + stations[1].name + 
-                          res.locals.lang.mailResSec3Part + objectMail.nbBike + 
-                          mailResDel1Part + urlToDelete + mailResDel2Part ;
+                          res.locals.lang.mailResSec3Part + objectMail.nBbike + 
+                          res.locals.lang.mailResDel1Part + urlToDelete + res.locals.lang.mailResDel2Part ;
 
         email.createEmail(objectMail.mail, mailSubject, mailContent);
     })

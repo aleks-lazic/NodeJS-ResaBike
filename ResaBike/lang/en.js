@@ -145,5 +145,15 @@ module.exports = {
     mailBmSec2Part: '<br>Arrival To',
     mailBmSec3Part: '<br>Number bikes :',
     mailBmLastPart: '</p></div><br>',
+
+
+    allUsers: 'All users',
+    zoneName: 'Zone\'s name',
+    bookingsToCome: 'Upcoming reservations',
+    bookingsHistory: 'Historical',
+    allZones: 'All zones',
+    bookingsHistoric: 'Past reservations',
+    noReservations: 'No reservation for the moment',
+    allReservations: 'All reservations'
     
 }

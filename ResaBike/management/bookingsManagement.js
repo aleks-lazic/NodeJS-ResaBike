@@ -423,6 +423,45 @@ var sendConfirmMail = function(objectMail){
     })
 }
 
+var sortDataToGetHistorical = function(wholeObject){
+    return new Promise((resolve, reject) => {
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var year = currentDate.getFullYear();
+        currentDate = new Date(year+ '/' + month + '/' + day);
+        var newLineDeparture = [];
+        for(let i = wholeObject.linesDeparture.length - 1 ; i>= 0 ; i--){
+            var departureDate = new Date(wholeObject.linesDeparture[i].dateTime.split(' ')[0]);
+            if(departureDate < currentDate){
+                newLineDeparture.push(wholeObject.linesDeparture[i])
+            }
+        }
+        wholeObject.linesDeparture = newLineDeparture;
+        resolve(wholeObject);    })
+}
+
+var sortDataToGetReservationsToCome = function(wholeObject){
+    return new Promise((resolve, reject) => {
+        var currentDate = new Date();
+        var day = currentDate.getDate();
+        var month = currentDate.getMonth() + 1;
+        var year = currentDate.getFullYear();
+        currentDate = new Date(year+ '/' + month + '/' + day);
+        var newLineDeparture = [];
+        for(let i = wholeObject.linesDeparture.length - 1 ; i>= 0 ; i--){
+            var departureDate = new Date(wholeObject.linesDeparture[i].dateTime.split(' ')[0]);
+            if(departureDate >= currentDate){
+                newLineDeparture.push(wholeObject.linesDeparture[i])
+            }
+        }
+        wholeObject.linesDeparture = newLineDeparture;
+        resolve(wholeObject);
+    })
+}
+
+exports.sortDataToGetReservationsToCome = sortDataToGetReservationsToCome;
+exports.sortDataToGetHistorical = sortDataToGetHistorical;
 exports.confirmReservation = confirmReservation;
 exports.deleteReservation = deleteReservation;
 exports.addTripsToCorrectLineHours = addTripsToCorrectLineHours;

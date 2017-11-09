@@ -1,0 +1,31 @@
+extends layoutUser
+
+block content
+    h1 #{object.zone.name} bookings historic 
+    div.container(id="container")
+        ul(class="collapsible", data-collapsible="accordion", id="bookingsDetails")
+            each x, index in object.linesDeparture
+                li
+                    .collapsible-header(style="background-color: black; color:white") Line #{x.line} - #{x.dep} - #{x.ter} at #{x.dateTime} #{x.totalBikeReserved} bike(s) confirmed 
+                    .collapsible-body
+                        if(x.trips != null)
+                            table
+                                tr
+                                    th From
+                                    th To
+                                    th Nb bike(s)
+                                    th Firstname
+                                    th Lastname
+                                    th Mail
+                                    each y in x.trips
+                                        tr
+                                            td= y.dep
+                                            td= y.ter
+                                            td= y.nbBike
+                                            td= y.firstname
+                                            td= y.lastname
+                                            td= y.mail
+
+
+
+

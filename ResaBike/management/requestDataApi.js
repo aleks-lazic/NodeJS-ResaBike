@@ -44,8 +44,8 @@ function getStopIDFromAPI(url){
             if (!error && response.statusCode === 200) {
                 var obj = JSON.parse(body);
                 var stop = obj.stop;
-                let putindefdp = stop.id;
-                resolve(putindefdp);   
+                let stopid = stop.id;
+                resolve(stopid);   
             }
         })  
     })
@@ -119,7 +119,6 @@ function getDepartureAndTerminalFromAPI(terminalStation, idLine){
 }
 
 
-exports.sayFuck = sayFuck;
 exports.getDepartureAndTerminalFromAPI = getDepartureAndTerminalFromAPI;
 exports.getDataFromAPI = getDataFromAPI;
 exports.getStopIDFromAPI = getStopIDFromAPI;

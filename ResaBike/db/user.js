@@ -107,7 +107,24 @@ var updateUser = function(username, email, id){
  * @param {*} id 
  */
 var updateUserOnlyMail = function(email, id){
-    return new Promise((resolve, reject) => {
+    models.User.update({
+        mail: email},
+        {where: {
+            id: id
+        }
+    }).then(() => {
+        resolve();
+    }).catch((err) => {
+        reject(err.message);
+    });
+}
+
+/**
+ * Delete a user from the database
+ * @param {*} id 
+ */
+var deleteUser = function(id){
+  return new Promise((resolve, reject) => {
         models.User.destroy({
             where:{
                 id: id
@@ -118,25 +135,7 @@ var updateUserOnlyMail = function(email, id){
             reject(err.message);
         });
     })
-}
-
-/**
- * Delete a user from the database
- * @param {*} id 
- */
-var deleteUser = function(id){
-    return new Promise((resolve, reject) => {
-        models.User.update({
-            mail: email},
-            {where: {
-                id: id
-            }
-        }).then(() => {
-            resolve();
-        }).catch((err) => {
-            reject(err.message);
-        });
-    })
+    
 }
 /**
  * Get all users using its role

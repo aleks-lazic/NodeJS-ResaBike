@@ -7,7 +7,7 @@ block content
     else
         h4(style="font-weight: bold") #{object.zone.name} #{lang.bookingsToCome}
     
-    if(object.linesDeparture == 0)
+    if(object.linesDeparture == null)
         p #{lang.noReservations}
     else
         div.container(id="container")

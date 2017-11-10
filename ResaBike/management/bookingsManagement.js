@@ -15,13 +15,10 @@ var showAllZonesForReservations = function(){
         dbZone.getAllZones().then((zones) => {
             //get all reservations
             dbBook.getAllReservations().then((books) => {
-                console.log(books);                
                 if(books.length == 0){
-                    console.log("BOOOOOKS" + books);
                     for(let k = 0 ; k<zones.length ; k++){
                         zones[k].books = [];                            
                     }
-                    console.log(zones);
                     resolve(zones);
                     return;
                 }

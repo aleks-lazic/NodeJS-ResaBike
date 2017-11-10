@@ -53,7 +53,6 @@ var deleteLineById = function(idLine){
                 id: idLine
             }
         }).then(() => {
-            console.log("JE SUPPRIME LA LINE");                        
             resolve();
         }).catch((err)=> {
             reject(err.message);

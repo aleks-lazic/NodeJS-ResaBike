@@ -35,7 +35,6 @@ var deleteLineIdFromLineStation = function(idLine){
                 LineId: idLine
             }
         }).then(() => {
-            console.log("JE SUPPRIME LA LINESTATION");       
             resolve();
         }).catch((err)=> {
             reject(err.message);

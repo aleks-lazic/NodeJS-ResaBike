@@ -147,7 +147,6 @@ var deleteStation = function(idStation) {
             //if length > 0 we dont need to delete the station
             // else we dont need the station anymore
             if(success.length > 0) {
-                console.log("JE SUPPRIME PAS");
                 resolve();
             } else {
                 models.Station.destroy({
@@ -155,10 +154,8 @@ var deleteStation = function(idStation) {
                         id: idStation
                     }
                 }).then(() => {
-                    console.log("JE SUPPRIME");                    
                     resolve();
                 }).catch((err)=> {
-                    console.log("ERREUUR");                    
                     reject(err.message);
                 });            
             }

@@ -5,7 +5,6 @@
 var redirectUser = function(user){
     //if user is null redirect to login
     if(user == null){
-        console.log('je suis null');
         return '/login';
     } else {
         if(user.RoleId == 3){

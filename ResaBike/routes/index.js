@@ -34,7 +34,6 @@ router.post('/login', (req, res, next) => {
     var hash = crypto.createHmac('sha256', secret)
                     .update(req.body.password)
                     .digest('hex');
-    console.log(hash);
     //check if the username exists
     dbUser.checkLogin(req.body.username, hash).then((user) => {
         if(user == null){

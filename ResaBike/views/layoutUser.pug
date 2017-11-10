@@ -15,53 +15,62 @@ head
 body
 
     //- Navbar for the admin part
-
-    nav.nav-extended
-        .nav-wrapper(style="background-color:#009688 !important")
-            a.brand-logo(class="center") #{lang.layoutUserWelcome} #{currentUser.username}
-            a(href="#mobile-demo", data-activates="mobile-demo" class="button-collapse")
-                i.material-icons menu
-            //- Premier UL pour la navbar normal
-            ul(id="nav-mobile" class="right hide-on-med-and-down")
-                if(currentUser.RoleId == 3)
-                    li
-                        a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
-                    li
-                        a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
-                    li
-                        a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
-                    li
-                        a(href="/" + langUsed + "/user/logout") Logout
-                else
-                    li
-                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
-                    if(currentUser.RoleId == 1)
-                        li
-                            a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
-                    else
-                        li
-                            a(href="/" + langUsed + `/bookings`) #{lang.layoutUserNavRes}
-                    li
-                        a(href="/" + langUsed + "/user/logout") Logout
-            //- Deuxieme ul pour le navbar mobile
-            ul(id="mobile-demo", class="side-nav")
-                if(currentUser.RoleId == 3)
-                    li
-                        a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
-                    li
-                        a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
-                    li
-                        a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
-                    li
-                        a(href="/" + langUsed + "/user/logout") Logout
-                else
-                    li
-                        a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
+    nav(role="navigation" style="background-color:#009688 !important")
+      div(class="nav-wrapper container")
+        a.brand-logo(class="center") #{lang.layoutUserWelcome} #{currentUser.username}
+        ul(class="right hide-on-med-and-down")
+            if(currentUser.RoleId == 3)
+                li
+                    a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
+                li
+                    a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
+                li
+                    a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
+                li
+                    a(href="/" + langUsed + "/user/logout") Logout
+            else
+                li
+                    a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
+                if(currentUser.RoleId == 1)
                     li
                         a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
+                else
                     li
-                        a(href="/" + langUsed + "/user/logout") Logout
+                        a(href="/" + langUsed + `/bookings`) #{lang.layoutUserNavRes}
+                li
+                    a(href="/" + langUsed + "/user/logout") Logout
+
+        ul(id="nav-mobile" class="side-nav")
+            if(currentUser.RoleId == 3)
+                li
+                    a(href="/" + langUsed + "/user") #{lang.layoutUserNavUser}
+                li
+                    a(href="/" + langUsed + "/zone") #{lang.layoutUserNavZone}
+                li
+                    a(href="/" + langUsed + "/bookings") #{lang.layoutUserNavRes}
+                li
+                    a(href="/" + langUsed + "/user/logout") Logout
+            else
+                li
+                    a(href="/" + langUsed + `/zone/${currentUser.ZoneId}`) #{lang.layoutUserNavZone}
+                if(currentUser.RoleId == 1)
+                    li
+                        a(href="/" + langUsed + `/bookings/${currentUser.ZoneId}`) #{lang.layoutUserNavRes}
+                else
+                    li
+                        a(href="/" + langUsed + `/bookings`) #{lang.layoutUserNavRes}
+                li
+                    a(href="/" + langUsed + "/user/logout") Logout
+            
+        a(href="#" data-activates="nav-mobile" class="button-collapse")
+          i(class="material-icons") menu
+    
                 
 
 
     block content
+
+    script.
+        $( document ).ready(function(){
+            $(".button-collapse").sideNav();
+        })

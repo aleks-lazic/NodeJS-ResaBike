@@ -16,7 +16,7 @@ block content
                             td
                                 a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) #{lang.getAllBookDetails}
                             td
-                                a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) Historical
+                                a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) #{lang.bookingsHistory}
                     else
                 else
                     tr
@@ -24,7 +24,7 @@ block content
                         td
                             a(type="button", class="btn waves-effect waves-light", onclick=`reservationDetails(${x.id})`) #{lang.getAllBookDetails}
                         td
-                            a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) Historical
+                            a(type="button", class="btn waves-effect waves-light", onclick=`reservationHistorical(${x.id})`) #{lang.bookingsHistory}
 
 
                 

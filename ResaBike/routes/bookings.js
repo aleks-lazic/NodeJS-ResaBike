@@ -70,7 +70,7 @@ router.get('/historique/:id', function(req, res, next) {
             if(books.length == 0){
                 dbZone.getZoneById(req.params.id).then((zone) =>{
                     zone.books = [];
-                    res.render('getOneBooking', {object: zone, currentUser: session.user});            
+                    res.render('getOneBookingHistorical', {object: zone, currentUser: session.user});            
                 })
             } else {          
                 //get all reservations for the zone

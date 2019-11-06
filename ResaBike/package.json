@@ -17,7 +17,7 @@
     "nodemailer": "^4.2.0",
     "pug": "~2.0.0-beta11",
     "request": "^2.83.0",
-    "sequelize": "^4.13.5",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^3.0.0",
     "serve-favicon": "~2.4.2",
     "striptags": "^3.1.0"

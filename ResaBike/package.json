@@ -20,6 +20,6 @@
     "sequelize": "^4.13.5",
     "sequelize-cli": "^3.0.0",
     "serve-favicon": "~2.4.2",
-    "striptags": "^3.1.0"
+    "striptags": "^3.2.0"
   }
 }
